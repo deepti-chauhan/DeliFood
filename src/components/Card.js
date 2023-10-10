@@ -8,7 +8,7 @@ const Card = (props) => {
       <div className='card-title'>{props.name}</div>
       <div className='card-title'>${props.price}</div>
       <button className='btn main-btn'>
-        <Link to='/cart'>Add To cart</Link>
+        <Link to='/cart'>Add Items To cart</Link>
       </button>
     </div>
   )
