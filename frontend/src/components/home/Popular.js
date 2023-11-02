@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card from '../shared/Card'
 import '../home/Popular.css'
+import env from 'react-dotenv'
 const Popular = () => {
   const [query, setQuery] = useState('salad')
   const [data, setData] = useState([])
@@ -17,7 +18,7 @@ const Popular = () => {
 
   const fetchInfo = async () => {
     try {
-      return await fetch(`${process.env.BASE_URL}/api/dishes/popular`, {
+      return await fetch(`${env.BASE_URL}/api/dishes/popular`, {
         method: 'GET',
       })
         .then((res) => res.json())

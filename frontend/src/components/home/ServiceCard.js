@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import '../home/ServiceCard.css'
+import env from 'react-dotenv'
 
 const Servicecard = () => {
   const [data, setData] = useState([])
 
   const fetchInfo = async () => {
     try {
-      return await fetch(`${process.env.BASE_URL}/api/services`, {
+      return await fetch(`${env.BASE_URL}/api/services`, {
         method: 'GET',
       })
         .then((res) => res.json())
