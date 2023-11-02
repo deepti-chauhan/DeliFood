@@ -15,7 +15,7 @@ const Menu = () => {
 
   const fetchApiData = async () => {
     try {
-      const menuData = await fetch(API)
+      const menuData = await fetch(localAPI)
         .then((res) => res.json())
         .then((data) => setData(Object.values(data)))
       return menuData

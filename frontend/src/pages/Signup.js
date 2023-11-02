@@ -39,7 +39,7 @@ const Signup = () => {
       console.log(user, token)
       if (user) {
         navigate('/signin')
-        window.location.reload()
+        // window.location.reload()
       }
     } catch (error) {
       console.log(error)

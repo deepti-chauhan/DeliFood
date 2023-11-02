@@ -1,14 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from './Button'
 import '../styles/Navbar.css'
 import { FaSignInAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import CartButton from '../cart/CartButton'
+import LoggedInButton from '../navbar/LoggedInButton'
+import SignInButton from '../navbar/SignInButton'
 
 const Navbar = () => {
-  const handleClick = () => {
-    console.log('Button was clicked!')
-  }
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [username, setUsername] = useState('')
+
+  useEffect(() => {
+    const currentToken = localStorage.getItem('token')
+    if (currentToken) {
+      const { username } = JSON.parse(localStorage.getItem('user'))
+      setIsLoggedIn(true)
+      setUsername(username)
+    }
+  }, [])
+
   return (
     <div className='navbar flex-sb'>
       <div className='nav-icon flex-center'>
@@ -25,12 +36,7 @@ const Navbar = () => {
         </div>
 
         <div className='nav-btn flex btn'>
-          <Button
-            onClick={handleClick}
-            redirectTo={'signin'}
-            name='sign in'
-            icon={<FaSignInAlt />}
-          />
+          {isLoggedIn ? <LoggedInButton name={username} /> : <SignInButton />}
 
           <CartButton />
         </div>

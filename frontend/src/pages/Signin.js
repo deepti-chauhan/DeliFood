@@ -17,10 +17,15 @@ const Signin = () => {
   const {
     register,
     handleSubmit,
+    
     formState: { errors },
   } = useForm()
 
   const onHandleChange = (e) => {
+    e.preventDefault()
+    console.log('handle event..')
+    // console.log(e.target.email)
+    // console.log(e.target.name)
     setUserData({ ...userData, [e.target.name]: e.target.value })
   }
 
@@ -28,9 +33,9 @@ const Signin = () => {
     localStorage.setItem('user', JSON.stringify(user))
     localStorage.setItem('token', token)
   }
-  const onSubmit = async (e) => {
+  const onSubmit = async () => {
     console.log('signed in')
-    e.preventDefault()
+    // e.preventDefault()
     const { email, password } = userData
     console.log(userData)
     console.log('logging in >>>')
@@ -48,11 +53,11 @@ const Signin = () => {
         body: JSON.stringify(currentUser),
         headers: { 'Content-type': 'application/json' },
       })
-      const { user, token } = response.json()
+      const { user, token } = await  response.json()
       addUserToLocalStorage({ user, token })
       if (user) {
         navigate('/')
-        // location.reload();
+        window.location.reload();
       }
     } catch (e) {
       setError(e.response.json())
@@ -71,10 +76,8 @@ const Signin = () => {
                 <label>Email</label>
                 <input
                   className='input'
-                  onChange={onHandleChange}
                   type='text'
                   name='email'
-                  value = {userData.email}
                   {...register('email', {
                     required: 'Email is required',
                     pattern: {
@@ -82,6 +85,8 @@ const Signin = () => {
                       message: 'Email is not valid',
                     },
                   })}
+                    value = {userData.email}
+                  onChange = {onHandleChange}
                 />
 
                 {errors.email && (
@@ -92,7 +97,6 @@ const Signin = () => {
                 <label>Password</label>
                 <input
                   className='input'
-                  onChange={onHandleChange}
                   type='password'
                   name='password'
                   {...register('password', {
@@ -102,6 +106,8 @@ const Signin = () => {
                       message: 'Password should be at-least 6 characters.',
                     },
                   })}
+                  value = {userData.password}
+                  onChange={onHandleChange}
                 />
                 {errors.password && (
                   <p className='errorMsg'>{errors.password.message}</p>
