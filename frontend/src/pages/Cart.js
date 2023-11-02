@@ -5,6 +5,7 @@ import Checkout from './Checkout'
 import { useNavigate } from 'react-router-dom'
 import Modal from '../components/shared/Modal'
 import Footer from '../components/shared/Footer'
+import env from 'react-dotenv'
 
 const Cart = (props) => {
   const cartContext = useContext(CartContext)
@@ -37,7 +38,7 @@ const Cart = (props) => {
   }
 
   const submitOrderHandler = async (userData) => {
-    await fetch( `${process.env.BASE_URL}/api/orders`, {
+    await fetch( `${env.BASE_URL}/api/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

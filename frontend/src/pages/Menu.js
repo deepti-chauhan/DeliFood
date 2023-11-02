@@ -3,6 +3,7 @@ import Footer from '../components/shared/Footer'
 import Card from '../components/shared/Card'
 import Loader from '../components/shared/Loader'
 import { FaSearch } from 'react-icons/fa'
+import env from 'react-dotenv'
 
 const Menu = () => {
   const [input, setInput] = useState('')
@@ -10,10 +11,9 @@ const Menu = () => {
   const [category, setCategory] = useState('')
   const [loader, setLoader] = useState(true)
 
-
   const fetchApiData = async () => {
     try {
-      const menuData = await fetch(`${process.env.BASE_URL}/api/dishes`)
+      const menuData = await fetch(`${env.BASE_URL}/api/dishes`)
         .then((res) => res.json())
         .then((data) => setData(Object.values(data)))
       return menuData

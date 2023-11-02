@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Footer from '../components/shared/Footer'
+import env from 'react-dotenv'
 
 const initialState = {
   username: '',
@@ -27,7 +28,7 @@ const Signup = () => {
   const registerUser = async (currentUser) => {
   
     try {
-      const response = await fetch(`${process.env.BASE_URL}/api/user/register`, {
+      const response = await fetch(`${env.BASE_URL}/api/user/register`, {
         method: 'POST',
         body: JSON.stringify(currentUser),
         headers: {

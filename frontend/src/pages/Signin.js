@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Footer from '../components/shared/Footer'
+import env from 'react-dotenv'
 
 const initialState = {
   email: '',
@@ -48,7 +49,7 @@ const Signin = () => {
 
   const loginUser = async (currentUser) => {
     try {
-      const response = await fetch(`${process.env.BASE_URL}/api/user/login`, {
+      const response = await fetch(`${env.BASE_URL}/api/user/login`, {
         method: 'POST',
         body: JSON.stringify(currentUser),
         headers: { 'Content-type': 'application/json' },
