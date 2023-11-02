@@ -19,7 +19,7 @@ const Popular = () => {
 
   const fetchInfo = async () => {
     try {
-      return await fetch(API, {
+      return await fetch(localAPI, {
         method: 'GET',
       })
         .then((res) => res.json())

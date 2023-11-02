@@ -1,5 +1,5 @@
 const checkAuth = () => {
-  const toek = localStorage.getItem('token')
+  const token = localStorage.getItem('token')
   if (token) {
     return true
   } else {

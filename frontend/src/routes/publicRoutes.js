@@ -3,19 +3,22 @@ import PrivateRoute from '../components/routes/PrivateRoute'
 import About from '../pages/About'
 import Contact from '../pages/Contact'
 import Home from '../pages/Home'
+import Menu from '../pages/Menu'
 import Signin from '../pages/Signin'
 import Signup from '../pages/Signup'
 
 const publicRoutes = () => {
   return {
-    elememnt: <Layout />,
+    element: <Layout />,
     children: [
-      { path: '/', elememnt: <Home /> },
-      { path: '/about', elememnt: <About /> },
-      { path: '/contact', elememnt: <Contact /> },
-      { path: '/signin', elememnt: <Signin /> },
-      { path: '/signup', elememnt: <Signup /> },
-      { path: '/*', elememnt: <PrivateRoute /> },
+      { path: '/', element: <Home /> },
+      { path: '/about', element: <About /> },
+      { path: '/menu', element: <Menu /> },
+      { path: '/contact', element: <Contact /> },
+      { path: '/contact', element: <Contact /> },
+      { path: '/signin', element: <Signin /> },
+      { path: '/signup', element: <Signup /> },
+      { path: '/*', element: <PrivateRoute /> },
     ],
   }
 }
