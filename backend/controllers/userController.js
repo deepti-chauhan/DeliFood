@@ -2,7 +2,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const UserModel = require('../models/user')
-const jwtSecretKey = 'my_secret_key'
+const secretKey = process.env.JWT_SECRET_KEY
 
 const registerUser = async (req, res) => {
   try {
@@ -25,7 +25,7 @@ const registerUser = async (req, res) => {
 
       const userCreated = await newUser.save()
 
-      const token = jwt.sign({ userId: userCreated._id }, jwtSecretKey)
+      const token = jwt.sign({ userId: userCreated._id }, secretKey)
       res.status(200).json({ user: newUser, token: token })
     } else {
       return res.status(400).send('user already exist')
@@ -47,7 +47,7 @@ const loginUser = async (req, res) => {
   const isPasswordMatching = await bcrypt.compare(password, user.password)
 
   if (isPasswordMatching) {
-    const token = jwt.sign({ userId: user._id }, jwtSecretKey)
+    const token = jwt.sign({ userId: user._id }, secretKey)
     return res.status(200).json({
       user: user,
       token: token,

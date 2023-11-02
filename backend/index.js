@@ -1,14 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
-
-var { expressjwt: ejwt } = require('express-jwt')
-const localURL = 'mongodb://127.0.0.1:27017/fooddelivery'
 const app = express()
 const port = process.env.PORT || 8080
-const jwtSecretKey = 'my_secret_key'
-const url =
-  'mongodb+srv://deeptichauhanofficial:fHmPLFA6xNiSN15A@cluster0.vzm4idi.mongodb.net/Cluster0?retryWrites=true&w=majority'
 
 const product = require('./routes/productRouter')
 const dish = require('./routes/dishRouter')
@@ -16,7 +10,10 @@ const service = require('./routes/serviceRouter')
 const user = require('./routes/userRouter')
 
 mongoose
-  .connect(localURL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log('Connected to MongoDB')
   })
@@ -46,8 +43,8 @@ app.use('/api/user', user)
   METHOD : POST
   -----------------------------------------
   registerUser           -  /api/user/register
-  placeOrder             -  /api/orders
   loginUser              -  /api/user/login
+  placeOrder             -  /api/orders
   -----------------------------------------
 */
 
