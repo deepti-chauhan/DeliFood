@@ -27,7 +27,7 @@ const Signup = () => {
   const registerUser = async (currentUser) => {
   
     try {
-      const response = await fetch('http://localhost:8080/api/user/register', {
+      const response = await fetch(`${process.env.BASE_URL}/api/user/register`, {
         method: 'POST',
         body: JSON.stringify(currentUser),
         headers: {

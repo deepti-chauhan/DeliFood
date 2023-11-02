@@ -4,12 +4,9 @@ import '../home/ServiceCard.css'
 const Servicecard = () => {
   const [data, setData] = useState([])
 
-  const localApi = 'http://localhost:8080/api/services'
-  const api = "https://deli-food.vercel.app/api/services"
-
   const fetchInfo = async () => {
     try {
-      return await fetch(localApi, {
+      return await fetch(`${process.env.BASE_URL}/api/services`, {
         method: 'GET',
       })
         .then((res) => res.json())

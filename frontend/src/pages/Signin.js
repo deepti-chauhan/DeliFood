@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Footer from '../components/shared/Footer'
 
@@ -13,8 +13,6 @@ const Signin = () => {
   const [error, setError] = useState('')
 
   const navigate = useNavigate()
-  const location = useLocation();
-
 
   const {
     register,
@@ -35,7 +33,7 @@ const Signin = () => {
     localStorage.setItem('user', JSON.stringify(user))
     localStorage.setItem('token', token)
   }
-  const onSubmit = () => {
+  const onSubmit = async () => {
     console.log('signed in')
     // e.preventDefault()
     const { email, password } = userData
@@ -50,7 +48,7 @@ const Signin = () => {
 
   const loginUser = async (currentUser) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/user/login`, {
+      const response = await fetch(`${process.env.BASE_URL}/api/user/login`, {
         method: 'POST',
         body: JSON.stringify(currentUser),
         headers: { 'Content-type': 'application/json' },
@@ -58,11 +56,11 @@ const Signin = () => {
       const { user, token } = await  response.json()
       addUserToLocalStorage({ user, token })
       if (user) {
-        navigate(location.state?.from?.pathname || '/')
+        navigate('/')
         window.location.reload();
       }
     } catch (e) {
-      // setError(e.response.json())
+      setError(e.response.json())
       console.log(error)
     }
   }

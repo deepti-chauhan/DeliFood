@@ -36,11 +36,8 @@ const Cart = (props) => {
     setIsCheckout(true)
   }
 
-  const localAPI = 'http://localhost:8080/api/orders'
-  const API = 'https://deli-food.vercel.app/api/orders'
-
   const submitOrderHandler = async (userData) => {
-    await fetch(API, {
+    await fetch( `${process.env.BASE_URL}/api/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
