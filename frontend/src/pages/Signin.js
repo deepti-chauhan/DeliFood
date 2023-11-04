@@ -61,7 +61,7 @@ const Signin = () => {
         window.location.reload();
       }
     } catch (e) {
-      setError(e.response.json())
+      // setError(e.response.json())
       console.log(error)
     }
   }
