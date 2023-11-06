@@ -1,0 +1,44 @@
+.wrapper {
+  margin-top: 3rem;
+  width: 70%;
+  min-height: 70vh;
+  max-height: auto;
+  /* background-color: yellow; */
+}
+
+.address-wrapper {
+  flex-direction: column;
+}
+
+.address-title {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 200;
+}
+
+.address-box {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  height: 190px;
+  /* background: #ffffff; */
+  margin-bottom: 2rem;
+  /* flex-direction: column; */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);  */
+}
+
+.address-box div:nth-child(1){
+  font-weight: 700;
+  font-size: large;
+}
+.address-box div:nth-child(4){
+  font-weight: 200
+}
+
+.address-line{
+  /* margin: 5px 0; */
+}
