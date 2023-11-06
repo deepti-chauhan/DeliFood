@@ -19,6 +19,11 @@ const CartProvider = ({ children }) => {
     dispatch({ type: 'REMOVE_ITEM', payload: id })
   }
 
+  const removeFullItemFromCart = (id) => {
+    dispatch({ type: 'REMOVE_FULL_ITEM', payload: id })
+  }
+
+
   const clearAllItemFromCart = () => {
     dispatch({ type: 'CLEAR_CART' })
   }
@@ -28,6 +33,7 @@ const CartProvider = ({ children }) => {
     totalAmount: state.totalAmount,
     addItem: addItemToCart,
     removeItem: removeItemFromCart,
+    removeFullItem : removeFullItemFromCart,
     clearCart: clearAllItemFromCart,
   }
 
