@@ -10,8 +10,9 @@ const CartButton = () => {
   const cartItemCount = items.reduce((acc, item) => acc + item.quantity, 0)
   return (
     <Link to='/cart'>
-      <button className=' btn btn-primary'>
-        Cart ({cartItemCount}) <FaShoppingCart />
+      <button className='flex-center cart-item-icon'>
+        <FaShoppingCart />
+        <span className='cart-icon-counter'>{cartItemCount}</span>
       </button>
     </Link>
   )
