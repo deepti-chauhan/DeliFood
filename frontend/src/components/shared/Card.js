@@ -1,18 +1,13 @@
-import React, { Suspense, useState } from 'react'
+import React from 'react'
 import '../styles/Card.css'
 import { useGlobalCartContext } from '../../store/CartProvider'
-import { Image, Shimmer, Breathing } from 'react-shimmer'
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
 
 export const Card = (props) => {
+
   const cartContext = useGlobalCartContext()
   const price = `${props.price.toFixed(2)}`
 
-  const [qty, setQty] = useState(0)
-
   const addItemtoCart = () => {
-    setQty(qty + 1)
     cartContext.addItem({
       id: props.id,
       name: props.name,
@@ -21,39 +16,17 @@ export const Card = (props) => {
       image: props.img,
     })
   }
-
-  const removeItemfromCart = () => {
-    setQty(qty - 1)
-    cartContext.removeItem(props.id)
-  }
   return (
     <>
       <div className='card flex'>
         <div className='card-img-container flex'>
-          <img
-            className='card-img'
-            src={props.img}
-          />
+          <img className='card-img' src={props.img} />
         </div>
         <div className='card-title'>{props.name}</div>
         <div className='card-title'>${price}</div>
-        <div className='flex-center cart-add-item'>
-          {qty === 0 ? (
-            <button className='btn main-btn' onClick={addItemtoCart}>
-              ADD ITEM
-            </button>
-          ) : (
-            <div className='flex-sa add-item-counter'>
-              <button className='add-item-btn' onClick={addItemtoCart}>
-                +
-              </button>
-              {qty}
-              <button className='add-item-btn' onClick={removeItemfromCart}>
-                -
-              </button>
-            </div>
-          )}
-        </div>
+        <button className='btn main-btn' onClick={addItemtoCart}>
+          ADD ITEM
+        </button>
       </div>
     </>
   )
