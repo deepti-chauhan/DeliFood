@@ -21,7 +21,7 @@ function Footer() {
         </div>
       </div>
       <div className='flex footer'>
-        <div className='wrapper footer-main'>
+        <div className='footer-wrapper footer-main'>
           <span>Company</span>
           <Link to='/' onClick={scrollToTop}>
             Home
@@ -36,7 +36,7 @@ function Footer() {
             Contact
           </Link>
         </div>
-        <div className='wrapper '>
+        <div className='footer-footer-wrapper '>
           <span>Services</span>
           <ul className='footer-list'>
             <li>Fast Delivery</li>
@@ -45,7 +45,7 @@ function Footer() {
             <li>Customer Support</li>
           </ul>
         </div>
-        <div className='wrapper'>
+        <div className='footer-wrapper'>
           <span>Follow us</span>
           <ul className='footer-list flex-sb'>
             <li>
@@ -62,7 +62,7 @@ function Footer() {
             </li>
           </ul>
         </div>
-        <div className='wrapper footer-address flex-sb'>
+        <div className='footer-wrapper footer-address flex-sb'>
           <span>Address</span>
           <p>
             Some random Street no. <br />
