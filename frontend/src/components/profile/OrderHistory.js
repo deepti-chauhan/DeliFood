@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import './OrderHistory.css'
+import env from 'react-dotenv'
 const OrderHistory = () => {
   const [orders, setOrders] = useState([])
   const { email } = JSON.parse(localStorage.getItem('user'))
 
   const fetchOrders = async () => {
     try {
-      await fetch('http://localhost:5000/api/orderhistory', {
+      await fetch(`${env.BASE_URL}/api/orderhistory`, {
         method: 'POST',
         body: JSON.stringify({ email: email }),
         headers: {

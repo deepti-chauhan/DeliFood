@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './AddressBook.css'
+import env from 'react-dotenv'
 
 const AddressBook = () => {
   const [address, setAddress] = useState([])
@@ -7,7 +8,7 @@ const AddressBook = () => {
 
   const fetchAddress = async () => {
     try {
-      const addressData = await fetch('http://localhost:5000/api/address', {
+      const addressData = await fetch(`${env.BASE_URL}/api/address`, {
         method: 'POST',
         body: JSON.stringify({ email: email }),
         headers: {
