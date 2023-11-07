@@ -4,19 +4,20 @@ import { useGlobalCartContext } from '../store/CartProvider'
 const Checkout = (props) => {
   const cartContext = useGlobalCartContext()
   const cartCheckoutAmount = cartContext.totalAmount.toFixed(2)
+  const { username, email } = JSON.parse(localStorage.getItem('user'))
 
   const isEmpty = (value) => value.trim().length === ''
   const isSixChars = (value) => value.trim().length === 6
+  const today = new Date()
 
   const [isValid, setIsValid] = useState({
     name: true,
-    address: true,
-    state: true,
-    city: true,
-    postal: true,
+    email: true,
+    address: { locality: true, city: true, state: true, postal: true },
   })
 
   const nameInputRef = useRef()
+  const emailInputRef = useRef()
   const addressInputRef = useRef()
   const stateInputRef = useRef()
   const cityInputRef = useRef()
@@ -28,12 +29,14 @@ const Checkout = (props) => {
     console.log('checkout start...')
 
     const enteredName = nameInputRef.current.value
+    const enteredEmail = emailInputRef.current.value
     const enteredAddress = addressInputRef.current.value
     const enteredState = stateInputRef.current.value
     const enteredPostal = postalInputRef.current.value
     const enteredCity = cityInputRef.current.value
 
     const enteredNameIsValid = !isEmpty(enteredName)
+    const enteredEmailIsValid = !isEmpty(enteredEmail)
     const enteredAddressIsValid = !isEmpty(enteredAddress)
     const enteredStateIsValid = !isEmpty(enteredState)
     const enteredCityIsValid = !isEmpty(enteredCity)
@@ -41,14 +44,18 @@ const Checkout = (props) => {
 
     setIsValid({
       name: enteredNameIsValid,
-      address: enteredAddressIsValid,
-      State: enteredStateIsValid,
-      city: enteredCityIsValid,
-      postal: enteredPostalIsValid,
+      email: enteredEmailIsValid,
+      address: {
+        locality: enteredAddressIsValid,
+        state: enteredStateIsValid,
+        city: enteredCityIsValid,
+        postal: enteredPostalIsValid,
+      },
     })
 
     const formIsValid =
       enteredNameIsValid &&
+      enteredEmailIsValid &&
       enteredAddressIsValid &&
       enteredStateIsValid &&
       enteredCityIsValid &&
@@ -57,13 +64,18 @@ const Checkout = (props) => {
     if (!formIsValid) {
       return
     }
-   
 
     props.onConfirm({
       name: enteredName,
-      state: enteredState,
-      city: enteredCity,
-      postal: enteredPostal,
+      email: enteredEmail,
+      address: {
+        locality: enteredAddress,
+        state: enteredState,
+        city: enteredCity,
+        postal: enteredPostal,
+      },
+      date:
+        today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate(),
     })
   }
 
@@ -79,8 +91,12 @@ const Checkout = (props) => {
           <div>
             <label>Name</label>
             <br />
-            <input type='text' ref={nameInputRef} required />
-            {!isValid.name && <p>enter a valid name</p>}
+            <input type='text' ref={nameInputRef} value={username} required />
+          </div>
+          <div>
+            <label for='email'>Email</label>
+            <br />
+            <input type='text' ref={emailInputRef} value={email} disabled />
           </div>
           <div>
             <label for='address'>Address</label>
