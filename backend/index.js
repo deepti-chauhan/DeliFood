@@ -6,10 +6,10 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 8080
 
-const product = require('./routes/productRouter')
 const dish = require('./routes/dishRouter')
 const service = require('./routes/serviceRouter')
 const user = require('./routes/userRouter')
+const order = require('./routes/orderRouter')
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -29,40 +29,27 @@ app.use(cors())
 /*
   METHOD : GET
   -----------------------------------------
-  product         -  /api/products
   dish            -  /api/dishes
   popular dishes  -  /api/dishes/popular
   service         -  /api/services
   -----------------------------------------
 */
 
-app.use('/api', product)
 app.use('/api', dish)
 app.use('/api', service)
-app.use('/api/user', user)
 
 /*
   METHOD : POST
   -----------------------------------------
   registerUser           -  /api/user/register
   loginUser              -  /api/user/login
+  deleteUser              -  /api/user/delete
   placeOrder             -  /api/orders
   -----------------------------------------
-*/
+  */
 
-// JWT authentication middleware
-// app.use(
-//   ejwt({ secret: jwtSecretKey, algorithms: ['HS256'] }).unless({
-//     path: [
-//       '/api/register',
-//       '/api/orders',
-//       // Exempt the login route from JWT authentication
-//       // Add more exempted routes if needed
-//     ],
-//   })
-// )
-
-app.use('/api/orders', require('./routes/orderRouter'))
+app.use('/api/user', user)
+app.use('/api/', order)
 
 app.listen(port, () => {
   console.log(`Backend is running on port ${port}`)
