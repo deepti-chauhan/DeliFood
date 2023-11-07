@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import '../styles/Card.css'
 import { useGlobalCartContext } from '../../store/CartProvider'
+import { Image, Shimmer } from 'react-shimmer'
 
 export const Card = (props) => {
   const cartContext = useGlobalCartContext()
