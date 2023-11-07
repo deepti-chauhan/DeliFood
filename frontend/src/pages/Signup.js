@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Footer from '../components/shared/Footer'
 import env from 'react-dotenv'
@@ -13,6 +13,7 @@ const initialState = {
 const Signup = () => {
   const [userData, setUserData] = useState(initialState)
   const navigate = useNavigate()
+  const location = useLocation()
 
   const {
     register,
@@ -39,8 +40,9 @@ const Signup = () => {
       addUserToLocalStorage({ user, token })
       console.log(user, token)
       if (user) {
-        navigate('/signin')
-        // window.location.reload()
+        navigate(location.state?.from?.pathname || '/signin')
+        console.log(location.state?.from?.pathname)
+        window.location.reload()
       }
     } catch (error) {
       console.log(error)
@@ -120,7 +122,7 @@ const Signup = () => {
                     required: 'Password is required',
                     minLength: {
                       value: 8,
-                      message: 'Password should be at-least 6 characters.',
+                      message: 'Password should be at-least 8 characters.',
                     },
                   })}
                   onChange={onHandleChange}

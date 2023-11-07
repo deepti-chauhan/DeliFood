@@ -19,7 +19,7 @@ const Servicecard = () => {
 
   useEffect(() => {
     fetchInfo()
-  })
+  },[])
 
   return (
     <div className='container service-container flex-sa'>

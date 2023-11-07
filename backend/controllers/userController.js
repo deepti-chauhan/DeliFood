@@ -57,7 +57,21 @@ const loginUser = async (req, res) => {
   return res.status(401).send('Incorrect login credentials')
 }
 
+
+const deleteUser = async(req, res) => {
+try{
+
+  const {email} = req.body
+  await UserModel.deleteOne({email : email})
+
+  return res.status(200).send({message : "account deleted !!"})
+}catch(e){
+  console.log("internal error")
+}
+}
+
 module.exports = {
   loginUser,
   registerUser,
+  deleteUser
 }

@@ -19,4 +19,29 @@ const createOrder = async (req, res) => {
   }
 }
 
-module.exports = { createOrder }
+const getOrders = async (req, res) => {
+  try {
+    const { email } = req.body
+    const orders = await Order.find(
+      { 'user.email': email },
+      { _id: 0, 'ordereditems': true, 'user.date':true }
+    )
+    return res.status(200).send(orders)
+  } catch (error) {
+    return res.status(400).send({ message: 'order history not found!!' })
+  }
+}
+const getAddress = async (req, res) => {
+  try {
+    const { email } = req.body
+    const orders = await Order.find(
+      { 'user.email': email },
+      { _id: 0, 'user.address': true }
+    )
+    return res.status(200).send(orders)
+  } catch (error) {
+    return res.status(400).send({ message: 'order history not found!!' })
+  }
+}
+
+module.exports = { createOrder, getOrders, getAddress }

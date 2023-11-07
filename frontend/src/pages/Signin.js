@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Footer from '../components/shared/Footer'
 import env from 'react-dotenv'
@@ -14,6 +14,7 @@ const Signin = () => {
   const [error, setError] = useState('')
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   const {
     register,
@@ -57,7 +58,8 @@ const Signin = () => {
       const { user, token } = await  response.json()
       addUserToLocalStorage({ user, token })
       if (user) {
-        navigate('/')
+        navigate(location.state?.from?.pathname || '/')
+        console.log(location.state?.from?.pathname)
         window.location.reload();
       }
     } catch (e) {

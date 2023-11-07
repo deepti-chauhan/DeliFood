@@ -17,6 +17,10 @@ const CartItem = (props) => {
   const decreaseItemQuantity = () => {
     cartContext.removeItem(props.id)
   }
+
+  const removeItem = () => {
+    cartContext.removeFullItem(props.id)
+  }
   return (
     <div className='cart-item-wrapper flex-center'>
       {/* add image  */}
@@ -34,7 +38,7 @@ const CartItem = (props) => {
           <div> ${props.price}</div>
         </div>
         <div className='cart-item-close-btn'>
-          <button type='close'>X</button>
+          <button type='close' onClick={removeItem}>X</button>
         </div>
       </div>
     </div>

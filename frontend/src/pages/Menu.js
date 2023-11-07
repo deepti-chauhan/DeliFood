@@ -18,10 +18,9 @@ const Menu = () => {
 
   const fetchApiData = async () => {
     try {
-      const menuData = await fetch(`${env.BASE_URL}/api/dishes`)
+      await fetch(`${env.BASE_URL}/api/dishes`)
         .then((res) => res.json())
         .then((data) => setData(Object.values(data)))
-      return menuData
     } catch (error) {
       console.log(error)
     } finally {
@@ -31,7 +30,7 @@ const Menu = () => {
 
   useEffect(() => {
     fetchApiData()
-  })
+  },[])
 
   const getFoodItems = (input, category) => {
     let foodItem = data
