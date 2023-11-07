@@ -49,10 +49,10 @@ const Profile = () => {
         </button>
       </div>
       <div className='flex-se'>
-        <button onClick={() => setSection('user')}>Profile</button>
-        <button onClick={() => setSection('order')}>Order History</button>
-        <button onClick={() => setSection('address')}>Address Book</button>
-        <button onClick={() => setSection('settings')}>Settings</button>
+        <button className='profile-button' onClick={() => setSection('user')}>Profile</button>
+        <button className='profile-button' onClick={() => setSection('order')}>Order History</button>
+        <button className='profile-button' onClick={() => setSection('address')}>Address Book</button>
+        <button className='profile-button' onClick={() => setSection('settings')}>Settings</button>
       </div>
 
       <div>{sectionState(section)}</div>
