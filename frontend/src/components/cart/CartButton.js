@@ -1,8 +1,7 @@
-import React from 'react'
-
 import { useGlobalCartContext } from '../../store/CartProvider'
-import { FaShoppingCart } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 const CartButton = () => {
   const cartContext = useGlobalCartContext()
@@ -11,7 +10,7 @@ const CartButton = () => {
   return (
     <Link to='/cart'>
       <button className='flex-center cart-item-icon'>
-        <FaShoppingCart />
+        <FontAwesomeIcon icon={faCartShopping} />
         <span className='cart-icon-counter'>{cartItemCount}</span>
       </button>
     </Link>

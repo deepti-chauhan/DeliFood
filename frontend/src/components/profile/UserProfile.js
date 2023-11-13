@@ -21,11 +21,15 @@ const UserProfile = () => {
           </div>
           <div className='flex-sb'>
             <label for='phone'>Phone </label>
-            <input type='text' name='phone' id='phone'/>
+            <input type='text' name='phone' id='phone' />
           </div>
           <div className='flex-sb'>
             <label for='address'>Address</label>
-            <textarea type='text' name='address' id='address'/>
+            <textarea type='text' name='address' id='address' />
+          </div>
+          <div className='flex-sb'>
+            <button className='update-btn'>Update Password</button>
+            <button className='remove-account-btn'>Remove Account</button>
           </div>
         </form>
       </div>

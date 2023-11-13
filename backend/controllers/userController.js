@@ -41,7 +41,7 @@ const loginUser = async (req, res) => {
   const user = await UserModel.findOne({ email: email })
 
   if (!user) {
-    return res.status(400).send({message : "user not found !!"})
+    return res.status(400).send({message : "user not registered !!"})
   }
 
   const isPasswordMatching = await bcrypt.compare(password, user.password)
@@ -54,7 +54,7 @@ const loginUser = async (req, res) => {
     })
   }
 
-  return res.status(401).send('Incorrect login credentials')
+  return res.status(401).send({message : 'Incorrect login credentials'})
 }
 
 

@@ -9,10 +9,7 @@ import {
 } from 'react-icons/fa'
 
 const AboutHeader = () => {
-  const scrollToBottom = () => {
-    console.log('button clicked for scroll down')
-    window.scrollBy(0, 675)
-  }
+ 
   return (
     <>
       <div className='container about-header flex-center'>
@@ -38,9 +35,7 @@ const AboutHeader = () => {
             <FaGithub />
           </a>
         </div>
-        <div className='about-scroll-down'>
-          <FaArrowDown onClick={scrollToBottom} />
-        </div>
+       
       </div>
     </>
   )

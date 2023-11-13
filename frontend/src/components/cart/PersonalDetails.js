@@ -1,9 +1,8 @@
 import React, { useState, useRef } from 'react'
-import { useGlobalCartContext } from '../store/CartProvider'
+import CartContext from '../../store/CartContext'
+import { useGlobalCartContext } from '../../store/CartProvider'
 
-const Checkout = (props) => {
-  const cartContext = useGlobalCartContext()
-  const cartCheckoutAmount = cartContext.totalAmount.toFixed(2)
+const PersonalDetails = (props) => {
   const { username, email } = JSON.parse(localStorage.getItem('user'))
 
   const isEmpty = (value) => value.trim().length === ''
@@ -15,6 +14,12 @@ const Checkout = (props) => {
     email: true,
     address: { locality: true, city: true, state: true, postal: true },
   })
+
+
+  const cartCtx = useGlobalCartContext()
+  // const currentUser = cartCtx.user 
+
+
 
   const nameInputRef = useRef()
   const emailInputRef = useRef()
@@ -79,25 +84,25 @@ const Checkout = (props) => {
     })
   }
 
-  const goBackHandler = () => {
-    props.setIsCheckout(false)
-    props.setIsPayments(true)
+  const orderCancelHandler = () => {
+    props.setIsDetails(false)
+    props.setIsCartItem(true)
   }
 
   const paymentHandler = () => {
-    console.log('order placed')
+    props.setIsDetails(false)
+    props.setIsPayments(true)
+
+    // cartCtx.addUser('deepti')
   }
 
   return (
     <div className='checkout-container'>
       <div>
-        <p>{`Your Cart Total : $ ${cartCheckoutAmount}`}</p>
         <form onSubmit={submitHandler}>
           <h4>1. Contact information</h4>
           <div>
-            <label>First Name</label>
-            <input type='text' ref={nameInputRef} value={username} required />
-            <label>Last Name</label>
+            <label>Name</label>
             <input type='text' ref={nameInputRef} value={username} required />
           </div>
           <div>
@@ -134,11 +139,16 @@ const Checkout = (props) => {
           <div className='flex-sb'>
             <button
               className='btn checkout-btn cancel-btn'
-              onClick={goBackHandler}
+              onClick={orderCancelHandler}
             >
-              Go Back
+              Back To Cart
             </button>
-            <button className='btn checkout-btn order-btn'>Pay</button>
+            <button
+              onClick={paymentHandler}
+              className='btn checkout-btn order-btn'
+            >
+              Proceed to Payments
+            </button>
           </div>
         </form>
       </div>
@@ -146,4 +156,4 @@ const Checkout = (props) => {
   )
 }
 
-export default Checkout
+export default PersonalDetails

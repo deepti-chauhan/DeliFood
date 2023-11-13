@@ -44,7 +44,7 @@ const Settings = () => {
     </div>
   )
   return (
-    <div>
+    <div className='flex-center'>
       <p>Settings</p>
       <button className='btn btn-primary' onClick={() => setShowModal(true)}>
         delete Account
