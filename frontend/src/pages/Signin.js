@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Footer from '../components/shared/Footer'
 import env from 'react-dotenv'
+import { FaEye } from 'react-icons/fa'
 
 const initialState = {
   email: '',
@@ -12,6 +13,7 @@ const initialState = {
 const Signin = () => {
   const [userData, setUserData] = useState(initialState)
   const [error, setError] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -19,7 +21,7 @@ const Signin = () => {
   const {
     register,
     handleSubmit,
-    
+
     formState: { errors },
   } = useForm()
 
@@ -55,16 +57,17 @@ const Signin = () => {
         body: JSON.stringify(currentUser),
         headers: { 'Content-type': 'application/json' },
       })
-      const { user, token } = await  response.json()
+      const { user, token } = await response.json()
+      // console.log(message)
+
       addUserToLocalStorage({ user, token })
       if (user) {
         navigate(location.state?.from?.pathname || '/')
         console.log(location.state?.from?.pathname)
-        window.location.reload();
+        window.location.reload()
       }
     } catch (e) {
-      // setError(e.response.json())
-      console.log(error)
+      console.log(e)
     }
   }
 
@@ -76,56 +79,62 @@ const Signin = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className='form-control-container'>
               <div className='form-control'>
-                <label>Email</label>
+                <div className='error'>
+                  {errors.email && <p>{errors.email.message}</p>}
+                </div>
+                <label className='label'>Email</label>
                 <input
                   className='input'
                   type='text'
                   name='email'
                   {...register('email', {
-                    required: 'Email is required',
+                    required: 'Email is required!!',
                     pattern: {
                       value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
                       message: 'Email is not valid',
                     },
                   })}
-                    value = {userData.email}
-                  onChange = {onHandleChange}
+                  value={userData.email}
+                  onChange={onHandleChange}
                 />
-
-                {errors.email && (
-                  <p className='errorMsg'>{errors.email.message}</p>
-                )}
               </div>
-              <div className='form-control'>
+              <div className='form-control' id='password-input'>
+                <div className='error'>
+                  {errors.password && <p>{errors.password.message}</p>}
+                </div>
                 <label>Password</label>
                 <input
                   className='input'
-                  type='password'
+                  id='input'
+                  type={showPassword ? 'text' : 'password'}
                   name='password'
                   {...register('password', {
-                    required: 'Password is required',
+                    required: 'Password is required!!',
                     minLength: {
                       value: 8,
-                      message: 'Password should be at-least 6 characters.',
+                      message: 'Password should be at-least 8 characters.',
                     },
                   })}
-                  value = {userData.password}
+                  value={userData.password}
                   onChange={onHandleChange}
                 />
-                {errors.password && (
-                  <p className='errorMsg'>{errors.password.message}</p>
-                )}
+                <div className='password-eye'>
+                  <FaEye onClick={() => setShowPassword(!showPassword)} />
+                </div>
               </div>
               <div className='form-control'>
                 <button type='submit' className='btn form-btn'>
                   Login
                 </button>
+                <p className='forget-password'>Forget Password</p>
               </div>
             </div>
           </form>
           <p>
             Don't have Account
-            <Link to={'/signup'}>Create One</Link>
+            <Link to='/signup' state={{ from: location.pathname }}>
+              Create One
+            </Link>
           </p>
         </div>
       </div>

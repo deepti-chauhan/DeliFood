@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Footer from '../components/shared/Footer'
 import env from 'react-dotenv'
+import { FaEye } from 'react-icons/fa'
 
 const initialState = {
   username: '',
@@ -12,6 +13,8 @@ const initialState = {
 
 const Signup = () => {
   const [userData, setUserData] = useState(initialState)
+  const [showPassword, setShowPassword] = useState(false)
+
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -77,7 +80,7 @@ const Signup = () => {
               <div className='form-control'>
                 <label className='labelline'>Username</label>
                 <input
-                  className='my-input'
+                  className='input'
                   type='text'
                   name='username'
                   {...register('username', {
@@ -93,7 +96,7 @@ const Signup = () => {
               <div className='form-control'>
                 <label className='labelline'>Email</label>
                 <input
-                  className='my-input'
+                  className='input'
                   type='text'
                   name='email'
                   {...register('email', {
@@ -115,8 +118,8 @@ const Signup = () => {
               <div className='form-control'>
                 <label className='labelline'>Password</label>
                 <input
-                  className='my-input'
-                  type='password'
+                  className='input'
+                  type={showPassword ? 'text' : 'password'}
                   name='password'
                   {...register('password', {
                     required: 'Password is required',
@@ -127,11 +130,13 @@ const Signup = () => {
                   })}
                   onChange={onHandleChange}
                 />
-                <p className='error'>
+                  <FaEye onClick={() => setShowPassword(!showPassword)} />
+                <div className='error'>
                   {errors.password && (
                     <p className='errorMsg'>{errors.password.message}</p>
                   )}
-                </p>
+                </div>
+
               </div>
               <div className='form-control'>
                 <button

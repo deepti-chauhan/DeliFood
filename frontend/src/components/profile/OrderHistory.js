@@ -33,20 +33,20 @@ const OrderHistory = () => {
 
   return (
     <div className='flex-center'>
-      <div className='order-wrapper'>
-        <p className='order-title'>Order History</p>
+      <div className='order-wrapper flex-center'>
         <div className='item-wrapper flex-center'>
           {sortedOrders.map((item) => (
             <div className='item-box flex-se'>
+              <p className='flex-center'>
+                <img src={item.ordereditems[0].image} width={50} />
+              </p>
               <p>{`${item.ordereditems[0].name}`}</p>
-              <div className='flex-se'>
-                <img src={item.ordereditems[0].image} width={100} />
-                <div className='flex item-box-main'>
-                  <p>{`Qty : ${item.ordereditems[0].quantity}`}</p>
-                  <p>{`price : $ ${item.ordereditems[0].price}`}</p>
-                </div>
-              </div>
+              <p>{`Qty : ${item.ordereditems[0].quantity}`}</p>
+              <p>{`price : $ ${item.ordereditems[0].price}`}</p>
               <p>{`date : ${item.user.date}`}</p>
+              <p>
+                <button className='btn main-btn'>reorder</button>
+              </p>
             </div>
           ))}
         </div>

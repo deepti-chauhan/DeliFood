@@ -1,13 +1,14 @@
 import React from 'react'
-import { FaSignInAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 
 const SignInButton = () => {
   return (
     <Link to='/signin'>
       <button className='btn btn-primary'>
-        Sign in <FaSignInAlt />
-      </button>
+        Sign in
+        <FontAwesomeIcon icon={faRightToBracket} />    </button>
     </Link>
   )
 }

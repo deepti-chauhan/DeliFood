@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
-import CartContext from '../store/CartContext'
 import CartItem from '../components/cart/CartItem'
 import Checkout from './Checkout'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Modal from '../components/shared/Modal'
 import Footer from '../components/shared/Footer'
 import env from 'react-dotenv'
+import { useGlobalCartContext } from '../store/CartProvider'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
-const Cart = (props) => {
-  const cartContext = useContext(CartContext)
+const Cart = () => {
+  const cartContext = useGlobalCartContext()
   const navigate = useNavigate()
 
   const [isEmpty, setIsEmpty] = useState(true)
@@ -38,7 +40,7 @@ const Cart = (props) => {
   }
 
   const submitOrderHandler = async (userData) => {
-    await fetch( `${env.BASE_URL}/api/orders`, {
+    await fetch(`${env.BASE_URL}/api/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -61,43 +63,68 @@ const Cart = (props) => {
     navigate('/')
   }
 
-  const orderStatus = <p>order placed successfully!!</p>
+  const orderStatus = (
+    <div>
+      <div>
+        <img src='./assets/online-shopping.gif' width='300' />
+      </div>
+      <h2>Order Placed</h2>
+    </div>
+  )
   return (
     <div>
       <div className='container flex-center'>
-        <div className='empty-cart-container'>
-          <h2>{isEmpty && <img src='/img/empty_cart.png' />}</h2>
-        </div>
-        <div className='cart-container flex-sa'>
-          <div className='cart-items'>
-            {cartItems.map((item) => (
-              <CartItem {...item} />
-            ))}
-          </div>
-          <div className='cart-total-container'>
-          {isCheckout && <Checkout onConfirm={submitOrderHandler} />}
-          {!isCheckout && (
-            <div className='cart-total'>
-              {hasItems && (
-                <div className='amount-box flex-center'>
-                  <div className='flex-sb'>
-                    <p>Cart total</p>
-                    <p> Rs. {cartContext.totalAmount.toFixed(2)}</p>
-                  </div>
-                  <div className='flex-sb'>
-                    <p>Delivery Charge</p>
-                    <p> Rs. 50</p>
-                  </div>
-                  <div></div>
-                  <button onClick={orderHandler} className='btn'>
-                    Proceed to Checkout
-                  </button>
-                </div>
-              )}
+        {isEmpty && (
+          <div className='empty-cart-container flex-center'>
+            <div>
+              <img src='/assets/shopping-cart.gif' width='300' />
+              <div className='flex-center'>
+                <span>EMPTY CART</span>
+                <span>
+                  <Link to='/menu'>
+                    DISCOVER MENU
+                    <FontAwesomeIcon icon={faArrowRight} />
+                  </Link>
+                </span>
+              </div>
             </div>
-          )}
           </div>
-        </div>
+        )}
+        {!isEmpty && (
+          <div className='cart-container flex-center'>
+            <div className='cart-wrapper'>
+              <div className='cart-items'>
+                {cartItems.map((item) => (
+                  <CartItem {...item} />
+                ))}
+              </div>
+              <div className='cart-total-container'>
+                {isCheckout && <Checkout onConfirm={submitOrderHandler} />}
+                {!isCheckout && (
+                  <div className='cart-total'>
+                    {hasItems && (
+                      <div className='amount-box flex-center'>
+                        <div className='flex-sb'>
+                          <p>Cart total</p>
+                          <p> Rs. {cartContext.totalAmount.toFixed(2)}</p>
+                        </div>
+                        <div className='flex-sb'>
+                          <p>Delivery Charge</p>
+                          <p> Rs. 50</p>
+                        </div>
+                        <div></div>
+                        <button onClick={orderHandler} className='btn'>
+                          Proceed to Checkout
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className='flex-center'>
           {showModal && <Modal onClose={closeModal}>{orderStatus}</Modal>}
         </div>

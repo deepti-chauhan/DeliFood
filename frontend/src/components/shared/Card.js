@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import '../styles/Card.css'
 import { useGlobalCartContext } from '../../store/CartProvider'
-import { Image, Shimmer } from 'react-shimmer'
 
 export const Card = (props) => {
   const cartContext = useGlobalCartContext()
@@ -26,18 +25,18 @@ export const Card = (props) => {
   return (
     <>
       <div className='card flex'>
-        <div className='card-img-container flex'>
+        <div key={props.id} className='card-img-container flex'>
           <img className='card-img' src={props.img} />
         </div>
         <div className='card-title'>{props.name}</div>
         <div className='card-title'>${price}</div>
-        <div className='flex-center cart-add-item'>
+        <div  className='flex-center cart-add-item'>
           {qty === 0 ? (
             <button className='btn main-btn' onClick={addItemtoCart}>
               ADD ITEM
             </button>
           ) : (
-            <div className='flex-sa add-item-counter'>
+            <div  className='flex-sa add-item-counter'>
               <button className='add-item-btn' onClick={addItemtoCart}>
                 +
               </button>
