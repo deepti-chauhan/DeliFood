@@ -1,15 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import CartContext from '../store/CartContext'
 import CartItem from '../components/cart/CartItem'
 import Checkout from './Checkout'
 import { Link, useNavigate } from 'react-router-dom'
 import Modal from '../components/shared/Modal'
 import Footer from '../components/shared/Footer'
 import env from 'react-dotenv'
-import CartItems from '../components/cart/CartItems'
-import PersonalDetails from '../components/cart/PersonalDetails'
-import Payment from '../components/cart/Payment'
 import { useGlobalCartContext } from '../store/CartProvider'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 const Cart = () => {
   const cartContext = useGlobalCartContext()
@@ -18,10 +16,6 @@ const Cart = () => {
   const [isEmpty, setIsEmpty] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [isCheckout, setIsCheckout] = useState(false)
-  const [isCartItem, setIsCartItem] = useState(true)
-  const [isDetails, setIsDetails] = useState(false)
-  const [isPayments, setIsPayments] = useState(false)
-
 
   const hasItems = cartContext.items.length > 0
   const cartItems = cartContext.items
@@ -31,7 +25,7 @@ const Cart = () => {
     try {
       if (cartItems.length === 0) {
         setIsEmpty(true)
-        setIsDetails(false)
+        setIsCheckout(false)
         console.log('cart is empty')
       } else {
         setIsEmpty(false)
@@ -42,7 +36,7 @@ const Cart = () => {
   }
 
   const orderHandler = () => {
-    setIsDetails(true)
+    setIsCheckout(true)
   }
 
   const submitOrderHandler = async (userData) => {
@@ -69,10 +63,6 @@ const Cart = () => {
     navigate('/')
   }
 
-  const emptyCartHandler = () => {
-    navigate('/menu')
-  }
-
   const orderStatus = (
     <div>
       <div>
@@ -84,88 +74,57 @@ const Cart = () => {
   return (
     <div>
       <div className='container flex-center'>
-        <div className='empty-cart-container'>
-          {isEmpty && (
-            <div className='flex-center'>
+        {isEmpty && (
+          <div className='empty-cart-container flex-center'>
+            <div>
               <img src='/assets/shopping-cart.gif' width='300' />
-              <p>
-                Your Cart is Empty <Link to='/menu'> Discover Menu</Link>
-              </p>
-              <button className='btn' onClick={emptyCartHandler}>
-                Discover menu
-              </button>
-            </div>
-          )}
-        </div>
-
-        <div className='cart-container flex-center'>
-          {!isEmpty && (
-            <div className='cart-header flex'>
-              <p>Cart Items</p>
-              <p>Personal Details</p>
-              <p>Payment</p>
-              <p>Confirmation</p>
-            </div>
-          )}
-          <div className='cart-wrapper'>
-            {!isEmpty && (
-              // <div>
-              //   <div className='cart-items flex-center'>
-              //     {cartItems.map((item) => (
-              //       <CartItem {...item} setIsCheckout={setIsCheckout}/>
-              //     ))}
-              //   </div>
-              //   <div className='cart-total-container'>
-              //     {/* {!isCheckout && ( */}
-              //       <div className='cart-total'>
-              //         {hasItems && (
-              //           <div className='amount-box flex-center'>
-              //             <div className='flex-sb'>
-              //               <p>Cart total</p>
-              //               <p> $ {cartContext.totalAmount.toFixed(2)}</p>
-              //             </div>
-              //             <div></div>
-              //             <button onClick={orderHandler} className='btn'>
-              //               Proceed to Checkout
-              //             </button>
-              //           </div>
-              //         )}
-              //       </div>
-              //     {/* )} */}
-              //   </div>
-              // </div>
-
-              <div>
-                {isCartItem && (
-                  <CartItems
-                    cartItems={cartItems}
-                    setIsCheckout={setIsDetails}
-                    setIsCartItem={setIsCartItem}
-                  />
-                )}
-                {isDetails && (
-                  <PersonalDetails
-                    setIsDetails={setIsDetails}
-                    setIsPayments={setIsPayments}
-                    setIsCartItem={setIsCartItem}
-                  />
-                )}
-                {isPayments && (
-                  <Payment
-                    setIsDetails={setIsDetails}
-                    setIsPayments={setIsPayments}
-                    setIsCheckout={setIsCheckout}
-                    />
-                    )}
-                {isCheckout && <Checkout onConfirm={submitOrderHandler} 
-                    setIsPayments={setIsPayments}
-                    setIsCheckout={setIsCheckout}
-                
-                />}
+              <div className='flex-center'>
+                <span>EMPTY CART</span>
+                <span>
+                  <Link to='/menu'>
+                    DISCOVER MENU
+                    <FontAwesomeIcon icon={faArrowRight} />
+                  </Link>
+                </span>
               </div>
-            )}
+            </div>
           </div>
-        </div>
+        )}
+        {!isEmpty && (
+          <div className='cart-container flex-center'>
+            <div className='cart-wrapper'>
+              <div className='cart-items'>
+                {cartItems.map((item) => (
+                  <CartItem {...item} />
+                ))}
+              </div>
+              <div className='cart-total-container'>
+                {isCheckout && <Checkout onConfirm={submitOrderHandler} />}
+                {!isCheckout && (
+                  <div className='cart-total'>
+                    {hasItems && (
+                      <div className='amount-box flex-center'>
+                        <div className='flex-sb'>
+                          <p>Cart total</p>
+                          <p> Rs. {cartContext.totalAmount.toFixed(2)}</p>
+                        </div>
+                        <div className='flex-sb'>
+                          <p>Delivery Charge</p>
+                          <p> Rs. 50</p>
+                        </div>
+                        <div></div>
+                        <button onClick={orderHandler} className='btn'>
+                          Proceed to Checkout
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className='flex-center'>
           {showModal && <Modal onClose={closeModal}>{orderStatus}</Modal>}
         </div>
