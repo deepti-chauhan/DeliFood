@@ -17,6 +17,13 @@
   --font-bolder: 700;
   --font-boldest: 800;
 }
+/* ---------------------------------Payments-------------------------------------- */
+.payment-container{
+  padding-top: 10rem;
+  
+}
+
+/* ---------------------------------Profile-------------------------------------- */
 /* ---------------------------------Profile-------------------------------------- */
 
 .profile-container {
@@ -390,13 +397,14 @@
 .cart-items {
   flex-direction: column;
   align-items: center;
-  width: 48%;
+  width: calc(100% - 33%);
   padding-top: 5%;
   /* background-color: blue; */
   padding-bottom: 5%;
   margin-right: 1rem;
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* border-radius: 4px; */
+  border: 1px solid #dad1d1;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
   
 }
 
@@ -409,18 +417,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 5%;
-  width: 50%;
+  /* padding-top: 5%; */
+  width: 30%;
   font-weight: var(--font-bold);
+  border: 1px solid #dad1d1;
   /* background-color: orange; */
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* border-radius: 4px; */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
 }
 
 .cart-total {
   width: 80%;
-  padding-left: 50px;
-  padding-right: 50px;
+  /* padding-left: 50px; */
+  /* padding-right: 50px; */
 }
 
 .amount-box {
@@ -428,8 +437,8 @@
   align-items: center;
   height: 250px;
   flex-direction: column;
-  padding-left: 50px;
-  padding-right: 50px;
+  /* padding-left: 50px; */
+  /* padding-right: 50px; */
 }
 
 .amount-box div {
@@ -440,21 +449,23 @@
   border-bottom: 1px rgb(126, 126, 126) solid;
   margin-top: 20px;
   margin-bottom: 50px;
+  font-size: 13px;
 }
 
 .amount-box p:nth-child(1) {
   font-weight: var(--font-light);
+  font-size: 13px;
 }
 
 .amount-box button {
-  width: 300px;
+  width: 10rem;
   height: 50px;
   background-color: salmon;
-  /* letter-spacing: 1px; */
-  font-weight: var(--font-bold);
+  font-weight: var(--font-bolder);
   color: black;
-  border-radius: 5px;
-  font-size: 16px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  /* border-radius: 5px; */
 }
 
 /*---------------------------------------cart item---------------*/
@@ -535,6 +546,7 @@
 
 /*--------------------checkout-----------------------*/
 .checkout-container {
+  /* width: ; */
   padding: 30px;
   margin: 30px;
   border-radius: 4px;
@@ -592,4 +604,27 @@
   background: none;
   padding: 0 5px;
   cursor: pointer;
+}
+
+
+/*-----------------cart address-----------------*/
+.delivery-address-container{
+  width: 100%;
+  height: auto;
+  /* background:pink; */
+  /* border: 2px dotted #ccc; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 15px;
+}
+
+.delivery-address-box{
+  width: 300px;
+  height: 200px;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: var(--font-light);
+  border: 2px dotted #ccc;
+  flex-direction: column;
 }
