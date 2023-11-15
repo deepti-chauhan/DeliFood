@@ -57,7 +57,7 @@ const Popular = () => {
               ) : (
                 data
                 .filter((item) => item.category === `${query}`)
-                .map((filterdItem) => <Card {...filterdItem} />)
+                .map((filterdItem) => <Card key={filterdItem.id} filterItems={filterdItem} />)
             )}
             {/* {data
               .filter((item) => item.category === `${query}`)
