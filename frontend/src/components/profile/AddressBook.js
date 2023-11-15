@@ -3,6 +3,9 @@ import './AddressBook.css'
 import env from 'react-dotenv'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import Loader from '../shared/Loader'
+
 
 const AddressBook = () => {
   const [address, setAddress] = useState([])
@@ -12,7 +15,7 @@ const AddressBook = () => {
   const fetchAddress = async () => {
     setIsLoading(true)
     try {
-      const addressData = await fetch(`${env.BASE_URL}/api/address`, {
+      const addressData = await fetch(`${env.BASE_URL}/api/alladdress`, {
         method: 'POST',
         body: JSON.stringify({ email: email }),
         headers: {
@@ -34,38 +37,30 @@ const AddressBook = () => {
     fetchAddress()
   }, [])
 
-  const uniqueAddress = []
-  const uniqueLocality = []
-
-  address.forEach((item) => {
-    const newLocality = item.user.address.locality
-    const newAddress = item.user.address
-    if (!uniqueLocality.includes(newLocality)) {
-      uniqueLocality.push(newLocality)
-      uniqueAddress.push(newAddress)
-    }
-  })
-  console.log(uniqueAddress)
 
   return (
     <div className='flex-center'>
+      {isLoading && <Loader/> }
       <div className='wrapper'>
         <div className='address-wrapper'>
-          {uniqueAddress.map((item) => (
+          {address.map((item) => (
             <div className='address-box'>
-              <div class='address-line'>{item.locality}</div>
+              <FontAwesomeIcon icon={faLocationDot} />
+              <div class='address-line'>{item.addressType}</div>
+              <div class='address-line'>{item.addressLocation}</div>
               <div class='address-line'>
                 <p>{item.state}</p>
                 <p>{item.city}</p>
                 <p>
-                {`pincode : ${item.postal}`}
+                {`pincode : ${item.postalCode}`}
                 </p>
               </div>
-              {/* <div class='address-line'></div> */}
-              {/* <div class='address-line'></div> */}
-              <div className='address-line edit-btn flex-sb'>
-                <button className='btn'>
-                  <FontAwesomeIcon icon={faPenToSquare} />
+              <div className='address-line flex-sb'>
+                <button className='btn main-btn edit-btn'>
+                  EDIT
+                </button>
+                <button className='btn main-btn del-btn'>
+                  DELETE
                 </button>
               </div>
             </div>
