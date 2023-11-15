@@ -93,7 +93,7 @@ const Menu = () => {
           {loader ? (
             <CardSkeleton amount={10} />
           ) : (
-            foodItems.map((filterItems) => <Card {...filterItems} />)
+            foodItems.map((filterItems) => <Card key={filterItems.id} filterItems={filterItems} />)
           )}
         </div>
       </div>
