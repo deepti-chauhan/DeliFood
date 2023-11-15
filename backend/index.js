@@ -10,6 +10,7 @@ const dish = require('./routes/dishRouter')
 const service = require('./routes/serviceRouter')
 const user = require('./routes/userRouter')
 const order = require('./routes/orderRouter')
+const address = require('./routes/addressRouter')
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -50,6 +51,7 @@ app.use('/api', service)
 
 app.use('/api/user', user)
 app.use('/api/', order)
+app.use('/api', address)
 
 app.listen(port, () => {
   console.log(`Backend is running on port ${port}`)
