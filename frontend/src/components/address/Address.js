@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Modal from '../shared/Modal'
 import AddressForm from './AddressForm'
 import Payment from './Payment'
+import './style/address.css'
 
 const Address = () => {
   const [showModal, setShowModal] = useState(false)
@@ -20,7 +21,7 @@ const Address = () => {
   )
 
   const addressHandler = (data) => {
-    setSelectedAddress({...data})
+    setSelectedAddress({ ...data })
     setPayments(true)
   }
 
@@ -59,7 +60,7 @@ const Address = () => {
             <h3>Choose a delivery address</h3>
             <div className='delivery-address-container'>
               {address.map((d) => (
-                <div key={d._id} className='delivery-address-box flex'>
+                <div key={d._id} className='delivery-address-box solid-box flex'>
                   <div className='flex'>
                     <FontAwesomeIcon icon={faLocationDot} />
                     {d.addressType}
@@ -70,13 +71,16 @@ const Address = () => {
                     {d.postalCode}
                   </p>
 
-                  <button className='btn main-btn' onClick={()=>addressHandler({...d})}>
+                  <button
+                    className='btn main-btn'
+                    onClick={() => addressHandler({ ...d })}
+                  >
                     SELECT
                   </button>
                 </div>
               ))}
 
-              <div className='delivery-address-box flex'>
+              <div className='delivery-address-box dotted-box flex'>
                 <p>
                   <FontAwesomeIcon icon={faLocationDot} />
                   Add new address
@@ -94,7 +98,14 @@ const Address = () => {
 
         {showModal && <Modal onClose={onClose}>{addAdressHandler}</Modal>}
       </div>
-      {payment && <Payment setPayments={setPayments} selectedAddress={selectedAddress}/>}
+      <div>
+        {payment && (
+          <Payment
+            setPayments={setPayments}
+            selectedAddress={selectedAddress}
+          />
+        )}
+      </div>
     </div>
   )
 }
