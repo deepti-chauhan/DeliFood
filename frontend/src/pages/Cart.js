@@ -96,7 +96,7 @@ const Cart = () => {
             <div className='cart-wrapper'>
               {isCheckout && (
                 <div className='cart-items'>
-                  {<Address/>}
+                  {<Address />}
                   {/* <Checkout onConfirm={submitOrderHandler} />{' '} */}
                 </div>
               )}
@@ -104,7 +104,7 @@ const Cart = () => {
               {!isCheckout && (
                 <div className='cart-items'>
                   {cartItems.map((item) => (
-                    <CartItem {...item} />
+                    <CartItem key={item.id} {...item} />
                   ))}
                 </div>
               )}
@@ -114,17 +114,19 @@ const Cart = () => {
                     <div className='amount-box flex-center'>
                       <div className='flex-sb'>
                         <p>Cart total</p>
-                        <p> Rs. {cartContext.totalAmount.toFixed(2)}</p>
+                        <p> $ {cartContext.totalAmount.toFixed(2)}</p>
                       </div>
-                      <div className='flex-sb'>
+                      {/* <div className='flex-sb'>
                         <p>Delivery Charge</p>
                         <p> Rs. 50</p>
-                      </div>
+                      </div> */}
 
                       <div></div>
-                      <button onClick={orderHandler} className='btn'>
-                        CHECKOUT
-                      </button>
+                      {!isCheckout && (
+                        <button onClick={orderHandler} className='btn'>
+                          CHECKOUT
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
