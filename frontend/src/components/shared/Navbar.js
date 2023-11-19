@@ -35,7 +35,7 @@ const Navbar = () => {
           <Link to='/contact'>Contact</Link>
         </div>
 
-        <div className='nav-btn flex btn'>
+        <div className='nav-btn flex'>
           {isLoggedIn ? <LoggedInButton name={username} /> : <SignInButton />}
 
           <CartButton />

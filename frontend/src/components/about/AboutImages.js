@@ -1,7 +1,11 @@
-import React from 'react'
-
+import './AboutImages.css'
 const AboutImages = () => {
-  return <div className='container'>AboutImages</div>
+  return (
+    <div>
+      <div className='about-img-container '>
+      </div>
+    </div>
+  )
 }
 
 export default AboutImages

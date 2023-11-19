@@ -1,13 +1,15 @@
 .wrapper {
   margin-top: 3rem;
-  width: 70%;
+  width: 90%;
   min-height: 70vh;
   max-height: auto;
+  padding: 2rem;
   /* background-color: yellow; */
 }
 
 .address-wrapper {
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .address-title {
@@ -19,26 +21,67 @@
 }
 
 .address-box {
-  border: 1px solid #ccc;
+  position: relative;
+  /* background-color: pink; */
+  /* border: 1px solid #ccc; */
   padding: 20px;
   width: 300px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   width: 350px;
-  height: 190px;
-  /* background: #ffffff; */
+  min-height: 190px;
+  max-height: auto;
   margin-bottom: 2rem;
-  /* flex-direction: column; */
-  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);  */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  /* cursor: pointer; */
 }
 
-.address-box div:nth-child(1){
+/* .address-box:hover {
+  border : 1px solid #ccc;
+} */
+
+.address-box div:nth-child(1) {
   font-weight: 700;
   font-size: large;
 }
-.address-box div:nth-child(4){
-  font-weight: 200
+.address-box div:nth-child(4) {
+  font-weight: 200;
 }
 
-.address-line{
-  /* margin: 5px 0; */
+.address-line {
+  min-height: 50px;
+  max-height: auto;
+  /* background-color: yellow; */
+  margin: 5px 0;
+}
+
+.del-btn{
+  border: 1px solid orange;
+  background: transparent;
+}
+
+.del-btn:hover{
+  background-color: orange;
+}
+
+.edit-btn:hover{
+  background: transparent;
+  border: 1px solid orange;
+}
+
+/* Media Query for Tablets */
+@media screen and (max-width: 768px) {
+  .address-wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+/* Media Query for Mobile Devices */
+@media screen and (max-width: 480px) {
+  .wrapper {
+    padding: 1rem;
+  }
+
+  .address-wrapper {
+    grid-template-columns: 1fr;
+  }
 }

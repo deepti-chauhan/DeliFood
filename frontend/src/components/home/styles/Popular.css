@@ -1,0 +1,26 @@
+.popular-container {
+  width: 80%;
+  height: auto;
+  flex-direction: column;
+  /* background-color: rgb(160, 27, 160); */
+}
+.popular-hdr-text {
+  font-size: 2rem;
+  letter-spacing: 2px;
+  text-align: center;
+  /* background-color: rgb(138, 127, 179); */
+}
+
+.popular-btn {
+  width: 50%;
+  height: 50px;
+  align-items: center;
+  margin-top: 20px;
+  /* background-color: rgb(106, 184, 138); */
+}
+
+.popular-dish {
+  width: 100%;
+  height: auto;
+  margin-top: 2rem;
+}

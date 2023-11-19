@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import './OrderHistory.css'
+import env from 'react-dotenv'
 const OrderHistory = () => {
   const [orders, setOrders] = useState([])
+  const [isEmpty, setIsEmpty] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const { email } = JSON.parse(localStorage.getItem('user'))
 
   const fetchOrders = async () => {
+    
     try {
-      await fetch('http://localhost:5000/api/orderhistory', {
+      await fetch(`${env.BASE_URL}/api/orderhistory`, {
         method: 'POST',
         body: JSON.stringify({ email: email }),
         headers: {
@@ -18,6 +24,8 @@ const OrderHistory = () => {
       console.log({ orders })
     } catch (error) {
       console.log(error)
+    }finally{
+      setIsLoading(false);
     }
   }
   useEffect(() => {
@@ -32,20 +40,24 @@ const OrderHistory = () => {
 
   return (
     <div className='flex-center'>
-      <div className='order-wrapper'>
-        <p className='order-title'>Order History</p>
-        <div className='item-wrapper flex-center'>
+      {/* {isEmpty && <FontAwesomeIcon icon={faBagShopping} />} */}
+      <div className='order-wrapper flex-center'>
+      {isLoading && <p>Loading...</p>}
+        <div className='item-wrapper '>
           {sortedOrders.map((item) => (
-            <div className='item-box flex-se'>
-              <p>{`${item.ordereditems[0].name}`}</p>
-              <div className='flex-se'>
-                <img src={item.ordereditems[0].image} width={100} />
-                <div className='flex item-box-main'>
-                  <p>{`Qty : ${item.ordereditems[0].quantity}`}</p>
-                  <p>{`price : $ ${item.ordereditems[0].price}`}</p>
-                </div>
-              </div>
+            <div className='item-box flex-center'>
               <p>{`date : ${item.user.date}`}</p>
+
+              {item.ordereditems.map((i) => (
+                <div>
+                  <p>{`${i.name}`}</p>
+                  <p>{`Qty : ${i.quantity}`}</p>
+                  <p>{`price : $ ${i.price}`}</p>
+                  <p>
+                    <button className='btn main-btn'>reorder</button>
+                  </p>
+                </div>
+              ))}
             </div>
           ))}
         </div>

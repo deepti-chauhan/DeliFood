@@ -56,10 +56,10 @@ const Checkout = (props) => {
     const formIsValid =
       enteredNameIsValid &&
       enteredEmailIsValid &&
-      enteredAddressIsValid &&
-      enteredStateIsValid &&
       enteredCityIsValid &&
-      enteredPostalIsValid
+      enteredAddressIsValid &&
+      enteredPostalIsValid &&
+      enteredStateIsValid
 
     if (!formIsValid) {
       return
@@ -79,8 +79,13 @@ const Checkout = (props) => {
     })
   }
 
-  const orderCancelHandler = () => {
-    cartContext.clearCart()
+  const goBackHandler = () => {
+    props.setIsCheckout(false)
+    props.setIsPayments(true)
+  }
+
+  const paymentHandler = () => {
+    console.log('order placed')
   }
 
   return (
@@ -88,14 +93,19 @@ const Checkout = (props) => {
       <div>
         <p>{`Your Cart Total : $ ${cartCheckoutAmount}`}</p>
         <form onSubmit={submitHandler}>
+          <h4>1. Contact information</h4>
           <div>
-            <label>Name</label>
-            <br />
+            <label>First Name</label>
+            <input type='text' ref={nameInputRef} value={username} required />
+            <label>Last Name</label>
             <input type='text' ref={nameInputRef} value={username} required />
           </div>
           <div>
+            <label>Phone no.</label>
+            <input type='text' />
+          </div>
+          <div>
             <label for='email'>Email</label>
-            <br />
             <input type='text' ref={emailInputRef} value={email} disabled />
           </div>
           <div>
@@ -108,37 +118,27 @@ const Checkout = (props) => {
               ref={addressInputRef}
               required
             />
-            {!isValid.address && <p>please enter address</p>}
+            {!isValid.address.locality && <p>please enter address</p>}
           </div>
           <div>
             <label>State</label>
-            <br />
             <input ref={stateInputRef} />
-            {!isValid.state && <p>enter valid state</p>}
-
-            <br />
-
+            {!isValid.address.state && <p>enter valid state</p>}
             <label>City</label>
-            <br />
             <input ref={cityInputRef} />
-            {!isValid.city && <p>enter valid city</p>}
-
-            <br />
-
+            {!isValid.address.city && <p>enter valid city</p>}
             <label>Pin Code</label>
-            <br />
             <input ref={postalInputRef} />
-            {!isValid.postal && <p>enter valid pincode</p>}
+            {!isValid.address.postal && <p>enter valid pincode</p>}
           </div>
           <div className='flex-sb'>
             <button
               className='btn checkout-btn cancel-btn'
-              type='button'
-              onClick={orderCancelHandler}
+              onClick={goBackHandler}
             >
-              Cancel Order
+              Go Back
             </button>
-            <button className='btn checkout-btn order-btn'>Place Order</button>
+            <button className='btn checkout-btn order-btn'>Pay</button>
           </div>
         </form>
       </div>

@@ -1,12 +1,7 @@
-import React, { useEffect, useState, Suspense } from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from '../components/shared/Footer'
 import Card from '../components/shared/Card'
-import Loader from '../components/shared/Loader'
 import { FaSearch } from 'react-icons/fa'
-import { Shimmer, Breathing } from 'react-shimmer'
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
-
 import env from 'react-dotenv'
 import CardSkeleton from '../components/shared/CardSkeleton'
 
@@ -30,7 +25,7 @@ const Menu = () => {
 
   useEffect(() => {
     fetchApiData()
-  },[])
+  }, [])
 
   const getFoodItems = (input, category) => {
     let foodItem = data
@@ -75,6 +70,7 @@ const Menu = () => {
           <div className='popular-btn flex-se'>
             {getFoodCategory.map((foodCategory) => (
               <button
+                key={foodCategory.id}
                 onClick={() => setCategory(foodCategory)}
                 className='main-btn btn '
               >
@@ -93,15 +89,20 @@ const Menu = () => {
             </button>
           </div>
         </div>
-
-        {/* <Suspense fallback={<CardSkeleton amount={10} />}>
-      </Suspense> */}
-        <div className='menu-container'>
-          {loader ? (
-            <CardSkeleton amount={10} />
-          ) : (
-            foodItems.map((filterItems) => <Card {...filterItems} />)
-          )}
+        <div className='flex-center'>
+          <div className='menu-container'>
+            {loader ? (
+              <CardSkeleton amount={10} />
+            ) : (
+              foodItems.map((filterItems) => (
+                <Card
+                  key={filterItems.dishId}
+                  itemKey={filterItems.dishId}
+                  filterItems={filterItems}
+                />
+              ))
+            )}
+          </div>
         </div>
       </div>
       <Footer />

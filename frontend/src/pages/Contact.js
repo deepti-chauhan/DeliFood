@@ -6,13 +6,14 @@ const Contact = () => {
     <div>
       <div className='contact-container container flex-center'>
         <div className='contact-info flex-center'>
-          <div className='contact-div'>
+          <div className='contact-div flex-center'>
             <h2>Contact Us</h2>
-            <p>
+            <img src='./assets/tech-support.gif' width='200'/>
+            {/* <p>
               Customer support available 24x7.
               <br />
               Always looking for Customer Feedback.
-            </p>
+            </p> */}
             <p>
               Ph no : +91 1234 5678
               <br />

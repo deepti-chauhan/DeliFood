@@ -1,6 +1,7 @@
 
 .modal {
     position: fixed;
+    flex-direction: column;
     top: 20vh;
     left: 5%;
     width: 90%;
@@ -10,6 +11,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     z-index: 1101;
     animation: slide-down 300ms ease-out forwards;
+    text-align: center;
 
     button[type="close"] {
         position: absolute;
@@ -43,6 +45,7 @@
 
 .modal {
     display: flex;
+    flex-direction: column;
     .img-wrap {
         flex-basis: 40%;
         min-width: 40%;

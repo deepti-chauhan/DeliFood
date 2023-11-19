@@ -1,6 +1,6 @@
-// const { default: mongoose } = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const uuid = require('uuid')
 const UserModel = require('../models/user')
 const secretKey = process.env.JWT_SECRET_KEY
 
@@ -17,15 +17,18 @@ const registerUser = async (req, res) => {
     if (!user) {
       const salt = await bcrypt.genSalt(10)
       const hashPassword = await bcrypt.hash(password, salt)
+      const userId = uuid.v4()
+
       const newUser = new UserModel({
+        userId: userId,
         username: username,
         email: email,
         password: hashPassword,
       })
 
-      const userCreated = await newUser.save()
+      await newUser.save()
 
-      const token = jwt.sign({ userId: userCreated._id }, secretKey)
+      const token = jwt.sign({ userId: userId }, secretKey)
       res.status(200).json({ user: newUser, token: token })
     } else {
       return res.status(400).send('user already exist')
@@ -41,7 +44,7 @@ const loginUser = async (req, res) => {
   const user = await UserModel.findOne({ email: email })
 
   if (!user) {
-    return res.status(400).send({message : "user not found !!"})
+    return res.status(400).send({ message: 'user not registered !!' })
   }
 
   const isPasswordMatching = await bcrypt.compare(password, user.password)
@@ -54,24 +57,22 @@ const loginUser = async (req, res) => {
     })
   }
 
-  return res.status(401).send('Incorrect login credentials')
+  return res.status(401).send({ message: 'Incorrect login credentials' })
 }
 
+const deleteUser = async (req, res) => {
+  try {
+    const { email } = req.body
+    await UserModel.deleteOne({ email: email })
 
-const deleteUser = async(req, res) => {
-try{
-
-  const {email} = req.body
-  await UserModel.deleteOne({email : email})
-
-  return res.status(200).send({message : "account deleted !!"})
-}catch(e){
-  console.log("internal error")
-}
+    return res.status(200).send({ message: 'account deleted !!' })
+  } catch (e) {
+    console.log('internal error')
+  }
 }
 
 module.exports = {
   loginUser,
   registerUser,
-  deleteUser
+  deleteUser,
 }

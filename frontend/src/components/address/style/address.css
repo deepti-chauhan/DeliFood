@@ -1,0 +1,32 @@
+h3 {
+  margin-left: 1rem;
+}
+
+.delivery-address-container {
+  width: 100%;
+  height: auto;
+  /* background:pink; */
+  /* border: 2px dotted black; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: normal;
+  row-gap: 10px;
+  padding: 15px;
+}
+
+.solid-box {
+  border: 1px solid #ccc;
+}
+
+.dotted-box {
+  border: 2px dotted #ccc;
+}
+
+.delivery-address-box {
+  width: 300px;
+  height: 200px;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: var(--font-light);
+  flex-direction: column;
+}

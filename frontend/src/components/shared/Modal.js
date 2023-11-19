@@ -9,7 +9,7 @@ const Modal = ({ onClose, children }) => {
       {ReactDom.createPortal(
         <Fragment>
           <Backdrop onClose={onClose} />
-          <div className='modal'>
+          <div className='flex-center modal'>
             <button type='close' onClick={onClose}>
               X
             </button>

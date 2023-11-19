@@ -37,24 +37,32 @@ const Profile = () => {
   }
 
   return (
-    <div className=''>
-      <div className='flex-se'>
-        <div>
-          <span>{`Welcome ${username}. . .`}</span>
-          <br />
-          <span>{`${email}`}</span>
+    <div className='profile-container'>
+      <div className='profile-header flex-center'>
+        <div className='flex-sb'>
+          <div>{`Welcome ${username}`}</div>
+          <button
+            className='btn btn-primary'
+            onClick={() => setShowModal(true)}
+          >
+            logout
+          </button>
         </div>
-        <button className='btn btn-primary' onClick={() => setShowModal(true)}>
-          logout
+      </div>
+      <div className='profile-tab flex-center'>
+        <button className='profile-button' onClick={() => setSection('user')}>
+          Profile
+        </button>
+        <button className='profile-button' onClick={() => setSection('order')}>
+          Order History
+        </button>
+        <button
+          className='profile-button'
+          onClick={() => setSection('address')}
+        >
+          Address Book
         </button>
       </div>
-      <div className='flex-se'>
-        <button className='profile-button' onClick={() => setSection('user')}>Profile</button>
-        <button className='profile-button' onClick={() => setSection('order')}>Order History</button>
-        <button className='profile-button' onClick={() => setSection('address')}>Address Book</button>
-        <button className='profile-button' onClick={() => setSection('settings')}>Settings</button>
-      </div>
-
       <div>{sectionState(section)}</div>
 
       {showModal && <Modal onClose={onClose}>{logoutStatus}</Modal>}
