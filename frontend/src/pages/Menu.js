@@ -70,7 +70,7 @@ const Menu = () => {
           <div className='popular-btn flex-se'>
             {getFoodCategory.map((foodCategory) => (
               <button
-              key={foodCategory.id}
+                key={foodCategory.id}
                 onClick={() => setCategory(foodCategory)}
                 className='main-btn btn '
               >
@@ -89,12 +89,20 @@ const Menu = () => {
             </button>
           </div>
         </div>
-        <div className='menu-container'>
-          {loader ? (
-            <CardSkeleton amount={10} />
-          ) : (
-            foodItems.map((filterItems) => <Card key={filterItems.id} filterItems={filterItems} />)
-          )}
+        <div className='flex-center'>
+          <div className='menu-container'>
+            {loader ? (
+              <CardSkeleton amount={10} />
+            ) : (
+              foodItems.map((filterItems) => (
+                <Card
+                  key={filterItems.dishId}
+                  itemKey={filterItems.dishId}
+                  filterItems={filterItems}
+                />
+              ))
+            )}
+          </div>
         </div>
       </div>
       <Footer />
