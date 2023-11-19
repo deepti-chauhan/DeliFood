@@ -28,7 +28,7 @@ const UserProfile = () => {
             <textarea type='text' name='address' id='address' />
           </div>
           <div className='flex-sb'>
-            <button className='update-btn'>Update Password</button>
+            <button className='update-btn'>Update Account</button>
             <button className='remove-account-btn'>Remove Account</button>
           </div>
         </form>

@@ -62,15 +62,7 @@ const Profile = () => {
         >
           Address Book
         </button>
-        {/* <button
-          className='profile-button'
-          onClick={() => setSection('settings')}
-        >
-          Settings
-        </button> */}
       </div>
-
-   
       <div>{sectionState(section)}</div>
 
       {showModal && <Modal onClose={onClose}>{logoutStatus}</Modal>}

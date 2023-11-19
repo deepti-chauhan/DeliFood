@@ -4,11 +4,12 @@ import AboutHeader from '../components/about/AboutHeader'
 import AboutMain from '../components/about/AboutMain'
 import AboutImages from '../components/about/AboutImages'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
+import AboutMain2 from '../components/about/AboutMain2'
 
 const About = () => {
   const scrollToBottom = () => {
     window.scrollTo({
-      top: 3000,
+      top: 5000,
       behavior: 'smooth',
     })
   }
@@ -22,12 +23,9 @@ const About = () => {
     <div>
       <AboutHeader />
       <AboutMain />
-      <AboutImages />
-      <div className='container'>
-        <p>container-4</p>
-      </div>
+      {/* <AboutImages /> */}
       <div className='about-scroll-down flex-sb'>
-        <div className='flex-center'  onClick={scrollToTop}>
+        <div className='flex-center' onClick={scrollToTop}>
           <FaArrowUp />
         </div>
         <div className='flex-center' onClick={scrollToBottom}>

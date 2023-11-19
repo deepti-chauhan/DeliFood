@@ -1,0 +1,17 @@
+.payment-btn-container{
+    width: 100%;
+}
+
+.payment-btn{
+    align-items:center ;
+    background: green;
+    width: 600px;
+    height: 50px;
+    /* padding: 20px; */
+    color: #f1efef;
+    transition: box-shadow 0.3s ease;
+}
+
+.payment-btn:hover{
+box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+}

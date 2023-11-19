@@ -8,6 +8,7 @@ import env from 'react-dotenv'
 import { useGlobalCartContext } from '../store/CartProvider'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import Address from '../components/address/Address'
 
 const Cart = () => {
   const cartContext = useGlobalCartContext()
@@ -93,33 +94,42 @@ const Cart = () => {
         {!isEmpty && (
           <div className='cart-container flex-center'>
             <div className='cart-wrapper'>
-              <div className='cart-items'>
-                {cartItems.map((item) => (
-                  <CartItem {...item} />
-                ))}
-              </div>
+              {isCheckout && (
+                <div className='cart-items'>
+                  {<Address />}
+                  {/* <Checkout onConfirm={submitOrderHandler} />{' '} */}
+                </div>
+              )}
+
+              {!isCheckout && (
+                <div className='cart-items'>
+                  {cartItems.map((item) => (
+                    <CartItem key={item.id} {...item} />
+                  ))}
+                </div>
+              )}
               <div className='cart-total-container'>
-                {isCheckout && <Checkout onConfirm={submitOrderHandler} />}
-                {!isCheckout && (
-                  <div className='cart-total'>
-                    {hasItems && (
-                      <div className='amount-box flex-center'>
-                        <div className='flex-sb'>
-                          <p>Cart total</p>
-                          <p> Rs. {cartContext.totalAmount.toFixed(2)}</p>
-                        </div>
-                        <div className='flex-sb'>
-                          <p>Delivery Charge</p>
-                          <p> Rs. 50</p>
-                        </div>
-                        <div></div>
-                        <button onClick={orderHandler} className='btn'>
-                          Proceed to Checkout
-                        </button>
+                <div className='cart-total'>
+                  {hasItems && (
+                    <div className='amount-box flex-center'>
+                      <div className='flex-sb'>
+                        <p>Cart total</p>
+                        <p> $ {cartContext.totalAmount.toFixed(2)}</p>
                       </div>
-                    )}
-                  </div>
-                )}
+                      {/* <div className='flex-sb'>
+                        <p>Delivery Charge</p>
+                        <p> Rs. 50</p>
+                      </div> */}
+
+                      <div></div>
+                      {!isCheckout && (
+                        <button onClick={orderHandler} className='btn'>
+                          CHECKOUT
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

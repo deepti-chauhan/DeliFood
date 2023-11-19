@@ -1,10 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-const { createOrder, getOrders, getAddress } = require('../controllers/orderController')
+const { orderHisory, placeOrder } = require('../controllers/orderController')
 
-router.post('/orders', createOrder)
-router.post('/orderhistory', getOrders)
-router.post('/address', getAddress)
+router.post('/placeorder', placeOrder)
+router.get('/orderhistory', orderHisory)
 
 module.exports = router
