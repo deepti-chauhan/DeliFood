@@ -1,30 +1,44 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
-const Payment = (props) => {
+import { useGlobalCartContext } from '../../store/CartProvider'
+import './style/payment.css'
+
+const Payment = ({ selectedAddress, setPayments }) => {
+  const cartCtx = useGlobalCartContext()
+  const cartTotal = cartCtx.totalAmount.toFixed(2)
+
+  let final
   const onClickHandler = () => {
-    props.setPayments(false)
+    setPayments(false)
   }
 
   return (
     <div>
+      <div className='flex-sb'>
+        <div>
+          <p>
+            Deliver at <FontAwesomeIcon icon={faLocationDot} />
+          </p>
+          <p>{`${selectedAddress.addressLocation}`}</p>
+          <p>
+            {` 
+          ${selectedAddress.city},
+          ${selectedAddress.state},
+          ${selectedAddress.postalCode}`}
+          </p>
+        </div>
+        <div>
           <button className='btn main-btn' onClick={onClickHandler}>
-            go to address
+            Change
           </button>
-      <p>payment section</p>
-      <div>
-        <p>
-          Deliver at <FontAwesomeIcon icon={faLocationDot} />
-          <br />
-          {`${props.selectedAddress.addressLocation}, 
-          ${props.selectedAddress.city}, 
-          ${props.selectedAddress.state},
-          ${props.selectedAddress.postalCode}`}
-        </p>
+        </div>
       </div>
-      <button className='btn main-btn'>
-        <Link to='/payments'>PAY</Link>
-      </button>
+      <div className='payment-btn-container flex-center'>
+        <Link to='/payments'>
+          <button className='btn payment-btn'>PAY ${cartTotal}</button>
+        </Link>
+      </div>
     </div>
   )
 }
