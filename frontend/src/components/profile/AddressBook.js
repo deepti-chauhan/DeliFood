@@ -46,9 +46,9 @@ const AddressBook = () => {
           {address.map((item) => (
             <div className='address-box'>
               <FontAwesomeIcon icon={faLocationDot} />
-              <div class='address-line'>{item.addressType}</div>
-              <div class='address-line'>{item.addressLocation}</div>
-              <div class='address-line'>
+              <div className='address-line'>{item.addressType}</div>
+              <div className='address-line'>{item.addressLocation}</div>
+              <div className='address-line'>
                 <p>{item.state}</p>
                 <p>{item.city}</p>
                 <p>
