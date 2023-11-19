@@ -1,39 +1,51 @@
-// import { model } from 'mongoose'
-
 const mongoose = require('mongoose')
 
 const addressSchema = new mongoose.Schema({
-  uuid: {
+  addressId: {
     type: String,
-    unique: true,
   },
   addressType: {
     type: String,
   },
   addressLocation: {
     type: String,
-    // required: true,
   },
   city: {
     type: String,
-    // required: true,
   },
   state: {
     type: String,
-    // required: true,
   },
   postalCode: {
     type: String,
-    // required: true,
   },
 })
 
-const UserModel = mongoose.model('users', {
-  username: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
+const userSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  contact: {
+    type: Number,
+  },
   address: [addressSchema],
 })
 
-module.exports = UserModel
-``
+const User = mongoose.model('users', userSchema)
+
+module.exports = User
