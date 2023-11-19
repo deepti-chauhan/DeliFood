@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../styles/Card.css'
 import { useGlobalCartContext } from '../../store/CartProvider'
 
-export const Card = ({key , filterItems}) => {
+export const Card = ({itemKey , filterItems}) => {
   const cartContext = useGlobalCartContext()
   const price = `${filterItems.price.toFixed(2)}`
   const [qty, setQty] = useState(0)
@@ -24,7 +24,7 @@ export const Card = ({key , filterItems}) => {
   }
   return (
     <>
-      <div key={key} className='card flex'>
+      <div key={itemKey} className='card flex'>
         <div  className='card-img-container flex'>
           <img className='card-img' src={filterItems.img} />
         </div>
@@ -32,8 +32,8 @@ export const Card = ({key , filterItems}) => {
         <div className='card-title'>${price}</div>
         <div  className='flex-center cart-add-item'>
           {qty === 0 ? (
-            <button className='btn main-btn' onClick={addItemtoCart}>
-              ADD ITEM
+            <button className='btn menu-item-btn' onClick={addItemtoCart}>
+              ADD
             </button>
           ) : (
             <div  className='flex-sa add-item-counter'>
