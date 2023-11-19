@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../home/HomeHeader.css'
+import '../home/styles/HomeHeader.css'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faRoute } from '@fortawesome/free-solid-svg-icons'
 
 const HomeHeader = () => {
   return (
@@ -15,16 +17,17 @@ const HomeHeader = () => {
               Relax please, we've got you
               <br />
               covered every day of the week
+              
             </p>
 
-            <button className='btn'>
-              <Link to='/menu' className='link'>
-                Discover menu
-              </Link>
-            </button>
+            <Link to='/menu' className='link'>
+              <button className='btn'>Discover menu
+              </button>
+            </Link>
           </div>
-          <div className='header-img'>
-            <img src='/img/salad-1.png' width='500' />
+          <div className='header-img flex-center'>
+              {/* <FontAwesomeIcon icon={faRoute} id='map-icon'/> */}
+            <img src='./assets/route.png' width='350' />
           </div>
         </div>
       </div>

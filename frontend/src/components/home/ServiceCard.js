@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import '../home/ServiceCard.css'
+import '../home/styles/ServiceCard.css'
 import env from 'react-dotenv'
 
 const Servicecard = () => {
@@ -19,7 +19,7 @@ const Servicecard = () => {
 
   useEffect(() => {
     fetchInfo()
-  },[])
+  }, [])
 
   return (
     <div className='container service-container flex-sa'>

@@ -1,6 +1,6 @@
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from '../shared/Card'
-import '../home/Popular.css'
+import '../home/styles/Popular.css'
 import env from 'react-dotenv'
 import CardSkeleton from '../shared/CardSkeleton'
 const Popular = () => {
@@ -57,7 +57,7 @@ const Popular = () => {
               ) : (
                 data
                 .filter((item) => item.category === `${query}`)
-                .map((filterdItem) => <Card key={filterdItem.id} filterItems={filterdItem} />)
+                .map((filterdItem) => <Card key={filterdItem.dishId} filterItems={filterdItem} />)
             )}
             {/* {data
               .filter((item) => item.category === `${query}`)
