@@ -30,7 +30,6 @@ const AddressForm = (props) => {
     console.log(newAddress)
 
     addAddress()
-    props.setAddress((previousAddress)=> [newAddress, ...previousAddress])
     props.setShowModal(false)
   }
 
@@ -38,19 +37,20 @@ const AddressForm = (props) => {
   //@api - POST
   const addAddress = async () => {
     try{
-        const response = await fetch('http://localhost:5000/api/newaddress',{
+      const response = await fetch('http://localhost:5000/api/newaddress',{
             method : 'POST',
             body : JSON.stringify({
-                email : email,
-                address : newAddress
+              email : email,
+              address : newAddress
             }),
             headers : {
-                'Content-type' : 'application/json',
+              'Content-type' : 'application/json',
             }
         })
-
-        const {message} = await response.json()
-        console.log(message)
+        
+        const {address} = await response.json()
+        props.setAddress((previousAddress)=> [address, ...previousAddress])
+        console.log(address)
     }catch(e){
         console.log(e)
     }
