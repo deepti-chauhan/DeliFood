@@ -13,34 +13,34 @@ import Address from '../components/address/Address'
 import { fetchCart } from '../cartStore/cartActions/cartSlice'
 
 const Cart = () => {
-  const cartContext = useGlobalCartContext()
+  // const cartContext = useGlobalCartContext()
   const navigate = useNavigate()
 
-  const token = localStorage.getItem('token')
+  // const token = localStorage.getItem('token')
 
-  const [isEmpty, setIsEmpty] = useState(true)
+  const [isEmpty, setIsEmpty] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [isCheckout, setIsCheckout] = useState(false)
-  const [cart, setCart] = useState([])
+  // const [cart, setCart] = useState([])
   // const dispatch = useDispatch()
 
-  const hasItems = cartContext.items.length > 0
+  // const hasItems = cartContext.items.length > 0
   // const cart = cartContext.items
 
-  const checkIsEmpty = () => {
-    console.log('checking empty ...')
-    try {
-      if (cart.length === 0) {
-        setIsEmpty(true)
-        setIsCheckout(false)
-        console.log('cart is empty')
-      } else {
-        setIsEmpty(false)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const checkIsEmpty = () => {
+  //   console.log('checking empty ...')
+  //   try {
+  //     if (cart.length === 0) {
+  //       setIsEmpty(true)
+  //       setIsCheckout(false)
+  //       console.log('cart is empty')
+  //     } else {
+  //       setIsEmpty(false)
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   const orderHandler = () => {
     setIsCheckout(true)
@@ -79,12 +79,12 @@ const Cart = () => {
   //   cartContext.clearCart()
   // }
 
-  // const cartData = useSelector(state => state.cart.items)
-  // console.log("cart state : ", cartData)
+  const cart = useSelector(state => state.cart)
+  console.log("cart state : ", cart)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchCart)
+    dispatch(fetchCart())
     // checkIsEmpty()
   }, [])
 
@@ -133,7 +133,7 @@ const Cart = () => {
 
               {!isCheckout && (
                 <div className='cart-items'>
-                  {cart[1].map((item) => (
+                  {cart.cartItem.map((item) => (
                     <CartItem key={item.productId} {...item} />
                   ))}
                 </div>
@@ -143,7 +143,7 @@ const Cart = () => {
                   <div className='amount-box flex-center'>
                     <div className='flex-sb'>
                       <p>Cart total</p>
-                      <p> $ {cart[2]} </p>
+                      <p> $ {cart.cartTotal} </p>
                     </div>
                     <div></div>
                     {!isCheckout && (

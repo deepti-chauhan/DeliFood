@@ -13,7 +13,7 @@ export const fetchCart = createAsyncThunk('fetchCart', async () => {
     },
   })
 
-  const data = response.json()
+  const data = await response.json()
   console.log("cart items from api : ", data)
   return data
 })
@@ -40,8 +40,8 @@ export const addItem = createAsyncThunk(
       }),
     })
 
-    const data = response.json()
-    console.log('cart after add item : ', data)
+    const data = await response.json()
+    console.log('item added to cart')
     return data
   }
 )
@@ -59,7 +59,7 @@ export const removeItem = createAsyncThunk('removeItem', async (productId) => {
     }
   )
 
-  const data = response.json()
+  const data = await response.json()
   return data
 })
 
@@ -112,8 +112,8 @@ const cartSlice = createSlice({
         state.error = null
       })
       .addCase(fetchCart.fulfilled, (state, action) => {
-        state.items = action.payload
-        state.totalAmount = action.payload.totalAmount
+        state.items = action.payload.cartItem
+        state.totalAmount = action.payload.cartTotal
         state.loading = false
       })
       .addCase(fetchCart.rejected, (state, action) => {
