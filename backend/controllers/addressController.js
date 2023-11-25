@@ -1,58 +1,50 @@
-const mongoose = require('mongoose')
 const UserModel = require('../models/user')
 const uuid = require('uuid')
+const currentDate = new Date()
 
-const getAddress = async (req, res) => {
-  try {
-    const { email } = req.body
-    const orders = await Order.find(
-      { 'user.email': email },
-      { _id: 0, 'user.address': true }
-    )
-    return res.status(200).send(orders)
-  } catch (error) {
-    return res.status(400).send({ message: 'order history not found!!' })
-  }
-}
-
+//  @method   - post
+//  @access   - private
+//  @endpoint - /address/create
 const setAddress = async (req, res) => {
   try {
-    const { email, address } = req.body
-    const newAddress = { ...address, addressId: uuid.v4() }
-    // const uuid = uuid()
-
-    /*
-     */
+    const { email } = req.user
+    const { address } = req.body
+    const newAddress = {
+      addressId: uuid.v4(),
+      ...address,
+      createdAt: currentDate.toISOString(),
+      updatedAt: currentDate.toISOString(),
+    }
 
     const filter = { email: email }
     console.log(address)
     console.log(email)
     const update = {
-      // $set : { 'address.uuid' : uuid.v4()},
       $push: { address: newAddress },
-
-      // $setOnInsert:  address: address ,
     }
     options = {
       upsert: true,
     }
 
-    // const updatedUser = await UserModel.findOneAndUpdate(filter, update)
     console.log(UserModel)
     const updatedUser = await UserModel.updateOne(filter, update, options)
 
     console.log(`address: ${JSON.stringify(req.body)}`)
     console.log(`update user address: ${JSON.stringify(updatedUser)}`)
-    return res.status(201).send({"address" : newAddress})
+    return res.status(201).send({ address: newAddress })
   } catch (error) {
     console.log(error)
     return res.status(400).json({ message: 'address cannot be updated!!' })
   }
 }
 
+//  @method   - get
+//  @access   - private
+//  @endpoint - /address/all
 const getAllAddress = async (req, res) => {
+  console.log(req.user)
   try {
-    const { email } = req.body
+    const { email } = req.user
     const allAddresses = await UserModel.find(
       { email: email },
       { _id: 0, address: true }
@@ -64,16 +56,40 @@ const getAllAddress = async (req, res) => {
   }
 }
 
-const deleteAddress = async (req, res) => {
+//  @method   - put
+//  @access   - private
+//  @endpoint - /address?addressId=
+const updateAddress = async (req, res) => {
+  const { email } = req.user
   try {
-    const { email, uuid } = req.body
-    const filter = { email: email }
+  } catch (error) {}
+}
 
-    // const updatedAddress = await UserModel.deleteOne({ 'uuid': uuid })
-    console.log(
-      `updated address array : ${JSON.stringify(updatedAddress.address)}`
+//  @method   - delete
+//  @access   - private
+//  @endpoint - /address?addressId=
+const deleteAddress = async (req, res) => {
+  const { email } = req.user
+  console.log(' email : ' + email)
+  try {
+    const { addressId } = req.query
+    console.log('addressId : ' + addressId)
+
+    const filter = { email: email }
+    const user = await UserModel.findOne({ email })
+    console.log('user : ' + user)
+
+    if (!user) {
+      return res.status(404).json({ message: 'user not found!' })
+    }
+
+    user.address = user.address.filter(
+      (address) => address.addressId !== addressId
     )
-    return res.status(201).json({ message: 'address deleted!!' })
+
+    await user.save()
+
+    return res.status(201).json(user.address)
   } catch (error) {
     console.log(error)
     return res.status(400).json({ message: 'address cannot be deleted!!' })
@@ -82,7 +98,7 @@ const deleteAddress = async (req, res) => {
 
 module.exports = {
   deleteAddress,
-  getAddress,
   setAddress,
   getAllAddress,
+  updateAddress,
 }

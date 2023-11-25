@@ -12,7 +12,7 @@ const initialState = {
 
 const Signin = () => {
   const [userData, setUserData] = useState(initialState)
-  const [error, setError] = useState('')
+  const [error, setError] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
   const navigate = useNavigate()
@@ -27,9 +27,6 @@ const Signin = () => {
 
   const onHandleChange = (e) => {
     e.preventDefault()
-    console.log('handle event..')
-    // console.log(e.target.email)
-    // console.log(e.target.name)
     setUserData({ ...userData, [e.target.name]: e.target.value })
   }
 
@@ -37,16 +34,11 @@ const Signin = () => {
     localStorage.setItem('user', JSON.stringify(user))
     localStorage.setItem('token', token)
   }
+
   const onSubmit = async () => {
-    console.log('signed in')
     // e.preventDefault()
     const { email, password } = userData
-    console.log(userData)
-    console.log('logging in >>>')
-
     const currentUser = { email, password }
-    console.log(currentUser)
-
     loginUser(currentUser)
   }
 
@@ -57,23 +49,26 @@ const Signin = () => {
         body: JSON.stringify(currentUser),
         headers: { 'Content-type': 'application/json' },
       })
-      const { user, token } = await response.json()
-      // console.log(message)
 
+      const { user, token } = await response.json()
       addUserToLocalStorage({ user, token })
+
       if (user) {
         navigate(location.state?.from?.pathname || '/')
-        console.log(location.state?.from?.pathname)
         window.location.reload()
       }
     } catch (e) {
+      setError(true)
       console.log(e)
+    } finally {
+      setError(false)
     }
   }
 
   return (
     <>
       <div className='container flex-center'>
+        {error && <p>..........Error...........</p>}
         <div className='form-container flex-center'>
           <h2>Log In</h2>
           <form onSubmit={handleSubmit(onSubmit)}>

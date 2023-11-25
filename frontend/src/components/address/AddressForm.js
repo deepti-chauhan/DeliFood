@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './style/addressForm.css'
+import env from 'react-dotenv'
 
 const initialState = {
   addressType: '',
@@ -13,8 +14,7 @@ const AddressForm = (props) => {
 
   const [newAddress, setnewAddress] = useState(initialState)
   const [selectedOption, setSelectedOption] = useState('')
-
-  const {email} = JSON.parse(localStorage.getItem('user'))
+  const token = localStorage.getItem('token')
 
 
   function onValueChange(e) {
@@ -34,17 +34,18 @@ const AddressForm = (props) => {
   }
 
 
-  //@api - POST
+  //  @method - POST
+  //  @access - private
   const addAddress = async () => {
     try{
-      const response = await fetch('http://localhost:5000/api/newaddress',{
+      const response = await fetch(`${env.BASE_URL}/api/newaddress`,{
             method : 'POST',
             body : JSON.stringify({
-              email : email,
               address : newAddress
             }),
             headers : {
               'Content-type' : 'application/json',
+              'Authorization' : `${token}`
             }
         })
         
@@ -115,7 +116,7 @@ const AddressForm = (props) => {
           <input
             type='text'
             name='addressLocation'
-            value={newAddress.newAddressLocation}
+            value={newAddress.addressLocation}
             placeholder='Hno. 123, XYZ colony...'
             onChange={onHandleChange}
           />

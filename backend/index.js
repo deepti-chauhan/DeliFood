@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+// const {authenticateToken} = require('./middleware/authMiddleware')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -27,6 +28,9 @@ mongoose
 
 app.use(express.json())
 app.use(cors())
+// app.use(authenticateToken())
+
+
 
 /*
   METHOD : GET

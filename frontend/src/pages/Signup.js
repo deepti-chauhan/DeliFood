@@ -24,13 +24,7 @@ const Signup = () => {
     formState: { errors },
   } = useForm()
 
-  const addUserToLocalStorage = ({ user, token }) => {
-    localStorage.setItem('user', JSON.stringify(user))
-    localStorage.setItem('token', token)
-  }
-
   const registerUser = async (currentUser) => {
-  
     try {
       const response = await fetch(`${env.BASE_URL}/api/user/register`, {
         method: 'POST',
@@ -39,9 +33,8 @@ const Signup = () => {
           'Content-type': 'application/json',
         },
       })
-      const { user, token } = await response.json()
-      addUserToLocalStorage({ user, token })
-      console.log(user, token)
+      const { user } = await response.json()
+
       if (user) {
         navigate(location.state?.from?.pathname || '/signin')
         console.log(location.state?.from?.pathname)
@@ -59,10 +52,7 @@ const Signup = () => {
   const onSubmit = (e) => {
     // e.preventDefault()
     const { username, email, password } = userData
-    // console.log(`username : ${userData.username}`)
-    console.log(username)
     const currentUser = { username, email, password }
-
     registerUser(currentUser)
   }
 
@@ -130,13 +120,12 @@ const Signup = () => {
                   })}
                   onChange={onHandleChange}
                 />
-                  <FaEye onClick={() => setShowPassword(!showPassword)} />
+                <FaEye onClick={() => setShowPassword(!showPassword)} />
                 <div className='error'>
                   {errors.password && (
                     <p className='errorMsg'>{errors.password.message}</p>
                   )}
                 </div>
-
               </div>
               <div className='form-control'>
                 <button

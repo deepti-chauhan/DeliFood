@@ -8,7 +8,6 @@ const Payment = ({ selectedAddress, setPayments }) => {
   const cartCtx = useGlobalCartContext()
   const cartTotal = cartCtx.totalAmount.toFixed(2)
 
-  let final
   const onClickHandler = () => {
     setPayments(false)
   }

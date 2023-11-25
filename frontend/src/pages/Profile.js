@@ -11,6 +11,7 @@ const Profile = () => {
   const [section, setSection] = useState('user')
 
   const { username, email } = JSON.parse(localStorage.getItem('user'))
+  const token = localStorage.getItem('token')
 
   const onClose = () => {
     setShowModal(false)
@@ -41,6 +42,8 @@ const Profile = () => {
       <div className='profile-header flex-center'>
         <div className='flex-sb'>
           <div>{`Welcome ${username}`}</div>
+          
+
           <button
             className='btn btn-primary'
             onClick={() => setShowModal(true)}

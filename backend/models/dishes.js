@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-const dishSchema = new mongoose.Schema({
-  dishId: {
+const productSchema = new mongoose.Schema({
+  productId: {
     type: Number,
     required: true,
     unique: true,
@@ -36,6 +36,6 @@ const dishSchema = new mongoose.Schema({
   },
 })
 
-const Dish = mongoose.model('dishes', dishSchema)
+const Dish = mongoose.model('dishes', productSchema)
 
 module.exports = Dish

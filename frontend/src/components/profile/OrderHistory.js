@@ -3,20 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import './OrderHistory.css'
 import env from 'react-dotenv'
+
 const OrderHistory = () => {
+  const token = localStorage.getItem('token')
   const [orders, setOrders] = useState([])
   const [isEmpty, setIsEmpty] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
   const { email } = JSON.parse(localStorage.getItem('user'))
 
   const fetchOrders = async () => {
-    
     try {
-      await fetch(`${env.BASE_URL}/api/orderhistory`, {
-        method: 'POST',
-        body: JSON.stringify({ email: email }),
+      await fetch(`${env.BASE_URL}/api/order/history`, {
+        method: 'GET',
         headers: {
           'Content-type': 'application/json',
+          Authorization: `${token}`,
         },
       })
         .then((res) => res.json())
@@ -24,40 +25,47 @@ const OrderHistory = () => {
       console.log({ orders })
     } catch (error) {
       console.log(error)
-    }finally{
-      setIsLoading(false);
+    } finally {
+      setIsLoading(false)
     }
   }
   useEffect(() => {
     fetchOrders()
   }, [])
 
-  const sortedOrders = orders.sort(
-    (a, b) => new Date(b.user.date) - new Date(a.user.date)
-  )
-
-  console.log(sortedOrders)
+  // const sortedOrders = orders.sort(
+  //   (a, b) => new Date(b.user.createdAt) - new Date(a.user.createdAt)
+  // )
 
   return (
     <div className='flex-center'>
       {/* {isEmpty && <FontAwesomeIcon icon={faBagShopping} />} */}
       <div className='order-wrapper flex-center'>
-      {isLoading && <p>Loading...</p>}
+        {isLoading && <p>Loading...</p>}
         <div className='item-wrapper '>
-          {sortedOrders.map((item) => (
+          {orders.map((item) => (
             <div className='item-box flex-center'>
-              <p>{`date : ${item.user.date}`}</p>
-
-              {item.ordereditems.map((i) => (
+              {item.orderedItems.map((i) => (
                 <div>
                   <p>{`${i.name}`}</p>
                   <p>{`Qty : ${i.quantity}`}</p>
-                  <p>{`price : $ ${i.price}`}</p>
-                  <p>
-                    <button className='btn main-btn'>reorder</button>
-                  </p>
+                  <p className="mt-1 text-xs leading-5 text-gray-500">{`price : $ ${i.price}`}</p>
                 </div>
               ))}
+
+              <div>
+                shipping Address :
+                <p>
+                  {item.shippingAddress[0].address[0].addressType}
+                  {item.shippingAddress[0].address[0].addressLocation}
+                  {item.shippingAddress[0].address[0].city}
+                  {item.shippingAddress[0].address[0].State}
+                  {item.shippingAddress[0].address[0].postalCode}
+                </p>
+              </div>
+              <p>Total Paid : ${item.orderTotal}</p>
+              <p>{`Date :${item.createdAt}`}</p>
+              <button className='btn main-btn'>reorder</button>
             </div>
           ))}
         </div>
