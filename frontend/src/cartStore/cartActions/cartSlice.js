@@ -20,13 +20,15 @@ export const fetchCart = createAsyncThunk('fetchCart', async () => {
 
 export const addItem = createAsyncThunk(
   'addItem',
-  async (apidata) => {
+  async (apidata, { getState, dispatch }) => {
       
 
     const { productId, quantity } = apidata
     
     console.log(productId)
     console.log("qty : " + quantity)
+
+    const currentState = getState()
 
     const response = await fetch(`${env.BASE_URL}/api/cart/addItem`, {
       method: 'POST',
@@ -40,9 +42,17 @@ export const addItem = createAsyncThunk(
       }),
     })
 
-    const data = await response.json()
-    console.log('item added to cart')
-    return data
+    if(response.ok) {
+        dispatch(fetchCart)
+    }
+    else{
+        console.log("error in adding item")
+    }
+
+
+    // const data = await response.json()
+    // console.log('item added to cart')
+    // return data
   }
 )
 
@@ -121,23 +131,23 @@ const cartSlice = createSlice({
         state.error = action.error.message
       })
       .addCase(addItem.fulfilled, (state, action) => {
-        state.items = action.payload
-        state.totalAmount = action.payload.totalAmount
+        // state.items = action.payload
+        // state.totalAmount = action.payload.totalAmount
         state.loading = false
       })
       .addCase(removeItem.fulfilled, (state, action) => {
-        state.items = action.payload
-        state.totalAmount = action.payload.totalAmount
+        // state.items = action.payload
+        // state.totalAmount = action.payload.totalAmount
         state.loading = false
       })
       .addCase(removeFullitem.fulfilled, (state, action) => {
-        state.items = action.payload
-        state.totalAmount = action.payload.totalAmount
+        // state.items = action.payload
+        // state.totalAmount = action.payload.totalAmount
         state.loading = false
       })
       .addCase(clearCart.fulfilled, (state, action) => {
-        state.items = action.payload
-        state.totalAmount = action.payload.totalAmount
+        // state.items = action.payload
+        // state.totalAmount = action.payload.totalAmount
         state.loading = false
       })
   },

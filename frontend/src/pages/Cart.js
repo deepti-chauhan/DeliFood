@@ -18,7 +18,7 @@ const Cart = () => {
 
   // const token = localStorage.getItem('token')
 
-  const [isEmpty, setIsEmpty] = useState(false)
+  const [isEmpty, setIsEmpty] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [isCheckout, setIsCheckout] = useState(false)
   // const [cart, setCart] = useState([])
@@ -80,13 +80,15 @@ const Cart = () => {
   // }
 
   const cart = useSelector(state => state.cart)
+  // const [isLoading, setIsLoading] = useState(true)
   console.log("cart state : ", cart)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(fetchCart())
+    // setIsLoading(cart.loading)
     // checkIsEmpty()
-  }, [])
+  }, [dispatch])
 
   const closeModal = () => {
     setShowModal(false)
@@ -105,7 +107,8 @@ const Cart = () => {
   return (
     <div>
       <div className='container flex-center'>
-        {isEmpty && (
+        {cart.loading && <p>Loading....</p>}
+        { !cart.loading && cart.items.length === 0 && (
           <div className='empty-cart-container flex-center'>
             <div>
               <img src='/assets/shopping-cart.gif' width='300' />
@@ -121,7 +124,7 @@ const Cart = () => {
             </div>
           </div>
         )}
-        {!isEmpty && (
+        {!cart.loading && cart.items.length > 0 &&(
           <div className='cart-container flex-center'>
             <div className='cart-wrapper'>
               {isCheckout && (
@@ -133,7 +136,8 @@ const Cart = () => {
 
               {!isCheckout && (
                 <div className='cart-items'>
-                  {cart.cartItem.map((item) => (
+                  
+                  {cart.items.map((item) => (
                     <CartItem key={item.productId} {...item} />
                   ))}
                 </div>
@@ -143,7 +147,7 @@ const Cart = () => {
                   <div className='amount-box flex-center'>
                     <div className='flex-sb'>
                       <p>Cart total</p>
-                      <p> $ {cart.cartTotal} </p>
+                      <p> $ {cart.totalAmount} </p>
                     </div>
                     <div></div>
                     {!isCheckout && (

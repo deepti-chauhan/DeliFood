@@ -82,15 +82,14 @@ const CartItem = (props) => {
     </div>
   )
 
-  const qty = useSelector(state => state.items)
+  // const qty = useSelector(state => state.items)
 
   return (
     <div key={props.productId} className='cart-item-wrapper flex-center'>
       <div className='cart-item-container flex-sb '>
         <div className='cart-item-counter flex'>
           <button onClick={incrementHandler}> + </button>
-          {/* {props.quantity} */}
-          {qty}
+          {props.quantity}
           <button onClick={decrementHandler}> - </button>
         </div>
         <div className='cart-item-image flex-center'>
