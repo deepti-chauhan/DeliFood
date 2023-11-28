@@ -40,38 +40,12 @@ const Cart = () => {
     setIsCheckout(true)
   }
 
-  const submitOrderHandler = async (userData) => {
-    await fetch(`${env.BASE_URL}/api/orders`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user: userData,
-        ordereditems: cartContext.items,
-      }),
-    })
-    setShowModal(true)
-    cartContext.clearCart()
-  }
 
   useEffect(() => {
     checkIsEmpty()
   }, [cartItems.length])
 
-  const closeModal = () => {
-    setShowModal(false)
-    navigate('/')
-  }
 
-  const orderStatus = (
-    <div>
-      <div>
-        <img src='./assets/online-shopping.gif' width='300' />
-      </div>
-      <h2>Order Placed</h2>
-    </div>
-  )
   return (
     <div>
       <div className='container flex-center'>
@@ -97,7 +71,6 @@ const Cart = () => {
               {isCheckout && (
                 <div className='cart-items'>
                   {<Address />}
-                  {/* <Checkout onConfirm={submitOrderHandler} />{' '} */}
                 </div>
               )}
 
@@ -116,11 +89,6 @@ const Cart = () => {
                         <p>Cart total</p>
                         <p> $ {cartContext.totalAmount.toFixed(2)}</p>
                       </div>
-                      {/* <div className='flex-sb'>
-                        <p>Delivery Charge</p>
-                        <p> Rs. 50</p>
-                      </div> */}
-
                       <div></div>
                       {!isCheckout && (
                         <button onClick={orderHandler} className='btn'>
@@ -135,9 +103,7 @@ const Cart = () => {
           </div>
         )}
 
-        <div className='flex-center'>
-          {showModal && <Modal onClose={closeModal}>{orderStatus}</Modal>}
-        </div>
+       
       </div>
       <Footer />
     </div>

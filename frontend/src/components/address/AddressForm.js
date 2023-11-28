@@ -11,12 +11,9 @@ const initialState = {
 }
 
 const AddressForm = (props) => {
-
   const [newAddress, setnewAddress] = useState(initialState)
   const [selectedOption, setSelectedOption] = useState('')
-
-  const {email} = JSON.parse(localStorage.getItem('user'))
-
+  const { email } = JSON.parse(localStorage.getItem('user'))
 
   function onValueChange(e) {
     setSelectedOption(e.target.value)
@@ -27,34 +24,28 @@ const AddressForm = (props) => {
 
   function formSubmit(e) {
     e.preventDefault()
-    console.log('Your address type is ' + selectedOption)
-    console.log(newAddress)
-
     addAddress()
     props.setShowModal(false)
   }
 
-
   //@api - POST
   const addAddress = async () => {
-    try{
-      const response = await fetch(`${env.BASE_URL}/api/newaddress`,{
-            method : 'POST',
-            body : JSON.stringify({
-              email : email,
-              address : newAddress
-            }),
-            headers : {
-              'Content-type' : 'application/json',
-            }
-        })
-        
-        const {address} = await response.json()
-        props.setAddress((previousAddress)=> [address, ...previousAddress])
-        console.log(address)
-    }catch(e){
-        console.log(e)
-    }
+    try {
+      const response = await fetch(`${env.BASE_URL}/api/newaddress`, {
+        method: 'POST',
+        body: JSON.stringify({
+          email: email,
+          address: newAddress,
+        }),
+        headers: {
+          'Content-type': 'application/json',
+        },
+      })
+      const { address } = await response.json()
+      props.setAddress((previousAddress) => [address, ...previousAddress])
+    } catch (e) {
+      console.log(e)
+    } 
   }
 
   const onHandleChange = (e) => {
@@ -63,7 +54,6 @@ const AddressForm = (props) => {
       [e.target.name]: e.target.value,
     })
   }
-
 
   return (
     <div>
