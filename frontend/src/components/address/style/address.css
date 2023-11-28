@@ -5,7 +5,7 @@ h3 {
 .delivery-address-container {
   width: 100%;
   height: auto;
-  /* background:pink; */
+  background:pink;
   /* border: 2px dotted black; */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -15,7 +15,7 @@ h3 {
 }
 
 .solid-box {
-  border: 1px solid #ccc;
+  border: 1px solid black;
 }
 
 .dotted-box {
