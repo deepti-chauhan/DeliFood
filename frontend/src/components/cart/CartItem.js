@@ -17,53 +17,23 @@ const CartItem = (props) => {
   const cartContext = useContext(CartContext)
   const [showModal, setShowModal] = useState(false)
 
-  // const { cart, totalQuantity, totalPrice } = useSelector(
-  //   (state) => state.allCart
-  // )
-
-  // const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   dispatch(getCartTotal())
-  // }, [cart])
-
-  // const increaseItemQuantity = () => {
-  //   cartContext.addItem({
-  //     productId: props.productId,
-  //     quantity: 1,
-  //   })
-  // }
-
-  // const decreaseItemQuantity = () => {
-  //   cartContext.removeItem(props.productId)
-  // }
-
-  // const removeItem = () => {
-  //   cartContext.removeFullItem(props.productId)
-  //   setShowModal(false)
-  // }
-
-  const dispatch = useDispatch()
-
-  const incrementHandler = () => {
-    try {
-      const data = {
-        productId: props.productId,
-        quantity: 1,
-      }
-
-      dispatch(addItem(data))
-    } catch (error) {
-      console.error('error : ', error)
-    }
+  const increaseItemQuantity = () => {
+    cartContext.addItem({
+      productId: props.productId,
+      name: props.name,
+      quantity: 1,
+      price: props.price,
+      image: props.img,
+    })
   }
 
-  const decrementHandler = () => {
-    try {
-      dispatch(removeItem(props.productId))
-    } catch (error) {
-      console.error('Error : ', error)
-    }
+  const decreaseItemQuantity = () => {
+    cartContext.removeItem(props.productId)
+  }
+
+  const removeItem = () => {
+    cartContext.removeFullItem(props.productId)
+    setShowModal(false)
   }
 
   const onClose = () => {

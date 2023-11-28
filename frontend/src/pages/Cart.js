@@ -90,19 +90,7 @@ const Cart = () => {
     // checkIsEmpty()
   }, [dispatch])
 
-  const closeModal = () => {
-    setShowModal(false)
-    navigate('/')
-  }
 
-  const orderStatus = (
-    <div>
-      <div>
-        <img src='./assets/online-shopping.gif' width='300' />
-      </div>
-      <h2>Order Placed</h2>
-    </div>
-  )
 
   return (
     <div>
@@ -130,41 +118,39 @@ const Cart = () => {
               {isCheckout && (
                 <div className='cart-items'>
                   {<Address />}
-                  {/* <Checkout onConfirm={submitOrderHandler} />{' '} */}
                 </div>
               )}
 
               {!isCheckout && (
                 <div className='cart-items'>
-                  
-                  {cart.items.map((item) => (
+                  {cartItems.map((item) => (
                     <CartItem key={item.productId} {...item} />
                   ))}
                 </div>
               )}
               <div className='cart-total-container'>
                 <div className='cart-total'>
-                  <div className='amount-box flex-center'>
-                    <div className='flex-sb'>
-                      <p>Cart total</p>
-                      <p> $ {cart.totalAmount} </p>
+                  {hasItems && (
+                    <div className='amount-box flex-center'>
+                      <div className='flex-sb'>
+                        <p>Cart total</p>
+                        <p> $ {cartContext.totalAmount.toFixed(2)}</p>
+                      </div>
+                      <div></div>
+                      {!isCheckout && (
+                        <button onClick={orderHandler} className='btn'>
+                          CHECKOUT
+                        </button>
+                      )}
                     </div>
-                    <div></div>
-                    {!isCheckout && (
-                      <button onClick={orderHandler} className='btn'>
-                        CHECKOUT
-                      </button>
-                    )}
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        <div className='flex-center'>
-          {showModal && <Modal onClose={closeModal}>{orderStatus}</Modal>}
-        </div>
+       
       </div>
       <Footer />
     </div>

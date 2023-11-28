@@ -16,8 +16,7 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
 
   const navigate = useNavigate()
-  const location = useLocation()
-
+  
   const {
     register,
     handleSubmit,
@@ -33,12 +32,9 @@ const Signup = () => {
           'Content-type': 'application/json',
         },
       })
-      const { user } = await response.json()
 
-      if (user) {
-        navigate(location.state?.from?.pathname || '/signin')
-        console.log(location.state?.from?.pathname)
-        window.location.reload()
+      if (response.ok) {
+        navigate('/signin')
       }
     } catch (error) {
       console.log(error)
@@ -50,7 +46,6 @@ const Signup = () => {
   }
 
   const onSubmit = (e) => {
-    // e.preventDefault()
     const { username, email, password } = userData
     const currentUser = { username, email, password }
     registerUser(currentUser)

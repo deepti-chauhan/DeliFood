@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './style/addressForm.css'
 import env from 'react-dotenv'
+import env from 'react-dotenv'
 
 const initialState = {
   addressType: '',
@@ -11,7 +12,6 @@ const initialState = {
 }
 
 const AddressForm = (props) => {
-
   const [newAddress, setnewAddress] = useState(initialState)
   const [selectedOption, setSelectedOption] = useState('')
   const token = localStorage.getItem('token')
@@ -26,9 +26,6 @@ const AddressForm = (props) => {
 
   function formSubmit(e) {
     e.preventDefault()
-    console.log('Your address type is ' + selectedOption)
-    console.log(newAddress)
-
     addAddress()
     props.setShowModal(false)
   }
@@ -63,7 +60,6 @@ const AddressForm = (props) => {
       [e.target.name]: e.target.value,
     })
   }
-
 
   return (
     <div>
