@@ -104,7 +104,7 @@ const Cart = () => {
               {!isCheckout && (
                 <div className='cart-items'>
                   {cartItems.map((item) => (
-                    <CartItem key={item.id} {...item} />
+                    <CartItem key={item.productId} {...item} />
                   ))}
                 </div>
               )}

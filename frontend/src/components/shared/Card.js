@@ -10,7 +10,7 @@ export const Card = ({itemKey , filterItems}) => {
   const addItemtoCart = () => {
     setQty(qty + 1)
     cartContext.addItem({
-      id: filterItems.id,
+      productId: filterItems.productId,
       name: filterItems.name,
       quantity: 1,
       price: filterItems.price,
@@ -20,7 +20,7 @@ export const Card = ({itemKey , filterItems}) => {
 
   const removeItemfromCart = () => {
     setQty(qty - 1)
-    cartContext.removeItem(filterItems.id)
+    cartContext.removeItem(filterItems.productId)
   }
   return (
     <>
