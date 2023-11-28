@@ -5,6 +5,7 @@ import Modal from '../shared/Modal'
 import AddressForm from './AddressForm'
 import Payment from './Payment'
 import './style/address.css'
+import env from 'react-dotenv'
 
 const Address = () => {
   const [showModal, setShowModal] = useState(false)
@@ -32,7 +33,7 @@ const Address = () => {
   //@ post api
   const fetchAddress = async () => {
     try {
-      return await fetch('http://localhost:5000/api/alladdress', {
+      return await fetch(`${env.BASE_URL}/api/alladdress`, {
         method: 'POST',
         body: JSON.stringify({ email: email }),
         headers: {
@@ -54,6 +55,7 @@ const Address = () => {
 
   return (
     <div>
+      
       <div>
         {!payment && (
           <div>

@@ -11,7 +11,7 @@ const CartItem = (props) => {
 
   const increaseItemQuantity = () => {
     cartContext.addItem({
-      id: props.id,
+      productId: props.productId,
       name: props.name,
       quantity: 1,
       price: props.price,
@@ -20,11 +20,11 @@ const CartItem = (props) => {
   }
 
   const decreaseItemQuantity = () => {
-    cartContext.removeItem(props.id)
+    cartContext.removeItem(props.productId)
   }
 
   const removeItem = () => {
-    cartContext.removeFullItem(props.id)
+    cartContext.removeFullItem(props.productId)
     setShowModal(false)
   }
 
@@ -42,7 +42,7 @@ const CartItem = (props) => {
 
   
   return (
-    <div key={props.id} className='cart-item-wrapper flex-center'>
+    <div key={props.productId} className='cart-item-wrapper flex-center'>
       <div className='cart-item-container flex-sb '>
         <div className='cart-item-counter flex'>
           <button onClick={increaseItemQuantity}> + </button>

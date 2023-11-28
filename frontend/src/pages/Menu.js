@@ -96,8 +96,8 @@ const Menu = () => {
             ) : (
               foodItems.map((filterItems) => (
                 <Card
-                  key={filterItems.dishId}
-                  itemKey={filterItems.dishId}
+                  key={filterItems.productId}
+                  itemKey={filterItems.productId}
                   filterItems={filterItems}
                 />
               ))

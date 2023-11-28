@@ -6,10 +6,10 @@ const CardSkeleton = ({ amount }) => {
   return loadCards.map((_, i) => (
     <div className='flex-center card-skeleton' key={i}>
       <div>
-        <Skeleton circle width={200} height={200} />
+        <Skeleton width={180} height={250} />
       </div>
       <div>
-        <Skeleton width={200} height={50} count={1} />
+        <Skeleton width={180} height={50} count={1} />
       </div>
     </div>
   ))
