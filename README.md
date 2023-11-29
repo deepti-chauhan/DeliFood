@@ -13,7 +13,7 @@ This is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) food delivery
 * Modify user details.
 * Pay easy-quick checkout: stripe. 
 
-## Components
+## Table of Contents
 
 - Prerequisites
 - Installation
