@@ -29,19 +29,22 @@ git clone https://github.com/your-username/food-delivery-app.git
 ```
 2. Navigate to the project directory:
 ```bash
-cd food-delivery-app```
+cd food-delivery-app
+```
    
 4. Install server dependencies:
 ```bash
 cd .\my-food-delivery-app\backend
 npm install
-npm start```
+npm start
+```
 
 4. Install client dependencies:
 ```bash
 cd .\my-food-delivery-app\frontend
 npm install
-npm start```
+npm start
+```
 
 ### Testing
 
