@@ -2,7 +2,34 @@
 
 This is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) food delivery application that allows users to browse a variety of food options, add items to their cart, and place orders. The application includes a backend API for managing menu items and user orders.
 
+
+## Table of Contents
+
+- Features
+- Prerequisites
+- Installation
+- usage
+- Folder Structure
+- Technologies used
+- Contributing
+- License
+
 ## Feature  
+
+### User authentication
+
+DeliFood provides secure user authentication. Users can sign up, log in, and manage their profiles. Authentication is handled using JSON Web Tokens (JWT) for enhanced security.
+
+### Browse Menus 
+ user-friendly interface makes it easy to discover new menu options.
+
+### Add to Cart
+Select your favorite dishes and add them to your cart. The shopping cart dynamically updates, allowing you to review your order before proceeding to checkout.
+
+### Checkout and Payment
+integrates with popular payment gateways for a seamless checkout experience. Users can securely enter payment details and receive order confirmation. Payment is processed using secure and reliable technologies.
+
+
 * Easy way to create an account or login with user authentication.
 * Session based on localStorage and tokens
 * Add to cart, compute total price, and display each food item's details.
@@ -13,15 +40,6 @@ This is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) food delivery
 * Modify user details.
 * Pay easy-quick checkout: stripe. 
 
-## Table of Contents
-
-- Prerequisites
-- Installation
-- usage
-- Folder Structure
-- Technologies used
-- Contributing
-- License
 
 ## Prerequisites
 
@@ -91,6 +109,9 @@ The project structure is organized as follows:
 - Node.js
 - Express.js
 - MongoDB (using Mongoose for ODM)
+
+### Payment Integration
+- Stripe
 
 ### Additional Tools :
 -   JWT for authentication
