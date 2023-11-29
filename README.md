@@ -1,6 +1,58 @@
-# Getting Started with Create React App
+# DeLiFooD - Food Delivery Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) food delivery application that allows users to browse a variety of food options, add items to their cart, and place orders. The application includes a backend API for managing menu items and user orders.
+
+## Components
+
+- Prerequisites
+- Installation
+- usage
+- Folder Structure
+- Technologies used
+- Contributing
+- License
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your machine:
+- Node.js
+- MongoDB
+
+## Installation
+
+Run the following commands in your terminal
+
+
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/food-delivery-app.git
+```
+2. Navigate to the project directory:
+   ```bash
+cd food-delivery-app
+   ```
+3. Install server dependencies:
+   ```bash
+cd .\my-food-delivery-app\backend
+npm install
+npm start
+   ```
+4. Install client dependencies:
+   ```bash
+cd .\my-food-delivery-app\frontend
+npm install
+npm start
+   ```
+
+### Testing
+
+1. Run the `npm test` for a simple test.
+2. Run `npm run test: watch` for watch tests.
+3. Run `npm run test: coverage` for test coverage. This will generate a `coverage` folder. Open the `index.html` file in this folder to check the results.
+
+## Deploying
+
+For deployment, run `npm run build` and upload `build/` to your server.
 
 ## Available Scripts
 
