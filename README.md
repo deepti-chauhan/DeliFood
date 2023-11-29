@@ -20,25 +20,25 @@ This is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) food delivery
 
 DeliFood provides secure user authentication. Users can sign up, log in, and manage their profiles. Authentication is handled using JSON Web Tokens (JWT) for enhanced security.
 
-### Search for Food 
+- Search for Food 
 Effortlessly search for your favorite food items using the search functionality. YumHub makes it easy to discover new dishes or quickly find your go-to meals.
 
-### Add to Cart and Total Price
+- Add to Cart and Total Price
 Users can add items to their cart, and the application dynamically computes the total price. Each food item's details are displayed, providing transparency during the ordering process.
 
-### Saved Order History
+- Saved Order History
 Users can view their saved order history, allowing them to track past orders, re-order favorite meals, and easily reference their food preferences
 
-### Save and Edit Delivery Addresses
+- Save and Edit Delivery Addresses
 DeliFood allows users to save and edit multiple delivery addresses for added convenience. This feature is especially useful for users who frequently order from different locations
 
-### Skeleton Screen Implementation
+- Skeleton Screen Implementation
 DeliFood enhances the user experience by implementing skeleton screens, providing users with visual feedback during the loading process. This creates a smoother transition between screens.
 
-### Modify User Details (in Progress)
+- Modify User Details (in Progress)
 Easily modify user details such as name, email, and password. YumHub prioritizes user control and personalization.
 
-### Easy-Quick Checkout with Stripe
+- Easy-Quick Checkout with Stripe
 The application streamlines the checkout process with Stripe integration, providing users with a secure and quick payment experience. Say goodbye to long checkout processes!
 
 
