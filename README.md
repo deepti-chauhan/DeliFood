@@ -57,7 +57,7 @@ MONGODB_URI=your-mongodb-uri
 npm start
 ```
 1. Start backend
-   -The server will run on http://localhost:5000.
+   - The server will run on http://localhost:5000.
 ```bash
 npm start
 ```
