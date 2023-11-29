@@ -1,6 +1,6 @@
 # DeLiFooD - Food Delivery Application
 
-This is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) food delivery application that allows users to browse a variety of food options, add items to their cart, and place orders. The application includes a backend API for managing menu items and user orders.
+Welcome to DeliFood! DeliFood is a robust full-stack MERN (MongoDB, Express.js, React.js, Node.js) food delivery application that allows users to browse a variety of food options, add items to their cart, and place orders. The application includes a backend API for managing menu items and user orders.
 
 
 ## Table of Contents
