@@ -16,7 +16,7 @@ This is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) food delivery
 
 ## Feature  
 
-### User authentication
+- User authentication
 
 DeliFood provides secure user authentication. Users can sign up, log in, and manage their profiles. Authentication is handled using JSON Web Tokens (JWT) for enhanced security.
 
