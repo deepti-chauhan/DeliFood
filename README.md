@@ -22,31 +22,31 @@ This is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) food delivery
 
 - Search for Food
   
-  Effortlessly search for your favorite food items using the search functionality. YumHub makes it easy to discover new dishes or quickly find your go-to meals.
+  * Effortlessly search for your favorite food items using the search functionality. YumHub makes it easy to discover new dishes or quickly find your go-to meals.
 
 - Add to Cart and Total Price
   
-  Users can add items to their cart, and the application dynamically computes the total price. Each food item's details are displayed, providing transparency during the ordering process.
+  * Users can add items to their cart, and the application dynamically computes the total price. Each food item's details are displayed, providing transparency during the ordering process.
 
 - Saved Order History
   
-  Users can view their saved order history, allowing them to track past orders, re-order favorite meals, and easily reference their food preferences
+  * Users can view their saved order history, allowing them to track past orders, re-order favorite meals, and easily reference their food preferences
 
 - Save and Edit Delivery Addresses
   
-  DeliFood allows users to save and edit multiple delivery addresses for added convenience. This feature is especially useful for users who frequently order from different locations
+  * DeliFood allows users to save and edit multiple delivery addresses for added convenience. This feature is especially useful for users who frequently order from different locations
 
 - Skeleton Screen Implementation
   
-  DeliFood enhances the user experience by implementing skeleton screens, providing users with visual feedback during the loading process. This creates a smoother transition between screens.
+  * DeliFood enhances the user experience by implementing skeleton screens, providing users with visual feedback during the loading process. This creates a smoother transition between screens.
 
 - Modify User Details (in Progress)
   
-  Easily modify user details such as name, email, and password. YumHub prioritizes user control and personalization.
+  * Easily modify user details such as name, email, and password. YumHub prioritizes user control and personalization.
 
 - Easy-Quick Checkout with Stripe
   
-  The application streamlines the checkout process with Stripe integration, providing users with a secure and quick payment experience. Say goodbye to long checkout processes!
+  * The application streamlines the checkout process with Stripe integration, providing users with a secure and quick payment experience. Say goodbye to long checkout processes!
 
 
 ## Prerequisites
