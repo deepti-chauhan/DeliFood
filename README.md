@@ -2,6 +2,17 @@
 
 This is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) food delivery application that allows users to browse a variety of food options, add items to their cart, and place orders. The application includes a backend API for managing menu items and user orders.
 
+## Feature  
+* Easy way to create an account or login with user authentication.
+* Session based on localStorage and tokens
+* Add to cart, compute total price, and display each food item's details.
+* Search for food.
+* Skeleton Screen implementation before loading the products. 
+* Saved Order History.  
+* Save and Edit delivery addresses.
+* Modify user details.
+* Pay easy-quick checkout: stripe. 
+
 ## Components
 
 - Prerequisites
