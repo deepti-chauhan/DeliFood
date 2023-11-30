@@ -1,34 +1,53 @@
 import React from 'react'
 import Footer from '../components/shared/Footer'
+import '../style/contact.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faLocationDot,
+  faEnvelope,
+  faPhone,
+} from '@fortawesome/free-solid-svg-icons'
+import ContactCard from '../components/shared/ContactCard'
 
 const Contact = () => {
   return (
     <div>
-      <div className='contact-container container flex-center'>
-        <div className='contact-info flex-center'>
-          <div className='contact-div flex-center'>
-            <h2>Contact Us</h2>
-            <img src='./assets/tech-support.gif' width='200'/>
-            {/* <p>
-              Customer support available 24x7.
-              <br />
-              Always looking for Customer Feedback.
-            </p> */}
-            <p>
-              Ph no : +91 1234 5678
-              <br />
-              Email : support@delifood.com
-            </p>
-            <div className='contact-btn flex-center'>
-              <button className='btn'>
-                <a href='#' target='_blank'>
-                  Send Mail
-                </a>
-              </button>
+      <ContactCard/>
+      {/* <div className='contact-container container flex-center'>
+        <div className='contact-info'>
+            <h1>Contact Us</h1>
+            <div className='flex-sa'>
+              <span className='info-box'>
+                <span>
+                  <FontAwesomeIcon icon={faLocationDot} />
+                </span>
+                <h2>Address</h2>
+                <p>
+                  John Doe 123 <br />
+                  Main Street Cityville, <br />
+                  State 12345 <br />
+                  Country
+                </p>
+              </span>
+              <span className='info-box'>
+                <span>
+                  <FontAwesomeIcon icon={faEnvelope} />
+                </span>
+                <h2>Email Us</h2>
+                <p>contact@deliFood.com</p>
+                <p>support@gmail.com</p>
+              </span>
+              <span className='info-box'>
+                <span>
+                  <FontAwesomeIcon icon={faPhone} />
+                </span>
+                <h2>Call Us</h2>
+                <p>+91 1231234563</p>
+                <p>+91 1231234563</p>
+              </span>
             </div>
-          </div>
         </div>
-      </div>
+      </div> */}
       <Footer />
     </div>
   )
