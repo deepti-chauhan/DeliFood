@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form'
 import Footer from '../components/shared/Footer'
 import env from 'react-dotenv'
 import { FaEye } from 'react-icons/fa'
+import Swal from 'sweetalert2';
+
 
 const initialState = {
   email: '',
@@ -50,6 +52,11 @@ const Signin = () => {
         headers: { 'Content-type': 'application/json' },
       })
 
+      if (!response.ok) {
+        // Handle non-successful responses (e.g., 404 Not Found, 500 Internal Server Error)
+        throw new Error(`Failed to log in. Status: ${response.status}`);
+      }
+
       const { user, token } = await response.json()
       addUserToLocalStorage({ user, token })
 
@@ -57,9 +64,22 @@ const Signin = () => {
         navigate(location.state?.from?.pathname || '/')
         window.location.reload()
       }
-    } catch (e) {
+      Swal.fire({
+        title: 'Success!',
+        text: 'Login successful',
+        icon: 'success',
+        button: 'OK',
+      });
+
+    } catch (error) {
       setError(true)
-      console.log(e)
+      console.error('Error logging in:', error.message);
+      Swal.fire({
+        title: 'Login Failed',
+        text: 'Incorrect login credentials',
+        icon: 'error',
+        button: 'OK',
+      });
     } finally {
       setError(false)
     }
@@ -68,7 +88,6 @@ const Signin = () => {
   return (
     <>
       <div className='container flex-center'>
-        {error && <p>..........Error...........</p>}
         <div className='form-container flex-center'>
           <h2>Log In</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -107,7 +126,7 @@ const Signin = () => {
                     required: 'Password is required!!',
                     minLength: {
                       value: 8,
-                      message: 'Password should be at-least 8 characters.',
+                      message: 'incorrect password',
                     },
                   })}
                   value={userData.password}
@@ -133,6 +152,12 @@ const Signin = () => {
           </p>
         </div>
       </div>
+
+
+
+
+                  
+
       <Footer />
     </>
   )
