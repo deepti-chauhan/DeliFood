@@ -1,0 +1,37 @@
+.contact-container {
+  /* background-color: salmon; */
+}
+
+.contact-info {
+  /* background-color: yellow; */
+  width: 70%;
+  height: 60vh;
+  text-align: center;
+}
+
+.contact-info h1 {
+  font-size: 3rem;
+  margin-bottom: var(--mt-2);
+}
+
+.contact-info p {
+  font-weight: var(--font-lighter);
+}
+
+.info-box {
+  /* background-color: var(--color-light-green); */
+  width: 300px;
+  height: 250px;
+  padding: 3rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  transition: border 100ms ease-in;
+}
+
+.info-box span {
+  color: var(--color-salmon);
+}
+
+.info-box:hover {
+  border: 1px solid var(--color-black);
+}

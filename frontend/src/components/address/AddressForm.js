@@ -13,7 +13,8 @@ const initialState = {
 const AddressForm = (props) => {
   const [newAddress, setnewAddress] = useState(initialState)
   const [selectedOption, setSelectedOption] = useState('')
-  const { email } = JSON.parse(localStorage.getItem('user'))
+  const token = localStorage.getItem('token')
+
 
   function onValueChange(e) {
     setSelectedOption(e.target.value)
@@ -28,24 +29,28 @@ const AddressForm = (props) => {
     props.setShowModal(false)
   }
 
-  //@api - POST
+
+  //  @method - POST
+  //  @access - private
   const addAddress = async () => {
-    try {
-      const response = await fetch(`${env.BASE_URL}/api/newaddress`, {
-        method: 'POST',
-        body: JSON.stringify({
-          email: email,
-          address: newAddress,
-        }),
-        headers: {
-          'Content-type': 'application/json',
-        },
-      })
-      const { address } = await response.json()
-      props.setAddress((previousAddress) => [address, ...previousAddress])
-    } catch (e) {
-      console.log(e)
-    } 
+    try{
+      const response = await fetch(`${env.BASE_URL}/api/address/create`,{
+            method : 'POST',
+            body : JSON.stringify({
+              address : newAddress
+            }),
+            headers : {
+              'Content-type' : 'application/json',
+              'Authorization' : `${token}`
+            }
+        })
+        
+        const {address} = await response.json()
+        props.setAddress((previousAddress)=> [address, ...previousAddress])
+        console.log(address)
+    }catch(e){
+        console.log(e)
+    }
   }
 
   const onHandleChange = (e) => {
@@ -106,7 +111,7 @@ const AddressForm = (props) => {
           <input
             type='text'
             name='addressLocation'
-            value={newAddress.newAddressLocation}
+            value={newAddress.addressLocation}
             placeholder='Hno. 123, XYZ colony...'
             onChange={onHandleChange}
           />

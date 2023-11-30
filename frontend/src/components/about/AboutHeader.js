@@ -12,9 +12,10 @@ const AboutHeader = () => {
  
   return (
     <>
-      <div className='container about-header flex-center'>
-        <h1 className='about-title'>DeliFooD</h1>
-        <p className='about-text'>
+      <div className=' about-header flex-center'>
+        <h1>DeliFooD</h1>
+        <h3>Fresh & Healthy Food at Your DoorStep</h3>
+        <p>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and

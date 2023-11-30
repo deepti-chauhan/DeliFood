@@ -18,7 +18,7 @@
 
 #input-icon {
   cursor: pointer;
-  color: salmon;
+  color: var(--color-salmon);
 }
 
 .search-items {

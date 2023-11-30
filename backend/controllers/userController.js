@@ -1,9 +1,12 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const uuid = require('uuid')
-const UserModel = require('../models/user')
-const secretKey = process.env.JWT_SECRET_KEY
+const SECRET_KEY = process.env.JWT_SECRET_KEY
+const User = require('../models/user')
 
+//  @method     - post
+//  @access     - public
+//  @endpoint   - /user/register
 const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body
@@ -12,14 +15,14 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ error: 'All fields are required!!' })
     }
 
-    const user = await UserModel.findOne({ email: email })
+    const user = await User.findOne({ email: email })
 
     if (!user) {
       const salt = await bcrypt.genSalt(10)
       const hashPassword = await bcrypt.hash(password, salt)
       const userId = uuid.v4()
 
-      const newUser = new UserModel({
+      const newUser = new User({
         userId: userId,
         username: username,
         email: email,
@@ -27,11 +30,9 @@ const registerUser = async (req, res) => {
       })
 
       await newUser.save()
-
-      const token = jwt.sign({ userId: userId }, secretKey)
-      res.status(200).json({ user: newUser, token: token })
+      res.status(201).json({ message: 'user registered successfully!!' })
     } else {
-      return res.status(400).send('user already exist')
+      return res.status(400).josn({ message: 'user already exist' })
     }
   } catch (error) {
     console.log(error)
@@ -39,9 +40,12 @@ const registerUser = async (req, res) => {
   }
 }
 
+//  @method     - post
+//  @access     - public
+//  @endpoint   - /user/login
 const loginUser = async (req, res) => {
   const { email, password } = req.body
-  const user = await UserModel.findOne({ email: email })
+  const user = await User.findOne({ email: email })
 
   if (!user) {
     return res.status(400).send({ message: 'user not registered !!' })
@@ -50,20 +54,30 @@ const loginUser = async (req, res) => {
   const isPasswordMatching = await bcrypt.compare(password, user.password)
 
   if (isPasswordMatching) {
-    const token = jwt.sign({ userId: user._id }, secretKey)
+    const token = jwt.sign(
+      { email: user.email, userId: user.userId },
+      SECRET_KEY
+    )
     return res.status(200).json({
-      user: user,
+      user: {
+        username: user.username,
+        email: user.email,
+      },
       token: token,
+      message: 'user login successfully!!',
     })
   }
 
-  return res.status(401).send({ message: 'Incorrect login credentials' })
+  return res.status(400).send({ message: 'Incorrect login credentials' })
 }
 
+//  @method     - delete
+//  @access     - private
+//  @endpoint   - /user/delete
 const deleteUser = async (req, res) => {
   try {
     const { email } = req.body
-    await UserModel.deleteOne({ email: email })
+    await User.deleteOne({ email: email })
 
     return res.status(200).send({ message: 'account deleted !!' })
   } catch (e) {
@@ -72,7 +86,7 @@ const deleteUser = async (req, res) => {
 }
 
 module.exports = {
-  loginUser,
   registerUser,
+  loginUser,
   deleteUser,
 }

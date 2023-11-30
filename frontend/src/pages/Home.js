@@ -1,16 +1,18 @@
 import React from 'react'
 import Footer from '../components/shared/Footer'
-import Servicecard from '../components/home/ServiceCard'
-import Popular from '../components/home/Popular'
 import HomeHeader from '../components/home/HomeHeader'
+import Popular from '../components/shared/Popular'
+import Service from '../components/home/Service'
+import Servicecard from '../components/shared/ServiceCard'
 
 function Home() {
   return (
     <div>
       <HomeHeader />
-      <Popular />
-      <Servicecard />
-      <Footer />
+      <Popular/>
+      <Service/>
+      <Servicecard/>
+    <Footer />
     </div>
   )
 }

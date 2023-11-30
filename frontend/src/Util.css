@@ -30,10 +30,11 @@
   outline: none;
   cursor: pointer;
 }
-
-.btn:focus {
-  background-color: #fff;
-  border: 2px solid black;
+.primary-btn{
+  width: 10rem;
+  padding: 1rem;
+  font-weight: var(--font-semi-bold);
+  background-color: var(--color-salmon);
 }
 
 .link {
@@ -42,8 +43,6 @@
 }
 
 .container {
-  /* background-color: rgb(219, 219, 225); */
-  /* margin-top: 100px; */
   width: 100%;
   min-height: 100vh;
   max-height: auto;
@@ -51,4 +50,19 @@
 
 a {
   text-decoration: none;
+}
+
+.mt-5 {
+  margin-top: 5rem;
+}
+
+
+.login-btn{
+  /* background: pink; */
+  background: transparent;
+
+  font-size: 15px;
+  padding: 1rem;
+  text-align: center;
+  /* align-items: center; */
 }
