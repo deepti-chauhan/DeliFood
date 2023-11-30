@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const today = new Date()
 
 const orderSchema = new mongoose.Schema({
   orderId: {
@@ -16,8 +17,8 @@ const orderSchema = new mongoose.Schema({
     required : true
   },
   createdAt: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    default: new Date()
   },
 })
 
