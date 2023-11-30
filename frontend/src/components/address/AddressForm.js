@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './style/addressForm.css'
 import env from 'react-dotenv'
-import env from 'react-dotenv'
 
 const initialState = {
   addressType: '',
@@ -35,7 +34,7 @@ const AddressForm = (props) => {
   //  @access - private
   const addAddress = async () => {
     try{
-      const response = await fetch(`${env.BASE_URL}/api/newaddress`,{
+      const response = await fetch(`${env.BASE_URL}/api/address/create`,{
             method : 'POST',
             body : JSON.stringify({
               address : newAddress
