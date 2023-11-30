@@ -1,28 +1,29 @@
 import React, { useState } from 'react'
-import Modal from '../components/shared/Modal'
 import UserProfile from '../components/profile/UserProfile'
 import OrderHistory from '../components/profile/OrderHistory'
 import AddressBook from '../components/profile/AddressBook'
 import Settings from '../components/profile/Settings'
-import LogoutButton from '../components/navbar/LogoutButton'
+import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const Profile = () => {
-  const [showModal, setShowModal] = useState(false)
   const [section, setSection] = useState('user')
+  const navigate = useNavigate()
 
-  const { username, email } = JSON.parse(localStorage.getItem('user'))
-  const token = localStorage.getItem('token')
+  const { username } = JSON.parse(localStorage.getItem('user'))
 
-  const onClose = () => {
-    setShowModal(false)
+  const logout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    navigate('/')
+    window.location.reload()
+    Swal.fire({
+      title: 'Success!',
+      text: 'Logout successfully',
+      icon: 'success',
+      button: 'OK',
+    })
   }
-
-  const logoutStatus = (
-    <div>
-      <p>{`${username}, are you sure?`}</p>
-      <LogoutButton />
-    </div>
-  )
 
   const sectionState = (state) => {
     switch (state) {
@@ -37,17 +38,28 @@ const Profile = () => {
     }
   }
 
+  const logoutHandler = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#557c55',
+      cancelButtonColor: '#D74234',
+      confirmButtonText: 'Yes, LOGOUT!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout()
+      }
+    })
+  }
+
   return (
     <div className='profile-container'>
       <div className='profile-header flex-center'>
         <div className='flex-sb'>
           <div>{`Welcome ${username}`}</div>
-          
 
-          <button
-            className='btn btn-primary'
-            onClick={() => setShowModal(true)}
-          >
+          <button className='btn btn-primary' onClick={logoutHandler}>
             logout
           </button>
         </div>
@@ -67,8 +79,6 @@ const Profile = () => {
         </button>
       </div>
       <div>{sectionState(section)}</div>
-
-      {showModal && <Modal onClose={onClose}>{logoutStatus}</Modal>}
     </div>
   )
 }
