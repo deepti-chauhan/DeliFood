@@ -31,7 +31,8 @@ const registerUser = async (req, res) => {
 
       await newUser.save()
       res.status(201).json({ message: 'user registered successfully!!' })
-    } else {
+    } 
+    else {
       return res.status(400).josn({ message: 'user already exist' })
     }
   } catch (error) {
