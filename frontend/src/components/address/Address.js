@@ -12,7 +12,7 @@ const Address = () => {
   const [address, setAddress] = useState([])
   const [selectedAddress, setSelectedAddress] = useState([])
   const [payment, setPayments] = useState(false)
-  const { email } = JSON.parse(localStorage.getItem('user'))
+  const token = localStorage.getItem('token')
 
   const addAdressHandler = (
     <div>
@@ -30,14 +30,14 @@ const Address = () => {
     setShowModal(false)
   }
 
-  //@ post api
+  //@ get api
   const fetchAddress = async () => {
     try {
       return await fetch(`${env.BASE_URL}/api/alladdress`, {
-        method: 'POST',
-        body: JSON.stringify({ email: email }),
+        method: 'GET',
         headers: {
           'Content-type': 'application/json',
+          Authorization: `${token}`,
         },
       })
         .then((res) => res.json())
@@ -55,16 +55,20 @@ const Address = () => {
 
   return (
     <div>
-      
       <div>
         {!payment && (
           <div>
             <h3>Choose a delivery address</h3>
             <div className='delivery-address-container'>
               {address.map((d) => (
-                <div key={d._id} className='delivery-address-box solid-box flex'>
+                <div
+                  key={d._id}
+                  className='delivery-address-box solid-box flex'
+                >
                   <div className='flex'>
                     <FontAwesomeIcon icon={faLocationDot} />
+                    
+
                     {d.addressType}
                   </div>
                   <p>

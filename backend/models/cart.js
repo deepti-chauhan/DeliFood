@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const cartSchema = new mongoose.Schema({
-  userId: {
+  email: {
     type: String,
     required: true,
   },
@@ -17,6 +17,7 @@ const cartSchema = new mongoose.Schema({
       },
     },
   ],
+  totalAmount: { type: Number, default: 0 },
 })
 
 const Cart = mongoose.model('cart', cartSchema)

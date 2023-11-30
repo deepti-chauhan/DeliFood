@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+// const {authenticateToken} = require('./middleware/authMiddleware')
 const mongoose = require('mongoose')
 const app = express()
 const dotenv = require('dotenv')
@@ -12,9 +13,7 @@ const order = require('./routes/orderRouter')
 const address = require('./routes/addressRouter')
 const cart = require('./routes/cartRouter')
 
-const stripe = require('stripe')(
-  'sk_test_51OH1UASAYSPowgwngyjjS8j8jMSCsqzCoPrisdHi9ZTFZQT9t1cdRwR2Lqr3ZFtOThMNFWVMau2P2saF9o90jPUY00TxwqAzZJ'
-)
+const stripe = require('stripe')(process.env.STRIPE_KEY)
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -30,6 +29,7 @@ mongoose
 
 app.use(express.json())
 app.use(cors())
+app.use(express.static('public'))
 
 //checkout api
 app.post('/api/create-checkout-session', async (req, res) => {
@@ -42,7 +42,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
       product_data: {
         name: product.name,
       },
-      unit_amount: parseInt(product.price)  * 100,
+      unit_amount: parseInt(product.price) * 100,
     },
     quantity: product.quantity,
   }))

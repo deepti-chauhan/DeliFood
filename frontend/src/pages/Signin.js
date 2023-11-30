@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form'
 import Footer from '../components/shared/Footer'
 import env from 'react-dotenv'
 import { FaEye } from 'react-icons/fa'
+import Swal from 'sweetalert2';
+
 
 const initialState = {
   email: '',
@@ -12,7 +14,7 @@ const initialState = {
 
 const Signin = () => {
   const [userData, setUserData] = useState(initialState)
-  const [error, setError] = useState('')
+  const [error, setError] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
   const navigate = useNavigate()
@@ -27,9 +29,6 @@ const Signin = () => {
 
   const onHandleChange = (e) => {
     e.preventDefault()
-    console.log('handle event..')
-    // console.log(e.target.email)
-    // console.log(e.target.name)
     setUserData({ ...userData, [e.target.name]: e.target.value })
   }
 
@@ -37,16 +36,11 @@ const Signin = () => {
     localStorage.setItem('user', JSON.stringify(user))
     localStorage.setItem('token', token)
   }
+
   const onSubmit = async () => {
-    console.log('signed in')
     // e.preventDefault()
     const { email, password } = userData
-    console.log(userData)
-    console.log('logging in >>>')
-
     const currentUser = { email, password }
-    console.log(currentUser)
-
     loginUser(currentUser)
   }
 
@@ -57,17 +51,37 @@ const Signin = () => {
         body: JSON.stringify(currentUser),
         headers: { 'Content-type': 'application/json' },
       })
-      const { user, token } = await response.json()
-      // console.log(message)
 
+      if (!response.ok) {
+        // Handle non-successful responses (e.g., 404 Not Found, 500 Internal Server Error)
+        throw new Error(`Failed to log in. Status: ${response.status}`);
+      }
+
+      const { user, token } = await response.json()
       addUserToLocalStorage({ user, token })
+
       if (user) {
         navigate(location.state?.from?.pathname || '/')
-        console.log(location.state?.from?.pathname)
         window.location.reload()
       }
-    } catch (e) {
-      console.log(e)
+      Swal.fire({
+        title: 'Success!',
+        text: 'Login successful',
+        icon: 'success',
+        button: 'OK',
+      });
+
+    } catch (error) {
+      setError(true)
+      console.error('Error logging in:', error.message);
+      Swal.fire({
+        title: 'Login Failed',
+        text: 'Incorrect login credentials',
+        icon: 'error',
+        button: 'OK',
+      });
+    } finally {
+      setError(false)
     }
   }
 
@@ -112,7 +126,7 @@ const Signin = () => {
                     required: 'Password is required!!',
                     minLength: {
                       value: 8,
-                      message: 'Password should be at-least 8 characters.',
+                      message: 'incorrect password',
                     },
                   })}
                   value={userData.password}
@@ -138,6 +152,12 @@ const Signin = () => {
           </p>
         </div>
       </div>
+
+
+
+
+                  
+
       <Footer />
     </>
   )

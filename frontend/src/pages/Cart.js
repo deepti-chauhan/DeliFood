@@ -54,8 +54,8 @@ const Cart = () => {
             <div>
               <img src='/assets/shopping-cart.gif' width='300' />
               <div className='flex-center'>
-                <span>EMPTY CART</span>
-                <span>
+                
+                <span className='discover-menu'>
                   <Link to='/menu'>
                     DISCOVER MENU
                     <FontAwesomeIcon icon={faArrowRight} />

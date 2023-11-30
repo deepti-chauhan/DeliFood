@@ -1,16 +1,16 @@
 const express = require('express')
 const router = express.Router()
-
+const { authenticateToken } = require('../middleware/authMiddleware')
 const {
   deleteAddress,
-  getAddress,
   getAllAddress,
   setAddress,
+  updateAddress
 } = require('../controllers/addressController')
 
-router.post('/address', getAddress)
-router.post('/newaddress', setAddress)
-router.post('/alladdress', getAllAddress)
-router.post('/deleteAddress', deleteAddress)
+router.get('/alladdress', authenticateToken, getAllAddress)
+router.post('/address/create', authenticateToken, setAddress)
+router.put('/address', authenticateToken, updateAddress)
+router.delete('/address', authenticateToken, deleteAddress)
 
 module.exports = router

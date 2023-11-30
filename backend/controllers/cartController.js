@@ -1,13 +1,25 @@
 const Cart = require('../models/cart')
 const Item = require('../models/dishes')
 
+//  @method   -  post
+//  @access   -  private
+//  @endpoint -  /cart/addItem
 const addItem = async (req, res) => {
-  const { userId, productId, quantity } = req.body
+  const { email } = req.user
+  const { productId, quantity } = req.body
   try {
-    let cart = await Cart.findOne({ userId })
+    // Check if the product exists
+    const product = await Item.findOne({ productId: productId })
+    console.log(product)
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' })
+    }
+
+    // Check if the user's cart exists
+    let cart = await Cart.findOne({ email })
 
     if (!cart) {
-      cart = new Cart({ userId, items: [] })
+      cart = new Cart({ email, items: [] })
     }
 
     const existingItem = cart.items.find((item) => item.productId === productId)
@@ -18,21 +30,25 @@ const addItem = async (req, res) => {
       cart.items.push({ productId, quantity: quantity || 1 })
     }
 
+    cart.totalAmount += product.price * (quantity || 1)
+    const updatedQty = existingItem ? existingItem.quantity : 1
     await cart.save()
 
-    return res.status(200).send(cart)
+    return res.status(200).json(cart)
   } catch (error) {
     console.log(error)
     return res.status(500).send({ message: 'Internal Server Error !!' })
   }
 }
 
+//  @method   -  get
+//  @access   -  private
+//  @endpoint -  /cart/items
 const getItems = async (req, res) => {
-  console.log('hello')
-  console.log(req.query)
-  const { userId } = req.query
+  console.log(req.user)
+  const { email } = req.user
   try {
-    const cart = await Cart.findOne({ userId })
+    const cart = await Cart.findOne({ email })
     if (!cart) {
       return res.status(404).send({ message: 'Cart not Found' })
     }
@@ -41,49 +57,117 @@ const getItems = async (req, res) => {
     const productIds = cart.items.map((item) => parseInt(item.productId))
     console.log(productIds)
 
-    const cartItems = await Item.find({ dishId: { $in: productIds } })
+    const cartItems = await Item.find({ productId: { $in: productIds } })
     console.log(cartItems)
 
-    const itemsWithQuantity = cartItems.map((item) => {
-      const orderItem = {
-        quantity: cart.items.find(
-          (cartItem) => cartItem.productId === item.dishId
-        ).quantity,
-        ...item.toObject(),
-      }
-      return orderItem
-    })
+    const itemsWithQuantity = cartItems.map((item) => ({
+      ...item.toObject(),
+      quantity: cart.items.find(
+        (cartItem) => cartItem.productId === item.productId
+      ).quantity,
+    }))
 
-    console.log(` Item : ${{ itemsWithQuantity }}`)
-    res.json(itemsWithQuantity)
+    res.json({
+      cartUser: email,
+      cartItem: itemsWithQuantity,
+      cartTotal: cart.totalAmount.toFixed(2),
+    })
   } catch (error) {
     console.log(error)
     res.status(500).send({ message: 'Internal Server erorr' })
   }
 }
 
+//  @method   -  delete
+//  @access   -  private
+//  @endpoint -  /cart/removeItem
 const removeItem = async (req, res) => {
-  const { userId, productId } = req.query
-  console.log(req.query)
+  const { email } = req.user
+  const { productId } = req.query
   try {
-    const cart = await Cart.findOne({ userId })
-    console.log(`cart : ${cart}`)
-    
+    // Check if the product exists
+    const cart = await Cart.findOne({ email })
+
     if (!cart) {
       return res.status(404).json({ message: 'cart not found!' })
     }
-    
-    console.log(`cart items before  : ${cart.items}`)
-    cart.items = cart.items.filter((item) => item.productId.toString() !== productId)
-    console.log(`cart items after  : ${cart.items}`)
+    const product = await Item.findOne({ productId: productId })
 
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' })
+    }
 
-    await cart.save()
-    res.json(cart)
+    let existingItem = cart.items.find(
+      (item) => item.productId.toString() === productId.toString()
+    )
+    cart.totalAmount -= product.price * (existingItem.quantity || 1)
+
+    cart.items = cart.items.filter(
+      (item) => item.productId.toString() !== productId
+    )
+
+    if (cart.items.length === 0) {
+      await Cart.deleteOne({ email: email })
+      res.json({ message: 'cart is empty' })
+    } else {
+      await cart.save()
+      res.json(cart)
+    }
   } catch (error) {
     console.log(error)
     res.status(500).json({ messgae: 'Internal Server Error' })
   }
 }
 
-module.exports = { addItem, getItems, removeItem }
+//  @method   -  delete
+//  @access   -  private
+//  @endpoint -  /cart/removeItemByOne
+const decreaseItemCount = async (req, res) => {
+  const { email } = req.user
+  const { productId } = req.query
+
+  try {
+    const product = await Item.findOne({ productId: productId })
+
+    if (!product) {
+      return res.status(404).json({ message: 'product not found!!' })
+    }
+
+    const cart = await Cart.findOne({ email: email })
+
+    if (!cart) {
+      res.status(404).json({ message: 'cart not found!!' })
+    }
+
+    let existingItem = cart.items.find(
+      (item) => item.productId.toString() === productId.toString()
+    )
+
+    if (existingItem.quantity === 1) {
+      // console.log("product id : " + productId)
+
+      cart.items = cart.items.filter(
+        (item) => item.productId.toString() !== productId.toString()
+      )
+    } else {
+      existingItem.quantity -= 1
+    }
+
+    let updatedQty
+    if (cart.items.length === 0) {
+      await Cart.deleteOne({ email: email })
+      res.json({ message : 'cart is empty'})
+    } else {
+      cart.totalAmount -= product.price
+      cart.totalAmount = Math.max(0, cart.totalAmount)
+      // updatedQty = existingItem ? existingItem.quantity : 0
+      await cart.save()
+      res.status(200).json(cart)
+    }
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: 'Internal Server error!!' })
+  }
+}
+
+module.exports = { addItem, getItems, removeItem, decreaseItemCount }
