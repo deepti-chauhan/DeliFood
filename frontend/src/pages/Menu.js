@@ -4,6 +4,8 @@ import Card from '../components/shared/Card'
 import { FaSearch } from 'react-icons/fa'
 import env from 'react-dotenv'
 import CardSkeleton from '../components/shared/CardSkeleton'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUtensils } from '@fortawesome/free-solid-svg-icons'
 
 const Menu = () => {
   const [input, setInput] = useState('')
@@ -13,11 +15,19 @@ const Menu = () => {
 
   const fetchApiData = async () => {
     try {
-      await fetch(`${env.BASE_URL}/api/dishes`)
-        .then((res) => res.json())
-        .then((data) => setData(Object.values(data)))
+      const response = await fetch(`${env.BASE_URL}/api/dishes`)
+
+      if (!response.ok) {
+        // Handle non-successful responses (e.g., 404 Not Found, 500 Internal Server Error)
+        throw new Error(`Failed to fetch data. Status: ${response.status}`)
+      }
+
+      const data = await response.json()
+      setData(Object.values(data))
     } catch (error) {
-      console.log(error)
+      // Handle fetch or parsing errors
+      console.error('Error fetching data:', error.message)
+      // You can also show a user-friendly error message to the user if needed
     } finally {
       setLoader(false)
     }
@@ -55,24 +65,27 @@ const Menu = () => {
   return (
     <>
       <div>
-        <div className='search-bar flex-center'>
-          <div className='search-input flex-center'>
-            <input
-              placeholder='Type your search...'
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-            />
-            <FaSearch id='input-icon' />
-          </div>
-        </div>
         <div className='menu-header flex-center'>
-          <h2 className='popular-hdr-text'>Popular Cuisines </h2>
+          <p>
+           
+          </p>
+          <h2 className='hdr-text'><FontAwesomeIcon icon={faUtensils} /> Our Menu </h2> 
+          <div className='search-bar flex-center'>
+            <div className='search-input flex-center'>
+              <input
+                placeholder='search your favourite cuisine...'
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+              />
+              <FaSearch id='input-icon' />
+            </div>
+          </div>
           <div className='popular-btn flex-se'>
             {getFoodCategory.map((foodCategory) => (
               <button
                 key={foodCategory.id}
                 onClick={() => setCategory(foodCategory)}
-                className='main-btn btn '
+                className='btn '
               >
                 {foodCategory} (
                 {getFoodItems(input, foodCategory).reduce(
@@ -84,7 +97,7 @@ const Menu = () => {
               </button>
             ))}
 
-            <button onClick={() => setCategory('')} className='btn main-btn'>
+            <button onClick={() => setCategory('')} className='btn'>
               All ({getFoodItems(input, '').length})
             </button>
           </div>
