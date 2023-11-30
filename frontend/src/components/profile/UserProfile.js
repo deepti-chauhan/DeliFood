@@ -6,7 +6,12 @@ const UserProfile = () => {
       <div className='profile-wrapper flex-center'>
         <form className='profile-form'>
           <div className='flex-sb'>
-            <label for='username'>Name</label>
+            <label
+              htmlFor='username'
+              className='block text-sm font-medium leading-6 text-gray-900'
+            >
+              Name
+            </label>
             <input
               type='text'
               name='username'

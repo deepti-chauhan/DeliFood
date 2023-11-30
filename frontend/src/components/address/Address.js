@@ -5,13 +5,14 @@ import Modal from '../shared/Modal'
 import AddressForm from './AddressForm'
 import Payment from './Payment'
 import './style/address.css'
+import env from 'react-dotenv'
 
 const Address = () => {
   const [showModal, setShowModal] = useState(false)
   const [address, setAddress] = useState([])
   const [selectedAddress, setSelectedAddress] = useState([])
   const [payment, setPayments] = useState(false)
-  const { email } = JSON.parse(localStorage.getItem('user'))
+  const token = localStorage.getItem('token')
 
   const addAdressHandler = (
     <div>
@@ -29,14 +30,14 @@ const Address = () => {
     setShowModal(false)
   }
 
-  //@ post api
+  //@ get api
   const fetchAddress = async () => {
     try {
-      return await fetch('http://localhost:5000/api/alladdress', {
-        method: 'POST',
-        body: JSON.stringify({ email: email }),
+      return await fetch(`${env.BASE_URL}/api/alladdress`, {
+        method: 'GET',
         headers: {
           'Content-type': 'application/json',
+          Authorization: `${token}`,
         },
       })
         .then((res) => res.json())
@@ -60,9 +61,14 @@ const Address = () => {
             <h3>Choose a delivery address</h3>
             <div className='delivery-address-container'>
               {address.map((d) => (
-                <div key={d._id} className='delivery-address-box solid-box flex'>
+                <div
+                  key={d._id}
+                  className='delivery-address-box solid-box flex'
+                >
                   <div className='flex'>
                     <FontAwesomeIcon icon={faLocationDot} />
+                    
+
                     {d.addressType}
                   </div>
                   <p>

@@ -16,21 +16,14 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
 
   const navigate = useNavigate()
-  const location = useLocation()
-
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
 
-  const addUserToLocalStorage = ({ user, token }) => {
-    localStorage.setItem('user', JSON.stringify(user))
-    localStorage.setItem('token', token)
-  }
-
   const registerUser = async (currentUser) => {
-  
     try {
       const response = await fetch(`${env.BASE_URL}/api/user/register`, {
         method: 'POST',
@@ -39,14 +32,15 @@ const Signup = () => {
           'Content-type': 'application/json',
         },
       })
-      const { user, token } = await response.json()
-      addUserToLocalStorage({ user, token })
-      console.log(user, token)
-      if (user) {
-        navigate(location.state?.from?.pathname || '/signin')
-        console.log(location.state?.from?.pathname)
-        window.location.reload()
+
+      if (response.ok) {
+        navigate('/signin')
       }
+
+      const {message} = await response.json()
+      console.log(message)
+
+
     } catch (error) {
       console.log(error)
     }
@@ -57,12 +51,8 @@ const Signup = () => {
   }
 
   const onSubmit = (e) => {
-    // e.preventDefault()
     const { username, email, password } = userData
-    // console.log(`username : ${userData.username}`)
-    console.log(username)
     const currentUser = { username, email, password }
-
     registerUser(currentUser)
   }
 
@@ -95,6 +85,11 @@ const Signup = () => {
               </div>
               <div className='form-control'>
                 <label className='labelline'>Email</label>
+                <p className='error'>
+                  {errors.email && (
+                    <p className='errorMsg'>{errors.email.message}</p>
+                  )}
+                </p>
                 <input
                   className='input'
                   type='text'
@@ -109,14 +104,14 @@ const Signup = () => {
                   value={userData.email}
                   onChange={onHandleChange}
                 />
-                <p className='error'>
-                  {errors.email && (
-                    <p className='errorMsg'>{errors.email.message}</p>
-                  )}
-                </p>
               </div>
-              <div className='form-control'>
+              <div className='form-control' id='password-input'>
                 <label className='labelline'>Password</label>
+                <div className='error'>
+                  {errors.password && (
+                    <p className='errorMsg'>{errors.password.message}</p>
+                  )}
+                </div>
                 <input
                   className='input'
                   type={showPassword ? 'text' : 'password'}
@@ -130,13 +125,10 @@ const Signup = () => {
                   })}
                   onChange={onHandleChange}
                 />
-                  <FaEye onClick={() => setShowPassword(!showPassword)} />
-                <div className='error'>
-                  {errors.password && (
-                    <p className='errorMsg'>{errors.password.message}</p>
-                  )}
-                </div>
+                <div className='password-eye'>
 
+                <FaEye onClick={() => setShowPassword(!showPassword)} />
+                </div>
               </div>
               <div className='form-control'>
                 <button

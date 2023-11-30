@@ -3,7 +3,8 @@ import Layout from '../components/routes/Layout'
 import Cart from '../pages/Cart'
 import Checkout from '../pages/Checkout'
 import Profile from '../pages/Profile'
-import Payments from '../pages/Payments'
+import Success from '../pages/Success'
+import Cancel from '../pages/Cancel'
 
 const privateRoutes = () => {
   return {
@@ -12,7 +13,8 @@ const privateRoutes = () => {
       { path: '/cart', element: <Cart /> },
       { path: '/cart/checkout', element: <Checkout /> },
       { path: '/profile', element: <Profile /> },
-      { path: '/payments', element: <Payments /> },
+      { path: '/success', element: <Success /> },
+      { path: '/cancel', element: <Cancel /> },
       { path: '*', element: <Navigate to='/' replace /> },
     ],
   }

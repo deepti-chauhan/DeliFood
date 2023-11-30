@@ -2,9 +2,9 @@ import React from 'react'
 import Footer from '../components/shared/Footer'
 import AboutHeader from '../components/about/AboutHeader'
 import AboutMain from '../components/about/AboutMain'
-import AboutImages from '../components/about/AboutImages'
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa'
-import AboutMain2 from '../components/about/AboutMain2'
+import Popular from '../components/shared/Popular'
+import Servicecard from '../components/shared/ServiceCard'
 
 const About = () => {
   const scrollToBottom = () => {
@@ -22,8 +22,9 @@ const About = () => {
   return (
     <div>
       <AboutHeader />
+       <Popular />
       <AboutMain />
-      {/* <AboutImages /> */}
+      <Servicecard />
       <div className='about-scroll-down flex-sb'>
         <div className='flex-center' onClick={scrollToTop}>
           <FaArrowUp />

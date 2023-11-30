@@ -7,8 +7,8 @@ const SignInButton = () => {
   return (
     <Link to='/signin'>
       <button className='btn btn-primary'>
-        Sign in
-        <FontAwesomeIcon icon={faRightToBracket} />    </button>
+        Sign in{' '}
+        <FontAwesomeIcon icon={faRightToBracket} /></button>
     </Link>
   )
 }

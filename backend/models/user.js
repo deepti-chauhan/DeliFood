@@ -19,6 +19,14 @@ const addressSchema = new mongoose.Schema({
   postalCode: {
     type: String,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
 })
 
 const userSchema = new mongoose.Schema({
