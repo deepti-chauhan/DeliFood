@@ -1,17 +1,21 @@
+import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useRef, useState } from 'react'
-import Modal from '../shared/Modal'
+import {
+  faLocationDot,
+  faArrowCircleLeft,
+} from '@fortawesome/free-solid-svg-icons'
 import AddressForm from './AddressForm'
 import Payment from './Payment'
-import './style/address.css'
+import Modal from '../shared/Modal'
 import env from 'react-dotenv'
+import './style/address.css'
 
-const Address = () => {
+const Address = ({ setIsCheckout }) => {
   const [showModal, setShowModal] = useState(false)
   const [address, setAddress] = useState([])
   const [selectedAddress, setSelectedAddress] = useState([])
   const [payment, setPayments] = useState(false)
+
   const token = localStorage.getItem('token')
 
   const addAdressHandler = (
@@ -51,14 +55,21 @@ const Address = () => {
     fetchAddress()
   }, [])
 
-  console.log(address)
-
   return (
-    <div>
+    <>
       <div>
         {!payment && (
-          <div>
-            <h3>Choose a delivery address</h3>
+          <div className='shipping-address-container'>
+            <h3>SHIPPING ADDRESS <FontAwesomeIcon icon={faLocationDot} /></h3>
+            <button
+              className='btn back-to-cart-btn'
+              onClick={() => {
+                setIsCheckout(false)
+              }}
+            >
+              <FontAwesomeIcon icon={faArrowCircleLeft} /> back to cart
+            </button>
+
             <div className='delivery-address-container'>
               {address.map((d) => (
                 <div
@@ -67,7 +78,6 @@ const Address = () => {
                 >
                   <div className='flex'>
                     <FontAwesomeIcon icon={faLocationDot} />
-                    
 
                     {d.addressType}
                   </div>
@@ -112,7 +122,7 @@ const Address = () => {
           />
         )}
       </div>
-    </div>
+    </>
   )
 }
 

@@ -1,16 +1,15 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+
+import {  useNavigate } from 'react-router-dom'
 import '../home/styles/HomeHeader.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 const HomeHeader = () => {
-  const token = localStorage.getItem('token')
   const navigate = useNavigate()
   return (
-    <div>
+    <>
       <div className='img-cnt container flex-center'>
-        <div className='header-container-1'>
+        <div className='header-container-1 flex-center'>
           <div>
             <h1>
               Fresh & Healthy <br />
@@ -32,9 +31,9 @@ const HomeHeader = () => {
           </button>
         </div>
         {/* <img className='header-icon' src={`${env.BASE_URL}/img/route.png`} width='450' /> */}
-        <img className='header-icon' src='./assets/route.png' width='450' />
+        {/* <img className='header-icon' src='./assets/route.png' width='450' /> */}
       </div>
-    </div>
+    </>
   )
 }
 

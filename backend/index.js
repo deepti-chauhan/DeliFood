@@ -33,7 +33,7 @@ app.use(express.static('public'))
 
 //checkout api
 app.post('/api/create-checkout-session', async (req, res) => {
-  const { products } = req.body
+  const { products, total } = req.body
   console.log(products)
 
   const lineItems = products.map((product) => ({
@@ -42,9 +42,10 @@ app.post('/api/create-checkout-session', async (req, res) => {
       product_data: {
         name: product.name,
       },
-      unit_amount: parseInt(product.price) * 100,
+      unit_amount: parseInt(product.price) * 1000,
     },
     quantity: product.quantity,
+    // total : total
   }))
 
   const session = await stripe.checkout.sessions.create({
