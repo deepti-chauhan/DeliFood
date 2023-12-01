@@ -1,14 +1,16 @@
-# DeLiFooD - Food Delivery Application
+<a name="readme-top"></a>
 
+
+# DeLiFooD - Food Delivery Application
 Welcome to DeliFood! DeliFood is a robust full-stack MERN (MongoDB, Express.js, React.js, Node.js) food delivery application that allows users to browse a variety of food options, add items to their cart, and place orders. The application includes a backend API for managing menu items and user orders.
 
 
 ## Table of Contents
 
-- Features
+-  <a href="#Features">Featurest</a>
 - Prerequisites
 - Installation
-- usage
+- Usage
 - Folder Structure
 - Technologies used
 - Contributing
@@ -69,40 +71,47 @@ Run the following commands in your terminal
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/food-delivery-app.git
+git clone https://github.com/deepti-chauhan/DeliFood.git
 ```
 2. Navigate to the project directory:
 ```bash
-cd food-delivery-app
+ cd DeliFood
 ```
    
 4. Install server dependencies:
 ```bash
-cd .\my-food-delivery-app\backend
+cd  backend
 npm install
 ```
 
 4. Install client dependencies:
 ```bash
-cd .\my-food-delivery-app\frontend
+cd frontend
 npm install
 ```
 
-5. Set up the MongoDB database:
-   - Create a .env file in the backend directory and provide your MongoDB connection URI:
+5. Set up the MongoDB database and Stripe:
+   - Create a .env file in the backend directory and provide your env variables:
+   - you will get your stripe secret key from your stripe account (follow for instructions)
 ```bash
-MONGODB_URI=your-mongodb-uri
+MONGO_URI=your-mongodb-uri
+PORT=5000
+BASE_URL=http://localhost:3000
+JWT_SECRET_KEY=your_secret_key
+STRIPE_KEY=your_secret_stripe_key
 ```
 
 ## Usage
 1. Start frontend
    - The client application will open in your default web browser at http://localhost:3000.
 ```bash
+cd frontend
 npm start
 ```
 1. Start backend
    - The server will run on http://localhost:5000.
 ```bash
+cd backend
 npm start
 ```
 
@@ -117,9 +126,15 @@ The project structure is organized as follows:
 
 ### Frontend 
 - React.js
-- ContextApi (for state management)
+- Redux (for state management)
 - FetchApi (for API request)
 - CSS, SCSS (for styling)
+- React sweetalert2 ( for beautiful, responsive alerts)
+- React react-loader-spinner (for loading effects at API calls)
+- React react-loading-skeleton (for skeleton loading effects)
+- React react-toastify (for notifications )
+
+  
 ### Backend
 - Node.js
 - Express.js
@@ -131,12 +146,8 @@ The project structure is organized as follows:
 ### Additional Tools :
 -   JWT for authentication
 -   bcrypt for password hashing
+-   UUID for generating unique ids
 
-### Testing
-
-1. Run the `npm test` for a simple test.
-2. Run `npm run test: watch` for watch tests.
-3. Run `npm run test: coverage` for test coverage. This will generate a `coverage` folder. Open the `index.html` file in this folder to check the results.
 
 ## Deploying
 
