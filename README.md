@@ -7,7 +7,7 @@ Welcome to DeliFood! DeliFood is a robust full-stack MERN (MongoDB, Express.js, 
 
 ## Table of Contents
 
--  <a href="#Features">Featurest</a>
+-  <a href="#Features">Features</a>
 - Prerequisites
 - Installation
 - Usage
@@ -16,7 +16,7 @@ Welcome to DeliFood! DeliFood is a robust full-stack MERN (MongoDB, Express.js, 
 - Contributing
 - License
 
-## Feature  
+## Features  
 
 - User authentication
 
