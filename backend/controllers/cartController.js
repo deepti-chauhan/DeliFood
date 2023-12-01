@@ -30,7 +30,8 @@ const addItem = async (req, res) => {
       cart.items.push({ productId, quantity: quantity || 1 })
     }
 
-    cart.totalAmount += product.price * (quantity || 1)
+    let updatedTotal = cart.totalAmount + product.price * (quantity || 1)
+    cart.totalAmount = updatedTotal.toFixed(2)
     const updatedQty = existingItem ? existingItem.quantity : 1
     await cart.save()
 
@@ -99,17 +100,15 @@ const removeItem = async (req, res) => {
     let existingItem = cart.items.find(
       (item) => item.productId.toString() === productId.toString()
     )
-    cart.totalAmount -= product.price * (existingItem.quantity || 1)
+
+    updatedTotal =  cart.totalAmount - product.price * (existingItem.quantity || 1)
+    cart.totalAmount = updatedTotal.toFixed(2)
 
     cart.items = cart.items.filter(
       (item) => item.productId.toString() !== productId
     )
 
-    // if (cart.items.length === 0) {
-    //   // await Cart.deleteOne({ email: email })
-    //   res.json({ cartItem : [] })
-    // } else {
-    // }
+   
       await cart.save()
       res.json(cart)
   } catch (error) {
@@ -143,7 +142,6 @@ const decreaseItemCount = async (req, res) => {
     )
 
     if (existingItem.quantity === 1) {
-      // console.log("product id : " + productId)
 
       cart.items = cart.items.filter(
         (item) => item.productId.toString() !== productId.toString()
@@ -153,16 +151,9 @@ const decreaseItemCount = async (req, res) => {
     }
 
     let updatedQty
-    // if (cart.items.length === 0) {
-    //   // await Cart.deleteOne({ email: email })
-    //   await cart.save()
-    //   res.json({ cartItem : []})
-    // } else {
-    // }
-
 
       cart.totalAmount -= product.price
-      cart.totalAmount = Math.max(0, cart.totalAmount)
+      cart.totalAmount = Math.max(0, cart.totalAmount).toFixed(2)
       updatedQty = existingItem ? existingItem.quantity : 0
       await cart.save()
       res.status(200).json(cart)
