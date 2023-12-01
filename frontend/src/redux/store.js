@@ -1,9 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit'
-import cartSlice from './slice/cartSlice'
+import { createStore, combineReducers, applyMiddleware } from 'react-redux'
+import thunk from 'redux-thunk'
+import { composeWithDevTools } from '@redux-devtools/extension'
 
-// create store
-export const store = configureStore({
-  reducer: {
-    allCart: cartSlice,
-  },
+
+const reducers = combineReducers({
+
 })
+
+const middleware = [thunk]
+
+const store = createStore(
+    reducers, 
+    composeWithDevTools(applyMiddleware(...middleware))
+)
+
+
+export default store

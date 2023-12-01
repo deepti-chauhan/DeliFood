@@ -11,7 +11,8 @@ const AboutMain = () => {
     <>
       <div className='about-content-4 flex-center'>
         <div>
-          <img src={`${env.BASE_URL}/img/img-1.webp`} width='400' />
+          {/* <img src={`${env.BASE_URL}/img/img-1.webp`} width='400' /> */}
+          <img src={`./assets/about_assets/img-1.webp`} width='400' />
           <span className='flex-center'>
             <FontAwesomeIcon icon={faBurger} className='about-icon' />
 
@@ -27,7 +28,9 @@ const AboutMain = () => {
               justo et ipsum.
             </p>
           </span>
-          <img src={`${env.BASE_URL}/img/img-7.webp`} width='400' />
+          {/* <img src={`${env.BASE_URL}/img/img-7.webp`} width='400' /> */}
+          <img src={`./assets/about_assets/img-7.webp`} width='400' />
+
           <span className='flex-center'>
             <FontAwesomeIcon icon={faSeedling} className='about-icon' />
 
@@ -43,7 +46,9 @@ const AboutMain = () => {
               justo et ipsum.
             </p>
           </span>
-          <img src={`${env.BASE_URL}/img/img-8.webp`} width='400' />
+          {/* <img src={`${env.BASE_URL}/img/img-8.webp`} width='400' /> */}
+          <img src={`./assets/about_assets/img-8.webp`} width='400' />
+
           <span className='flex-center'>
             <FontAwesomeIcon icon={faPizzaSlice} className='about-icon' />
             <p>

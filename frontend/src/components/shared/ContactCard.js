@@ -20,7 +20,8 @@ const ContactCard = () => {
         <div className='service-wrapper flex-sb'>
           <div className='service-container-box'>
             <div className='flex-center'>
-              <img src={`${env.BASE_URL}/img/email.png`} />
+              {/* <img src={`${env.BASE_URL}/img/email.png`} /> */}
+              <img src={`./assets/email.png`} />
             </div>
             <h3>Contact Us</h3>
             <p>
@@ -33,7 +34,8 @@ const ContactCard = () => {
           </div>
           <div className='service-container-box'>
             <div className='flex-center'>
-              <img src={`${env.BASE_URL}/img/address.png`} />
+              {/* <img src={`${env.BASE_URL}/img/address.png`} /> */}
+              <img src={`./assets/address.png`} />
             </div>
             <h3>Visit Us</h3>
             <p>
@@ -49,7 +51,8 @@ const ContactCard = () => {
           </div>
           <div className='service-container-box'>
             <div className='flex-center'>
-              <img src={`${env.BASE_URL}/img/phone.png`} />
+              {/* <img src={`${env.BASE_URL}/img/phone.png`} /> */}
+              <img src={`./assets/phone.png`} />
             </div>
             <h3>Call Us</h3>
             <p>

@@ -16,7 +16,8 @@ const Service = () => {
       <div className='service-wrapper flex-sb'>
         <div className='service-container-box'>
           <div className='flex-center'>
-            <img src={`${env.BASE_URL}/img/checklist.png`} />
+            {/* <img src={`${env.BASE_URL}/img/checklist.png`} /> */}
+            <img src='../assets/checklist.png'/>
           </div>
           <h3>Easy to Order</h3>
           <p>
@@ -28,7 +29,8 @@ const Service = () => {
         </div>
         <div className='service-container-box'>
           <div className='flex-center'>
-            <img src={`${env.BASE_URL}/img/map.png`} />
+            {/* <img src={`${env.BASE_URL}/img/map.png`} /> */}
+            <img src='../assets/map.png'/>
           </div>
           <h3>Live Order</h3>
           <p>
@@ -40,7 +42,8 @@ const Service = () => {
         </div>
         <div className='service-container-box'>
           <div className='flex-center'>
-            <img src={`${env.BASE_URL}/img/pizza (1).png`} />
+            {/* <img src={`${env.BASE_URL}/img/pizza (1).png`} /> */}
+            <img src='../assets/pizza (1).png'/>
           </div>
           <h3>Best Quality</h3>
           <p>
