@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Footer from '../components/shared/Footer'
 import env from 'react-dotenv'
@@ -12,8 +12,10 @@ const initialState = {
 }
 
 const Signup = () => {
+
   const [userData, setUserData] = useState(initialState)
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
   
@@ -24,6 +26,7 @@ const Signup = () => {
   } = useForm()
 
   const registerUser = async (currentUser) => {
+
     try {
       const response = await fetch(`${env.BASE_URL}/api/user/register`, {
         method: 'POST',
@@ -37,7 +40,7 @@ const Signup = () => {
         navigate('/signin')
       }
 
-      const {message} = await response.json()
+      const { message }  = await response.json()
       console.log(message)
 
 
