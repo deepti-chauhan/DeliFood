@@ -6,12 +6,18 @@ import { useEffect } from 'react'
 import { fetchCart } from '../../cartStore/cartActions/cartSlice'
 
 const CartButton = () => {
+  const token = localStorage.getItem('token')
   const items = useSelector((state) => state.cart.items)
   const dispatch = useDispatch()
-  const cartItemCount = items.reduce((acc, item) => acc + item.quantity, 0)
+  let cartItemCount
 
+  if (!token) {
+    cartItemCount = 0
+  } else {
+    cartItemCount = items.reduce((acc, item) => acc + item.quantity, 0)
+  }
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(fetchCart())
   }, [])
   return (
