@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import env from 'react-dotenv'
 
+
 const token = localStorage.getItem('token')
 
 export const fetchCart = createAsyncThunk('fetchCart', async () => {
-    console.log("cart api....")
+  console.log("cart api....")
   const response = await fetch(`${env.BASE_URL}/api/cart/items`, {
     method: 'GET',
     headers: {
@@ -12,7 +13,7 @@ export const fetchCart = createAsyncThunk('fetchCart', async () => {
       Authorization: `${token}`,
     },
   })
-
+  
   const data = await response.json()
   console.log("cart items from api : ", data)
   return data
@@ -21,6 +22,7 @@ export const fetchCart = createAsyncThunk('fetchCart', async () => {
 export const addItem = createAsyncThunk(
   'addItem',
   async (apidata, { getState, dispatch }) => {
+    console.log('add api call..')
       
 
     const { productId, quantity } = apidata
@@ -42,21 +44,20 @@ export const addItem = createAsyncThunk(
       }),
     })
 
+    const data = await response.json()
+    console.log("add itm data")
+    
     if(response.ok) {
-        dispatch(fetchCart)
+      dispatch(fetchCart())
     }
     else{
-        console.log("error in adding item")
+      console.log("error in adding item")
     }
-
-
-    // const data = await response.json()
-    // console.log('item added to cart')
-    // return data
+    return data
   }
-)
-
-export const removeItem = createAsyncThunk('removeItem', async (productId) => {
+  )
+  
+export const removeItem = createAsyncThunk('removeItem', async (productId, { getState, dispatch }) => {
     console.log("product id : " , productId)
   const response = await fetch(
     `${env.BASE_URL}/api/cart/removeItemByOne?productId=${productId}`,
@@ -67,17 +68,23 @@ export const removeItem = createAsyncThunk('removeItem', async (productId) => {
         Authorization: `${token}`,
       },
     }
-  )
-
-  const data = await response.json()
-  return data
-})
+    )
+    
+    const data = await response.json()
+    if(response.ok) {
+      dispatch(fetchCart())
+    }
+    else{
+      console.log("error in adding item")
+    }
+    return data
+  })
 
 export const removeFullitem = createAsyncThunk(
   'removeFullitem',
-  async (productId) => {
+  async (productId, { getState, dispatch }) => {
     const response = await fetch(
-      `${env.BASE_URL}/api/cart/removeFullItem/${productId}`,
+      `${env.BASE_URL}/api/cart/removeItem?productId=${productId}`,
       {
         method: 'DELETE',
         headers: {
@@ -88,6 +95,12 @@ export const removeFullitem = createAsyncThunk(
     )
 
     const data = response.json()
+    if(response.ok) {
+      dispatch(fetchCart())
+    }
+    else{
+      console.log("error in adding item")
+    }
     return data
   }
 )
@@ -113,7 +126,25 @@ const cartSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+
+    addOrUpdateItem: (state, action) => {
+      const newItem = action.payload;
+      const existingItem = state.items.find(item => item.id === newItem.id);
+
+      if (existingItem) {
+        // Update quantity if item already exists in the cart
+        existingItem.quantity += newItem.quantity;
+      } else {
+        // Add new item to the cart
+        state.items.push(newItem);
+      }
+
+      // Recalculate totalAmount
+      state.totalAmount = state.items.reduce((total, item) => total + item.price * item.quantity, 0);
+    },
+    
+  },
 
   extraReducers: (builder) => {
     builder
@@ -132,12 +163,12 @@ const cartSlice = createSlice({
       })
       .addCase(addItem.fulfilled, (state, action) => {
         // state.items = action.payload
-        // state.totalAmount = action.payload.totalAmount
+        state.totalAmount = action.payload.totalAmount
         state.loading = false
       })
       .addCase(removeItem.fulfilled, (state, action) => {
         // state.items = action.payload
-        // state.totalAmount = action.payload.totalAmount
+        state.totalAmount = action.payload.totalAmount
         state.loading = false
       })
       .addCase(removeFullitem.fulfilled, (state, action) => {
@@ -147,10 +178,11 @@ const cartSlice = createSlice({
       })
       .addCase(clearCart.fulfilled, (state, action) => {
         // state.items = action.payload
-        // state.totalAmount = action.payload.totalAmount
+        state.totalAmount = action.payload.totalAmount
         state.loading = false
       })
   },
 })
 
+export const { addOrUpdateItem } = cartSlice.actions;
 export default cartSlice.reducer

@@ -330,7 +330,7 @@ body {
   min-height: 90vh;
   max-width: auto;
   flex-direction: column;
-  animation: slide-down 500ms ease-in-out forwards;
+  /* animation: slide-down 500ms ease-in-out forwards; */
 }
 
 .cart-wrapper {
@@ -436,11 +436,11 @@ body {
   /* border: 2px solid rgb(170, 163, 163); */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   /* animation: slide-down 1000ms ease-in forwards; */
-  transition: transform 10ms ease-in-out;
+  /* transition: transform 10ms ease-in-out; */
 }
-.cart-item-container:hover {
+/* .cart-item-container:hover {
   transform: scale(1.1);
-}
+} */
 
 .cart-item-counter {
   /* background-color: aqua; */

@@ -16,18 +16,13 @@ const Menu = () => {
   const fetchApiData = async () => {
     try {
       const response = await fetch(`${env.BASE_URL}/api/dishes`)
-
       if (!response.ok) {
-        // Handle non-successful responses (e.g., 404 Not Found, 500 Internal Server Error)
         throw new Error(`Failed to fetch data. Status: ${response.status}`)
       }
-
       const data = await response.json()
       setData(Object.values(data))
     } catch (error) {
-      // Handle fetch or parsing errors
       console.error('Error fetching data:', error.message)
-      // You can also show a user-friendly error message to the user if needed
     } finally {
       setLoader(false)
     }
@@ -36,6 +31,25 @@ const Menu = () => {
   useEffect(() => {
     fetchApiData()
   }, [])
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // filter feature //
 
   const getFoodItems = (input, category) => {
     let foodItem = data
@@ -66,10 +80,10 @@ const Menu = () => {
     <>
       <div>
         <div className='menu-header flex-center'>
-          <p>
-           
-          </p>
-          <h2 className='hdr-text'><FontAwesomeIcon icon={faUtensils} /> Our Menu </h2> 
+          <p></p>
+          <h2 className='hdr-text'>
+            <FontAwesomeIcon icon={faUtensils} /> Our Menu{' '}
+          </h2>
           <div className='search-bar flex-center'>
             <div className='search-input flex-center'>
               <input

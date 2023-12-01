@@ -1,6 +1,7 @@
 {
     "version": 2,
     "name": "food-delivery",
+    "public":true,
     "builds": [
        { 
          "src": "index.js", 

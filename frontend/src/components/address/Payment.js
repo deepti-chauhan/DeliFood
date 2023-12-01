@@ -6,11 +6,16 @@ import './style/payment.css'
 import { loadStripe } from '@stripe/stripe-js'
 import env from 'react-dotenv'
 import Swal from 'sweetalert2'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { fetchCart } from '../../cartStore/cartActions/cartSlice'
 
 const Payment = ({ selectedAddress, setPayments }) => {
   const cartCtx = useGlobalCartContext()
   const cartTotal = cartCtx.totalAmount.toFixed(2)
   const token = localStorage.getItem('token')
+
+  const cart = useSelector((state) => state.cart)
 
   localStorage.setItem('addressId', selectedAddress.addressId)
 
@@ -26,8 +31,8 @@ const Payment = ({ selectedAddress, setPayments }) => {
       )
 
       const body = {
-        products: cartCtx.items,
-        total: cartTotal,
+        products: cart.items,
+        total: cart.totalAmount,
       }
 
       const headers = {
@@ -123,7 +128,7 @@ const Payment = ({ selectedAddress, setPayments }) => {
             </div>
             <div class='div4'>
               <button className='btn payment-btn' onClick={paymentHandler}>
-                PAY Rs {cartTotal}
+                PAY Rs {cart.totalAmount}
               </button>
             </div>
           </div>

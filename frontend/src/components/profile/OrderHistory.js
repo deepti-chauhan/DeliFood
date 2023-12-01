@@ -60,7 +60,8 @@ const OrderHistory = () => {
 
         {!isLoading && orders.length === 0 && (
           <div>
-            <img src={`${env.BASE_URL}/img/empty-box.png`} width={150} />
+            {/* <img src={`${env.BASE_URL}/img/empty-box.png`} width={150} /> */}
+            <img src={`./assets/empty-box.png`} width={150} />
             <p>No order placed yet</p>
           </div>
         )}

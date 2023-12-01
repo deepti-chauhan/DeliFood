@@ -9,67 +9,35 @@ import {
   faHeart,
   faShareNodes,
 } from '@fortawesome/free-solid-svg-icons'
+import { addItem, removeItem } from '../../cartStore/cartActions/cartSlice'
+import { useDispatch } from 'react-redux'
 
 export const Card = ({ itemKey, filterItems }) => {
   const cartContext = useGlobalCartContext()
   const price = `${filterItems.price.toFixed(2)}`
   const [qty, setQty] = useState(0)
   const token = localStorage.getItem('token')
+  const dispatch = useDispatch()
 
-  const addItemtoCartApi = async () => {
-    try {
-      await fetch(`${env.BASE_URL}/api/cart/addItem`, {
-        method: 'POST',
-        body: JSON.stringify({
-          productId: filterItems.productId,
-          quantity: 1,
-        }),
-        headers: {
-          'Content-type': 'application/json',
-          Authorization: `${token}`,
-        },
-      })
-    } catch (e) {
-      console.log(e)
+
+
+
+  const addToCartHandler = async () => {
+    const apidata = {
+      productId : filterItems.productId,
+      quantity : 1
     }
-  }
-
-  const removeItemByOneFromCartApi = async () => {
-    try {
-      await fetch(
-        `${env.BASE_URL}/api/cart/removeItemByOne?productId=${filterItems.productId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: `${token}`,
-          },
-        }
-      )
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  const decreaseItemQuantity = () => {
-    setQty(qty - 1)
-    cartContext.removeItem(filterItems.productId)
-    removeItemByOneFromCartApi()
-  }
-
-  const addItemtoCart = () => {
+   dispatch(addItem(apidata))
     setQty(qty + 1)
-    cartContext.addItem({
-      productId: filterItems.productId,
-      name: filterItems.name,
-      quantity: 1,
-      price: filterItems.price,
-      image: filterItems.img,
-    })
-
-    addItemtoCartApi()
-
-    toast.success('item added successfully')
+    
+    
+  }
+  
+  const removeFromCartHandler = async () => {
+    
+   dispatch(removeItem(filterItems.productId))
+    setQty(qty - 1)
+    
   }
 
   return (
@@ -99,19 +67,19 @@ export const Card = ({ itemKey, filterItems }) => {
         </div>
         <div className='flex-center cart-add-item'>
           {qty === 0 ? (
-            <button className='btn menu-item-btn' onClick={addItemtoCart}>
+            <button className='btn menu-item-btn' onClick={addToCartHandler}>
               ADD TO CART
             </button>
           ) : (
             <div className='menu-item-btn flex-sa'>
-              <button className='btn item-counter-btn' onClick={addItemtoCart}>
+              <button className='btn item-counter-btn' onClick={addToCartHandler}>
                 {' '}
                 +{' '}
               </button>
               <p>{qty}</p>
               <button
                 className='btn item-counter-btn'
-                onClick={decreaseItemQuantity}
+                onClick={removeFromCartHandler}
               >
                 {' '}
                 -{' '}

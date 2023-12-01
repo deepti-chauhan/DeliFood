@@ -10,7 +10,7 @@ const addItem = async (req, res) => {
   try {
     // Check if the product exists
     const product = await Item.findOne({ productId: productId })
-    console.log(product)
+    console.log("product to add" ,product)
     if (!product) {
       return res.status(404).json({ message: 'Product not found' })
     }
@@ -34,7 +34,7 @@ const addItem = async (req, res) => {
     const updatedQty = existingItem ? existingItem.quantity : 1
     await cart.save()
 
-    return res.status(200).json(cart)
+    return res.status(200).json({qty : updatedQty})
   } catch (error) {
     console.log(error)
     return res.status(500).send({ message: 'Internal Server Error !!' })
@@ -50,7 +50,7 @@ const getItems = async (req, res) => {
   try {
     const cart = await Cart.findOne({ email })
     if (!cart) {
-      return res.status(404).send({ message: 'Cart not Found' })
+      return res.status(404).send({ cartItem : [] })
     }
 
     console.log(cart)
@@ -68,7 +68,6 @@ const getItems = async (req, res) => {
     }))
 
     res.json({
-      cartUser: email,
       cartItem: itemsWithQuantity,
       cartTotal: cart.totalAmount.toFixed(2),
     })
@@ -89,7 +88,7 @@ const removeItem = async (req, res) => {
     const cart = await Cart.findOne({ email })
 
     if (!cart) {
-      return res.status(404).json({ message: 'cart not found!' })
+      return res.status(404).json({ cartItem : [] })
     }
     const product = await Item.findOne({ productId: productId })
 
@@ -106,13 +105,13 @@ const removeItem = async (req, res) => {
       (item) => item.productId.toString() !== productId
     )
 
-    if (cart.items.length === 0) {
-      await Cart.deleteOne({ email: email })
-      res.json({ message: 'cart is empty' })
-    } else {
+    // if (cart.items.length === 0) {
+    //   // await Cart.deleteOne({ email: email })
+    //   res.json({ cartItem : [] })
+    // } else {
+    // }
       await cart.save()
       res.json(cart)
-    }
   } catch (error) {
     console.log(error)
     res.status(500).json({ messgae: 'Internal Server Error' })
@@ -154,16 +153,21 @@ const decreaseItemCount = async (req, res) => {
     }
 
     let updatedQty
-    if (cart.items.length === 0) {
-      await Cart.deleteOne({ email: email })
-      res.json({ message : 'cart is empty'})
-    } else {
+    // if (cart.items.length === 0) {
+    //   // await Cart.deleteOne({ email: email })
+    //   await cart.save()
+    //   res.json({ cartItem : []})
+    // } else {
+    // }
+
+
       cart.totalAmount -= product.price
       cart.totalAmount = Math.max(0, cart.totalAmount)
-      // updatedQty = existingItem ? existingItem.quantity : 0
+      updatedQty = existingItem ? existingItem.quantity : 0
       await cart.save()
       res.status(200).json(cart)
-    }
+
+
   } catch (error) {
     console.log(error)
     return res.status(500).json({ message: 'Internal Server error!!' })
