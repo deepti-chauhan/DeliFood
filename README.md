@@ -1,70 +1,187 @@
-# Getting Started with Create React App
+<a name="readme-top"></a>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# DeLiFooD - Food Delivery Application
+Welcome to DeliFood! DeliFood is a robust full-stack MERN (MongoDB, Express.js, React.js, Node.js) food delivery application that allows users to browse a variety of food options, add items to their cart, and place orders. The application includes a backend API for managing menu items and user orders.
 
-In the project directory, you can run:
 
-### `npm start`
+## Table of Contents
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-  <a href="#Features">Features</a>
+-  <a href="#Prerequisites">Prerequisites</a>
+-  <a href="#Installation">Installation</a>
+-  <a href="#Usage">Usage</a>
+-  <a href="#Folder-Structure">Folder Structure</a>
+-  <a href="#Technologies-used">Technologies used</a>
+-  <a href="#Contributing">Contributing</a>
+-  <a href="#License">License</a>
+  
+## Features  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- User authentication
 
-### `npm test`
+  * DeliFood provides secure user authentication. Users can sign up, log in, and manage their profiles.
+  * Authentication is handled using JSON Web Tokens (JWT) for enhanced security.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Search for Food
+  
+  * Effortlessly search for your favorite food items using the search functionality.
+  * DeliFood makes it easy to discover new dishes or quickly find your go-to meals.
 
-### `npm run build`
+- Add to Cart and Total Price
+  
+  * Users can add items to their cart, and the application dynamically computes the total price.
+  * Each food item's details are displayed, providing transparency during the ordering process.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Saved Order History
+  
+  * Users can view their saved order history, allowing them to track past orders, re-order favorite meals, and easily reference their food preferences
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Save and Edit Delivery Addresses
+  
+  * DeliFood allows users to save and edit multiple delivery addresses for added convenience.
+  * This feature is especially useful for users who frequently order from different locations
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Skeleton Screen Implementation
+  
+  * DeliFood enhances the user experience by implementing skeleton screens, providing users with visual feedback during the loading process.
+  * This creates a smoother transition between screens.
 
-### `npm run eject`
+- Modify User Details (in Progress)
+  
+  * Easily modify user details such as name, email, and password.
+  * DeliFood prioritizes user control and personalization.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Easy-Quick Checkout with Stripe
+  
+  * The application streamlines the checkout process with Stripe integration, providing users with a secure and quick payment experience.
+  * Say goodbye to long checkout processes!
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Prerequisites
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Before you begin, ensure you have the following installed on your machine:
+- Node.js
+- MongoDB
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Learn More
+## Installation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Run the following commands in your terminal
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+1. Clone the repository:
+```bash
+git clone https://github.com/deepti-chauhan/DeliFood.git
+```
+2. Navigate to the project directory:
+```bash
+ cd DeliFood
+```
+   
+4. Install server dependencies:
+```bash
+cd  backend
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. Install client dependencies:
+```bash
+cd frontend
+npm install
+```
 
-### Analyzing the Bundle Size
+5. Set up the MongoDB database and Stripe:
+   - Create a .env file in the backend directory and provide your env variables:
+   - you will get your stripe secret key from your stripe account (follow for instructions)
+```bash
+MONGO_URI=your-mongodb-uri
+PORT=5000
+BASE_URL=http://localhost:3000
+JWT_SECRET_KEY=your_secret_key
+STRIPE_KEY=your_secret_stripe_key
+```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Usage
+1. Start frontend
+   - The client application will open in your default web browser at http://localhost:3000.
+```bash
+cd frontend
+npm start
+```
+1. Start backend
+   - The server will run on http://localhost:5000.
+```bash
+cd backend
+npm start
+```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Making a Progressive Web App
+## Folder Structure 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The project structure is organized as follows:
 
-### Advanced Configuration
+- /frontend: React.js frontend application
+- /backend: Node.js and Express.js backend API
+- 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Technologies Used 
 
-### Deployment
+### Frontend 
+- React.js
+- Redux (for state management)
+- FetchApi (for API request)
+- CSS, SCSS (for styling)
+- React sweetalert2 ( for beautiful, responsive alerts)
+- React react-loader-spinner (for loading effects at API calls)
+- React react-loading-skeleton (for skeleton loading effects)
+- React react-toastify (for notifications )
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  
+### Backend
+- Node.js
+- Express.js
+- MongoDB (using Mongoose for ODM)
 
-### `npm run build` fails to minify
+### Payment Integration
+- Stripe
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Additional Tools :
+-   JWT for authentication
+-   bcrypt for password hashing
+-   UUID for generating unique ids
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## Deploying
+
+For deployment, run `npm run build` and upload `build/` to your server.
+
+## Contributing 
+If you'd like to contribute to this project, please follow the Contribution Guidelines.
+Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+## License
+
+This project is licensed under the MIT License.
+
+
+
+
