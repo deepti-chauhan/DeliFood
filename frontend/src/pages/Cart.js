@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import Address from '../components/address/Address'
 import {Oval} from 'react-loader-spinner'
-
 import { useSelector, useDispatch } from 'react-redux'
 import {
   addOrUpdateItem,
@@ -28,6 +27,8 @@ const Cart = () => {
   const dispatch = useDispatch()
   const cart = useSelector((state) => state.cart)
   const cartTotal = cart.totalAmount
+
+  const navigate = useNavigate()
 
   return (
     <div>
@@ -53,12 +54,11 @@ const Cart = () => {
             <div>
               <img src='/assets/shopping-cart.gif' width='300' />
               <div className='flex-center'>
-                <span className='discover-menu'>
-                  <Link to='/menu'>
-                    DISCOVER MENU
-                    <FontAwesomeIcon icon={faArrowRight} />
-                  </Link>
-                </span>
+                <button onClick={()=> {
+                  navigate('/menu')
+                }}>
+                  DISCOVER MENU <FontAwesomeIcon icon={faArrowRight} ></FontAwesomeIcon>
+                </button>
               </div>
             </div>
           </div>

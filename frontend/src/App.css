@@ -307,20 +307,23 @@ body {
 }
 
 .empty-cart-container button {
-  background-color: rgb(93, 93, 182);
-  color: var(--color-white);
+  background-color: var(--color-light-green);
+  border: none;
+  color: var(--color-black);
+  font-weight: var(--font-bold);
   margin-top: 2rem;
   margin-left: 3rem;
   cursor: pointer;
   width: 200px;
   height: 60px;
-  border-radius: 30px;
   padding: 10px 20px;
-  transition: ease 0.5s;
+  transition: transform 100ms ease-in-out;
 }
-.empty-cart-container button:active {
-  transform: translateY(2px);
+
+.empty-cart-container button:hover{
+  transform: scale(1.1);
 }
+
 
 .cart-container {
   position: relative;

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../home/styles/HomeHeader.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUtensils, faArrowRight } from '@fortawesome/free-solid-svg-icons'
@@ -8,6 +8,7 @@ import env from 'react-dotenv'
 
 const HomeHeader = () => {
   const token = localStorage.getItem('token')
+  const navigate = useNavigate()
   return (
     <div>
       <div className='img-cnt container flex-center'>
@@ -23,10 +24,13 @@ const HomeHeader = () => {
               providing the best quality food to your house.
             </p>
           </div>
-          <button className='btn order-btn'>
-            <Link to='/menu'>
-              ORDER NOW <FontAwesomeIcon icon={faArrowRight}> </FontAwesomeIcon>
-            </Link>
+          <button
+            className='btn order-btn'
+            onClick={() => {
+              navigate('/menu')
+            }}
+          >
+            ORDER NOW <FontAwesomeIcon icon={faArrowRight}> </FontAwesomeIcon>
           </button>
         </div>
         {/* <img className='header-icon' src={`${env.BASE_URL}/img/route.png`} width='450' /> */}
