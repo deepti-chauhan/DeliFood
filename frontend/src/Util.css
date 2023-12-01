@@ -4,6 +4,14 @@
   align-items: center;
 }
 
+.flex-col {
+  flex-direction: column;
+}
+
+.align-center{
+  align-items: center;
+}
+
 .flex {
   display: flex;
   justify-content: space-around;
@@ -39,7 +47,12 @@
 
 .link {
   text-decoration: none;
-  color: antiquewhite;
+  color: var(--color-blue);
+  transition: 100ms ease-in-out;
+}
+
+.link-hover:hover{
+  color: var(--color-light-green);
 }
 
 .container {
@@ -58,11 +71,18 @@ a {
 
 
 .login-btn{
-  /* background: pink; */
   background: transparent;
-
   font-size: 15px;
+  font-weight: var(--font-semi-bold);
+  color: var(--color-blue);
   padding: 1rem;
   text-align: center;
-  /* align-items: center; */
 }
+
+.checkout-btn {
+  width: 100%;
+    padding: 1rem 2rem;
+    font-weight: var(--font-bold);
+    background-color: var(--color-light-green);
+    color: var(--color-blue);
+  }

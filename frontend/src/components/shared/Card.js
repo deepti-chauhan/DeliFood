@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/Card.css'
 import toast , { Toaster } from 'react-hot-toast'
-// import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faStar,
@@ -30,13 +28,13 @@ export const Card = ({ itemKey, filterItems }) => {
   const removeFromCartHandler = async () => {
     dispatch(removeItem(filterItems.productId))
     setQty(qty - 1)
+    toast.success('Item removed from cart');
   }
 
-  const notify = () => toast('Wow so easy!')
 
   return (
     <>
-      <Toaster position='bottom-left' reverseOrder={true} />
+      <Toaster position='bottom-right' reverseOrder={true} />
       <div key={itemKey} className='card flex'>
         <div className='card-img-container'>
           <img className='card-img' src={filterItems.img} width={200} />
@@ -86,20 +84,6 @@ export const Card = ({ itemKey, filterItems }) => {
           )}
         </div>
       </div>
-      {/* {
-        <ToastContainer
-          position='bottom-right'
-          autoClose={500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme='colored'
-        />
-      } */}
     </>
   )
 }

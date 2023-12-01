@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import Button from './Button'
-import '../styles/Navbar.css'
-import { FaSignInAlt } from 'react-icons/fa'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CartButton from '../cart/CartButton'
 import LoggedInButton from '../navbar/LoggedInButton'
 import SignInButton from '../navbar/SignInButton'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUtensils } from '@fortawesome/free-solid-svg-icons'
+import '../styles/Navbar.css'
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -22,25 +22,31 @@ const Navbar = () => {
 
   return (
     <div className='navbar flex-sb'>
-      <div className='nav-icon flex-center'>
+
+      <div className='nav-menu'>
+        <div className='nav-list flex-se'>
+          <Link className='link link-hover' to='/'>HOME</Link>
+          <Link className='link link-hover' to='/about'>ABOUT</Link>
+          <Link className='link link-hover' to='/menu'>MENU</Link>
+          <Link className='link link-hover' to='/contact'>CONTACT</Link>
+        </div>
+      </div>
+
+      <div className='nav-logo flex-center'>
         <h2>
-          <Link to='/'>DeliFooD</Link>
+          <Link to='/' className='link'>
+            {' '}
+            <FontAwesomeIcon icon={faUtensils} /> Deli<b>FooD</b>{' '}
+          </Link>
         </h2>
       </div>
-      <div className='nav-menu flex-se'>
-        <div className='nav-list flex-se'>
-          <Link to='/'>Home</Link>
-          <Link to='/about'>About Us</Link>
-          <Link to='/menu'>Menu</Link>
-          <Link to='/contact'>Contact</Link>
-        </div>
 
-        <div className='nav-btn flex'>
-          {isLoggedIn ? <LoggedInButton name={username} /> : <SignInButton />}
 
-          <CartButton />
-        </div>
+      <div className='nav-icons flex-center'>
+        {isLoggedIn ? <LoggedInButton name={username} /> : <SignInButton />}
+        <CartButton />
       </div>
+
     </div>
   )
 }

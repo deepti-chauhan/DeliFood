@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import Card from './Card'
-import '../styles/Popular.css'
-import env from 'react-dotenv'
-import CardSkeleton from './CardSkeleton'
+import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUtensils, faStar } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import CardSkeleton from './CardSkeleton'
+import env from 'react-dotenv'
+import '../styles/Popular.css'
 
 const Popular = () => {
   const [query, setQuery] = useState('salad')
   const [data, setData] = useState([])
   const [loader, setLoader] = useState(true)
+
+  const navigate = useNavigate()
 
   const getFoodCategory = data
     .map((foodCategory) => foodCategory.category)
@@ -85,9 +86,14 @@ const Popular = () => {
           )}
         </div>
         <div>
-          <Link to='/menu'>
-          <button className='btn explore-btn'>EXPLORE MENU</button>
-          </Link>
+          <button
+            className='btn explore-btn'
+            onClick={() => {
+              navigate('/menu')
+            }}
+          >
+            EXPLORE MENU
+          </button>
         </div>
       </div>
     </div>

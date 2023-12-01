@@ -6,32 +6,42 @@ import env from 'react-dotenv'
 import CardSkeleton from '../components/shared/CardSkeleton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUtensils } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { scrollToTop } from '../Util/scroll'
 
 const Menu = () => {
+
   const [input, setInput] = useState('')
   const [data, setData] = useState([])
   const [category, setCategory] = useState('')
   const [loader, setLoader] = useState(true)
-  const dispatch = useDispatch()
   const cart = useSelector((state) => state.cart)
 
+
   const fetchApiData = async () => {
+    
     try {
-      const response = await fetch(`${env.BASE_URL}/api/dishes`)
+      const response = await fetch(`${env.BASE_URL}/api/dishes`, {
+        method : 'GET'
+      })
+
       if (!response.ok) {
         throw new Error(`Failed to fetch data. Status: ${response.status}`)
       }
+
       const data = await response.json()
       setData(Object.values(data))
+
     } catch (error) {
       console.error('Error fetching data:', error.message)
-    } finally {
+    } 
+    finally {
       setLoader(false)
     }
   }
 
   useEffect(() => {
+    scrollToTop()
     fetchApiData()
   }, [])
 
