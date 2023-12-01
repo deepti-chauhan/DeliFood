@@ -127,22 +127,6 @@ const cartSlice = createSlice({
     error: null,
   },
   reducers: {
-
-    addOrUpdateItem: (state, action) => {
-      const newItem = action.payload;
-      const existingItem = state.items.find(item => item.id === newItem.id);
-
-      if (existingItem) {
-        // Update quantity if item already exists in the cart
-        existingItem.quantity += newItem.quantity;
-      } else {
-        // Add new item to the cart
-        state.items.push(newItem);
-      }
-
-      // Recalculate totalAmount
-      state.totalAmount = state.items.reduce((total, item) => total + item.price * item.quantity, 0);
-    },
     
   },
 

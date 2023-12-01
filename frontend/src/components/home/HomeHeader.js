@@ -2,9 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../home/styles/HomeHeader.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUtensils, faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import SignInButton from '../navbar/SignInButton'
-import env from 'react-dotenv'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 const HomeHeader = () => {
   const token = localStorage.getItem('token')

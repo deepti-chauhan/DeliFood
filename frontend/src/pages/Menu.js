@@ -6,12 +6,15 @@ import env from 'react-dotenv'
 import CardSkeleton from '../components/shared/CardSkeleton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUtensils } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Menu = () => {
   const [input, setInput] = useState('')
   const [data, setData] = useState([])
   const [category, setCategory] = useState('')
   const [loader, setLoader] = useState(true)
+  const dispatch = useDispatch()
+  const cart = useSelector((state) => state.cart)
 
   const fetchApiData = async () => {
     try {
@@ -33,22 +36,6 @@ const Menu = () => {
   }, [])
 
 
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
     // filter feature //
 
   const getFoodItems = (input, category) => {
@@ -62,6 +49,12 @@ const Menu = () => {
         item.name.toLowerCase().trim().includes(`${input.toLowerCase().trim()}`)
       )
     }
+
+    foodItem = foodItem.map(fItem => {
+      const cartItem = cart.items.find(cartItem => `${cartItem.productId}` === `${fItem.productId}`)
+      fItem["quantity"] = cartItem ? cartItem.quantity : 0;
+      return fItem
+    })
 
     return foodItem
   }
