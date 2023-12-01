@@ -11,8 +11,8 @@ Welcome to DeliFood! DeliFood is a robust full-stack MERN (MongoDB, Express.js, 
 -  <a href="#Prerequisites">Prerequisites</a>
 -  <a href="#Installation">Installation</a>
 -  <a href="#Usage">Usage</a>
--  <a href="#Folder Structure">Folder Structure</a>
--  <a href="#Technologies used">Technologies used</a>
+-  <a href="#Folder-Structure">Folder Structure</a>
+-  <a href="#Technologies-used">Technologies used</a>
 -  <a href="#Contributing">Contributing</a>
 -  <a href="#License">License</a>
   
@@ -115,7 +115,7 @@ cd backend
 npm start
 ```
 
-### Folder Structure 
+## Folder Structure 
 
 The project structure is organized as follows:
 
