@@ -57,12 +57,14 @@ Welcome to DeliFood! DeliFood is a robust full-stack MERN (MongoDB, Express.js, 
   * The application streamlines the checkout process with Stripe integration, providing users with a secure and quick payment experience.
   * Say goodbye to long checkout processes!
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Prerequisites
 
 Before you begin, ensure you have the following installed on your machine:
 - Node.js
 - MongoDB
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Installation
 
@@ -100,6 +102,7 @@ BASE_URL=http://localhost:3000
 JWT_SECRET_KEY=your_secret_key
 STRIPE_KEY=your_secret_stripe_key
 ```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
 1. Start frontend
@@ -114,6 +117,7 @@ npm start
 cd backend
 npm start
 ```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Folder Structure 
 
@@ -121,6 +125,8 @@ The project structure is organized as follows:
 
 - /frontend: React.js frontend application
 - /backend: Node.js and Express.js backend API
+- 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Technologies Used 
 
@@ -149,12 +155,28 @@ The project structure is organized as follows:
 -   UUID for generating unique ids
 
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 ## Deploying
 
 For deployment, run `npm run build` and upload `build/` to your server.
 
 ## Contributing 
 If you'd like to contribute to this project, please follow the Contribution Guidelines.
+Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ## License
 
