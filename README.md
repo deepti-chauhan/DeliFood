@@ -22,6 +22,9 @@ Welcome to DeliFood! DeliFood is a robust full-stack MERN (MongoDB, Express.js, 
 
   * DeliFood provides secure user authentication. Users can sign up, log in, and manage their profiles.
   * Authentication is handled using JSON Web Tokens (JWT) for enhanced security.
+ 
+    ![Home_Screen](https://github.com/deepti-chauhan/DeliFood/assets/76423762/d5f46fff-0916-4e76-8012-c52114296a1d)
+
 
 - Search for Food
   
