@@ -4,6 +4,9 @@ import OrderHistory from '../components/profile/OrderHistory'
 import AddressBook from '../components/profile/AddressBook'
 import Settings from '../components/profile/Settings'
 import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+
 import Swal from 'sweetalert2'
 
 const Profile = () => {
@@ -54,31 +57,47 @@ const Profile = () => {
   }
 
   return (
-    <div className='profile-container'>
-      <div className='profile-header flex-center'>
-        <div className='flex-sb'>
-          <div>{`Welcome ${username}`}</div>
-
-          <button className='btn btn-primary' onClick={logoutHandler}>
-            logout
+    <div className='profile-container flex-sb'>
+      <div className='profile-side-section flex-sb'>
+        <div className='profile-tab flex-center'>
+          <div className='profile-icon'>
+            <FontAwesomeIcon icon={faCircleUser} />
+          </div>
+            <h3>{username}</h3>
+          <button className='profile-button' onClick={() => setSection('user')}>
+            PROFILE
+          </button>
+          <button
+            className='profile-button'
+            onClick={() => setSection('order')}
+          >
+            ORDER HISTORY
+          </button>
+          <button
+            className='profile-button'
+            onClick={() => setSection('address')}
+          >
+            ADDRESS BOOK
+          </button>
+          <button
+            className='profile-button'
+            onClick={() => setSection('address')}
+          >
+            SETTINGS
+          </button>
+          <button
+            className='profile-button'
+            onClick={logoutHandler}
+          >
+            LOGOUT
           </button>
         </div>
+        <i className='profile-footer'>
+          <b>*Terms & Conditions</b>
+        </i>
       </div>
-      <div className='profile-tab flex-center'>
-        <button className='profile-button' onClick={() => setSection('user')}>
-          Profile
-        </button>
-        <button className='profile-button' onClick={() => setSection('order')}>
-          Order History
-        </button>
-        <button
-          className='profile-button'
-          onClick={() => setSection('address')}
-        >
-          Address Book
-        </button>
-      </div>
-      <div>{sectionState(section)}</div>
+
+      <div className='profile-main-section'>{sectionState(section)}</div>
     </div>
   )
 }
