@@ -5,6 +5,7 @@ import {
   faArrowCircleLeft,
 } from '@fortawesome/free-solid-svg-icons'
 import AddressForm from './AddressForm'
+import { Oval } from 'react-loader-spinner'
 import Payment from './Payment'
 import Modal from '../shared/Modal'
 import env from 'react-dotenv'
@@ -15,6 +16,7 @@ const Address = ({ setIsCheckout }) => {
   const [address, setAddress] = useState([])
   const [selectedAddress, setSelectedAddress] = useState([])
   const [payment, setPayments] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const token = localStorage.getItem('token')
 
@@ -36,6 +38,7 @@ const Address = ({ setIsCheckout }) => {
 
   //@ get api
   const fetchAddress = async () => {
+    setLoading(true)
     try {
       return await fetch(`${env.BASE_URL}/api/alladdress`, {
         method: 'GET',
@@ -48,6 +51,8 @@ const Address = ({ setIsCheckout }) => {
         .then((d) => setAddress(Object.values(d)))
     } catch (e) {
       console.log(e)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -58,9 +63,27 @@ const Address = ({ setIsCheckout }) => {
   return (
     <>
       <div>
+        {loading && (
+          <div>
+            <Oval
+              height={80}
+              width={80}
+              color='#4fa94d'
+              wrapperStyle={{}}
+              wrapperClass=''
+              visible={true}
+              ariaLabel='oval-loading'
+              secondaryColor='#4fa94d'
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          </div>
+        )}
         {!payment && (
           <div className='shipping-address-container'>
-            <h3>SHIPPING ADDRESS <FontAwesomeIcon icon={faLocationDot} /></h3>
+            <h3>
+              SHIPPING ADDRESS <FontAwesomeIcon icon={faLocationDot} />
+            </h3>
             <button
               className='btn back-to-cart-btn'
               onClick={() => {
