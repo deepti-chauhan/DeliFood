@@ -49,6 +49,8 @@ Welcome to DeliFood! DeliFood is a robust full-stack MERN (MongoDB, Express.js, 
   
   * DeliFood allows users to save and edit multiple delivery addresses for added convenience.
   * This feature is especially useful for users who frequently order from different locations
+  * ![address](https://github.com/deepti-chauhan/DeliFood/assets/76423762/ac4b0993-4e6b-4cad-9a70-0bf7c3eeb09a)
+
 
 - Skeleton Screen Implementation
   
