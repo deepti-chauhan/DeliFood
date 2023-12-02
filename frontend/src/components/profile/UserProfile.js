@@ -1,14 +1,14 @@
 import './UserProfile.css'
 const UserProfile = () => {
   const { username, email } = JSON.parse(localStorage.getItem('user'))
+
+
   return (
-    <div className='flex-center'>
-      <div className='profile-wrapper flex-center'>
+    <> 
         <form className='profile-form'>
           <div className='flex-sb'>
             <label
               htmlFor='username'
-              className='block text-sm font-medium leading-6 text-gray-900'
             >
               Name
             </label>
@@ -37,8 +37,8 @@ const UserProfile = () => {
             <button className='remove-account-btn'>Remove Account</button>
           </div>
         </form>
-      </div>
-    </div>
+      
+    </>
   )
 }
 

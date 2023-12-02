@@ -4,38 +4,53 @@
   width: 70%;
   min-height: 70vh;
   max-height: auto;
-  /* background-color: pink; */
+  background-color: pink;
 }
 .profile-form {
   width: 80%;
+  margin-left: 3rem;
+  margin-top: 7rem;
   padding-top: 3rem;
-  padding-left: 3rem;
-  min-height: 50vh;
-  max-height: auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* padding-left: 3rem; */
+  height: 50vh;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
   flex-direction: column;
   font-size: 12px;
+  /* text-align: left; */
+  /* background-color: yellow; */
 }
+
+.profile-form label{
+  width: 130px;
+}
+
 .profile-form div{
-    /* background-color: yellow; */
     width: 80%;
     height: 30px;
    margin-bottom: 10px;
    align-items: center;
 }
 .profile-form label{
-    
-    font-weight: 300;
+  font-size: 14px;
+  color: var(--font-color-blue);
+    font-weight: var(--font-semi-bold);
 }
 
 .profile-form input{
     padding: 3px;
     width: 500px;
-    margin-left: 5px;
-}
-
-.profile-form textarea{
+    outline: none;
+    border: 4px;
+    background-color:#e8f0fe ;
+    /* margin-left: 5px; */
+  }
+  
+  .profile-form textarea{
+    background-color:#e8f0fe ;
     width: 500px;
+    /* background-color:transparent ; */
+    outline: none;
+    border: none;
 }
 
 .update-btn{
@@ -47,23 +62,35 @@
   cursor: pointer;
   transition: background-color 0.3s ease-in-out; */
 
-  background-color: #333;
+  background-color: var(--color-blue);
   color: white;
   width: 250px;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
   border-left: 1px solid white;
-  margin-left: 5px;
+  margin-left: 2rem;
+  margin-top: 2rem;
 }
 
 .remove-account-btn{
-  background-color: #333;
+  margin-top: 2rem;
+  background-color: var(--color-blue);
+  /* background-color: #333; */
   color: white;
   width: 250px;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
   border-left: 1px solid white;
-  margin-left: 5px;
+  margin-left: 1rem;
+}
+
+.remove-account-btn:hover{
+  background-color: var(--color-salmon); 
+}
+
+.update-btn:hover{
+  background-color: var(--color-light-green); 
+
 }

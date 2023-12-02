@@ -1,16 +1,14 @@
-.order-wrapper {
-  margin-top: 3rem;
-  margin-bottom: 3rem;
-  width: 90%;
-  min-height: 70vh;
-  max-height: auto;
-  /* background-color: pink; */
+.order-cnt{
+  min-height:80vh ;
+  max-height: fit-content;
 }
+
 
 .item-wrapper {
   margin-top: 3rem;
-  width: 70%;
+  width: 90%;
   flex-direction: column;
+  background-color: yellow;
 }
 
 .order {
@@ -20,15 +18,14 @@
   grid-column-gap: 0px;
   grid-row-gap:0px;
   border: 1px solid #ccc;
-  width: 90%;
-  min-height: 30vh;
-  max-height: fit-content;
+  width: 100%;
+  height: 300px;
   margin-bottom: 1rem;
   background-color: white;
 }
+
 .order:hover{
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
 }
 
 .order-line-1 {
