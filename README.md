@@ -23,22 +23,27 @@ Welcome to DeliFood! DeliFood is a robust full-stack MERN (MongoDB, Express.js, 
 
   * DeliFood provides secure user authentication. Users can sign up, log in, and manage their profiles.
   * Authentication is handled using JSON Web Tokens (JWT) for enhanced security.
- 
-
+  * ![user_profile](https://github.com/deepti-chauhan/DeliFood/assets/76423762/eb2741eb-c882-4db9-ae09-e7e124f8b551)
 
 - Search for Food
   
   * Effortlessly search for your favorite food items using the search functionality.
   * DeliFood makes it easy to discover new dishes or quickly find your go-to meals.
+  * ![menu](https://github.com/deepti-chauhan/DeliFood/assets/76423762/f95fd61b-331d-4951-b8e3-f0b18e6a2abc)
+
 
 - Add to Cart and Total Price
   
   * Users can add items to their cart, and the application dynamically computes the total price.
   * Each food item's details are displayed, providing transparency during the ordering process.
+  * ![cart](https://github.com/deepti-chauhan/DeliFood/assets/76423762/cdfe7ff4-17d4-44bd-9bde-ba1640579faa)
+
 
 - Saved Order History
   
   * Users can view their saved order history, allowing them to track past orders, re-order favorite meals, and easily reference their food preferences
+  * ![order_history](https://github.com/deepti-chauhan/DeliFood/assets/76423762/094a850c-9c6c-4bdc-b38a-3a127cdc7c69)
+
 
 - Save and Edit Delivery Addresses
   
