@@ -10,19 +10,17 @@ import { useSelector } from 'react-redux'
 import { scrollToTop } from '../Util/scroll'
 
 const Menu = () => {
-
   const [input, setInput] = useState('')
   const [data, setData] = useState([])
   const [category, setCategory] = useState('')
   const [loader, setLoader] = useState(true)
   const cart = useSelector((state) => state.cart)
-
+  const token = localStorage.getItem('token')
 
   const fetchApiData = async () => {
-    
     try {
       const response = await fetch(`${env.BASE_URL}/api/dishes`, {
-        method : 'GET'
+        method: 'GET',
       })
 
       if (!response.ok) {
@@ -31,11 +29,9 @@ const Menu = () => {
 
       const data = await response.json()
       setData(Object.values(data))
-
     } catch (error) {
       console.error('Error fetching data:', error.message)
-    } 
-    finally {
+    } finally {
       setLoader(false)
     }
   }
@@ -45,10 +41,10 @@ const Menu = () => {
     fetchApiData()
   }, [])
 
-
-    // filter feature //
+  // filter feature //
 
   const getFoodItems = (input, category) => {
+
     let foodItem = data
     if (category !== '') {
       foodItem = foodItem.filter((item) => item.category === `${category}`)
@@ -60,13 +56,19 @@ const Menu = () => {
       )
     }
 
-    foodItem = foodItem.map(fItem => {
-      const cartItem = cart.items.find(cartItem => `${cartItem.productId}` === `${fItem.productId}`)
-      fItem["quantity"] = cartItem ? cartItem.quantity : 0;
-      return fItem
-    })
+    if(token) {
+      foodItem = foodItem.map((fItem) => {
+        const cartItem = cart.items.find(
+          (cartItem) => `${cartItem.productId}` === `${fItem.productId}`
+        )
+        fItem['quantity'] = cartItem ? cartItem.quantity : 0
+        return fItem
+      })
+      return foodItem
+    }
 
     return foodItem
+
   }
   const foodItems = getFoodItems(input, category)
 

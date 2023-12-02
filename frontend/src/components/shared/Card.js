@@ -11,8 +11,9 @@ import { addItem, removeItem } from '../../cartStore/cartActions/cartSlice'
 import { useDispatch } from 'react-redux'
 
 export const Card = ({ itemKey, filterItems }) => {
+  const token = localStorage.getItem('token')
   const price = `${filterItems.price.toFixed(2)}`
-  const [qty, setQty] = useState(filterItems.quantity)
+  const [qty, setQty] = useState( token ? filterItems.quantity : 0)
   const dispatch = useDispatch()
 
   const addToCartHandler = async () => {
