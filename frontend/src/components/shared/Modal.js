@@ -3,6 +3,7 @@ import ReactDom from 'react-dom'
 import { Backdrop } from './Loader'
 import '../styles/modal.scss'
 
+
 const Modal = ({ onClose, children }) => {
   return (
     <Fragment>
