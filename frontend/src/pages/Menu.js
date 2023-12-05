@@ -81,6 +81,8 @@ const Menu = () => {
       return accumulator
     }, [])
 
+
+
   return (
     <>
       <div>
@@ -131,6 +133,7 @@ const Menu = () => {
                   key={filterItems.productId}
                   itemKey={filterItems.productId}
                   filterItems={filterItems}
+      
                 />
               ))
             )}
