@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
 import './OrderHistory.css'
 import env from 'react-dotenv'
 import { Oval } from 'react-loader-spinner'
+import Pagination from '../shared/Pagination'
+
 
 const OrderHistory = () => {
   const token = localStorage.getItem('token')
   const [orders, setOrders] = useState([])
-  const [isEmpty, setIsEmpty] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(3); // Adjust the number of items per page
+  const [totalPages, setTotalPages] = useState(0);
 
   const fetchOrders = async () => {
+    setIsLoading(true)
     try {
       const response = await fetch(`${env.BASE_URL}/api/order/history`, {
         method: 'GET',
@@ -23,6 +26,8 @@ const OrderHistory = () => {
         .then((res) => res.json())
         .then((d) => setOrders(Object.values(d)))
 
+
+        setTotalPages(Math.ceil(orders.length / itemsPerPage));
       console.log('response', orders)
     } catch (error) {
       console.log(error)
@@ -30,13 +35,42 @@ const OrderHistory = () => {
       setIsLoading(false)
     }
   }
+
+  const handlePageChange = newPage => {
+    setCurrentPage(newPage);
+  }
+
+
   useEffect(() => {
     fetchOrders()
-  }, [])
+  }, [currentPage, itemsPerPage])
 
   const sortedOrders = orders.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   )
+
+  const formatDate = (date) => {
+    const originalDate = new Date(date)
+    const options = {
+      weekday: 'short',
+      month: 'short',
+      day: '2-digit',
+      year: 'numeric',
+    }
+    const formattedDate = originalDate.toLocaleString('en-US', options)
+    return formattedDate
+  }
+
+  const formatOrderId = (orderId) => {
+    const originalString = orderId
+    const parts = originalString.split('-')
+    const extractedPart = parts[parts.length - 1]
+
+    return extractedPart
+  }
+
+
+  
 
   return (
     <div className='order-cnt flex-center'>
@@ -64,13 +98,17 @@ const OrderHistory = () => {
           <p>No order placed yet</p>
         </div>
       )}
+
       {orders.length !== 0 && (
         <div className='item-wrapper flex-center'>
           {sortedOrders.map((item) => (
             <div className='order'>
               <div class='order-line-1'> </div>
-              <div class='order-line-2'>Delivered on {item.createdAt}</div>
-              <div class='order-line-3'>YOUR ORDER</div>
+              <div class='order-line-2 flex-sb'>
+                <p>OrderID #{formatOrderId(item.orderId)}</p>
+                <p>Delivered on {formatDate(item.createdAt)}</p>
+              </div>
+              {/* <div class='order-line-3'>YOUR ORDER</div> */}
               <div className='order-line-4'>
                 {item.orderedItems.map((i) => (
                   <div className='ordered-item-container '>
@@ -78,7 +116,7 @@ const OrderHistory = () => {
                       <p>
                         {i.name} X {i.quantity}
                       </p>
-                      <p>{` price : Rs ${i.price}`}</p>
+                      <p>{` price : $ ${i.price}`}</p>
                     </div>
                   </div>
                 ))}
@@ -86,9 +124,9 @@ const OrderHistory = () => {
               <div class='order-line-5'> </div>
               <div class='order-line-6'> Total Paid : ${item.orderTotal}</div>
               <div class='order-line-7'>
-                <div className='flex-se'>
-                  <button className='btn main-btn'>REORDER</button>
-                  <button className='btn main-btn'>DETAILS</button>
+                <div className=''>
+                  <button className='btn '>REORDER</button>
+                  {/* <button className='btn '>DETAILS</button> */}
                 </div>
               </div>
               {/* <div>
@@ -102,11 +140,15 @@ const OrderHistory = () => {
                 </p>
               </div> */}
             </div>
-          ))}
+            
+            ))}
+<Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
         </div>
       )}
     </div>
   )
 }
+
+
 
 export default OrderHistory
