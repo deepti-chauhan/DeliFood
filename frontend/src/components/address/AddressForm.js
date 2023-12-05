@@ -15,7 +15,6 @@ const AddressForm = (props) => {
   const [selectedOption, setSelectedOption] = useState('')
   const token = localStorage.getItem('token')
 
-
   function onValueChange(e) {
     setSelectedOption(e.target.value)
     setnewAddress({
@@ -29,27 +28,26 @@ const AddressForm = (props) => {
     props.setShowModal(false)
   }
 
-
   //  @method - POST
   //  @access - private
   const addAddress = async () => {
-    try{
-      const response = await fetch(`${env.BASE_URL}/api/address/create`,{
-            method : 'POST',
-            body : JSON.stringify({
-              address : newAddress
-            }),
-            headers : {
-              'Content-type' : 'application/json',
-              'Authorization' : `${token}`
-            }
-        })
-        
-        const {address} = await response.json()
-        props.setAddress((previousAddress)=> [address, ...previousAddress])
-        console.log(address)
-    }catch(e){
-        console.log(e)
+    try {
+      const response = await fetch(`${env.BASE_URL}/api/address/create`, {
+        method: 'POST',
+        body: JSON.stringify({
+          address: newAddress,
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `${token}`,
+        },
+      })
+
+      const { address } = await response.json()
+      props.setAddress((previousAddress) => [address, ...previousAddress])
+      console.log(address)
+    } catch (e) {
+      console.log(e)
     }
   }
 
@@ -63,7 +61,7 @@ const AddressForm = (props) => {
   return (
     <div>
       <form className='address-form flex' onSubmit={formSubmit}>
-        <div>
+        <div className='flex-center'>
           <label>
             <input
               type='radio'
@@ -144,7 +142,9 @@ const AddressForm = (props) => {
           />
         </div>
 
-        <button className='btn main-btn'>ADD</button>
+        <div className='flex-center'>
+          <button className='btn main-btn'>ADD</button>
+        </div>
       </form>
     </div>
   )

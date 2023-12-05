@@ -2,3 +2,16 @@
     flex-direction: column;
     align-items: flex-start;
 }
+
+.address-form div{
+    width: 100%;
+    text-align: start;
+}
+
+.address-form button{
+margin-top: 0.5rem;
+}
+
+.address-form input{
+    width: 100%;
+}
