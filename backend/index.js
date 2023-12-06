@@ -31,6 +31,13 @@ app.use(express.json())
 app.use(cors())
 app.use(express.static('public'))
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://delifood-37metgafc-deepti-chauhans-projects.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 //checkout api
 app.post('/api/create-checkout-session', async (req, res) => {
   const { products, total } = req.body
