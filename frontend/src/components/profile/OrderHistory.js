@@ -4,14 +4,13 @@ import env from 'react-dotenv'
 import { Oval } from 'react-loader-spinner'
 import Pagination from '../shared/Pagination'
 
-
 const OrderHistory = () => {
   const token = localStorage.getItem('token')
   const [orders, setOrders] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(3); // Adjust the number of items per page
-  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(3)
+  const [totalPages, setTotalPages] = useState(0)
 
   const fetchOrders = async () => {
     setIsLoading(true)
@@ -26,8 +25,7 @@ const OrderHistory = () => {
         .then((res) => res.json())
         .then((d) => setOrders(Object.values(d)))
 
-
-        setTotalPages(Math.ceil(orders.length / itemsPerPage));
+      setTotalPages(Math.ceil(orders.length / itemsPerPage))
       console.log('response', orders)
     } catch (error) {
       console.log(error)
@@ -36,10 +34,9 @@ const OrderHistory = () => {
     }
   }
 
-  const handlePageChange = newPage => {
-    setCurrentPage(newPage);
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage)
   }
-
 
   useEffect(() => {
     fetchOrders()
@@ -68,9 +65,6 @@ const OrderHistory = () => {
 
     return extractedPart
   }
-
-
-  
 
   return (
     <div className='order-cnt flex-center'>
@@ -140,15 +134,16 @@ const OrderHistory = () => {
                 </p>
               </div> */}
             </div>
-            
-            ))}
-<Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+          ))}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
         </div>
       )}
     </div>
   )
 }
-
-
 
 export default OrderHistory
