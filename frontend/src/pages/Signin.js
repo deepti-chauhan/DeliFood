@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form'
 import Footer from '../components/shared/Footer'
 import env from 'react-dotenv'
 import { FaEye } from 'react-icons/fa'
-import Swal from 'sweetalert2';
-
+import Swal from 'sweetalert2'
+import { Oval } from 'react-loader-spinner'
 
 const initialState = {
   email: '',
@@ -14,8 +14,8 @@ const initialState = {
 
 const Signin = () => {
   const [userData, setUserData] = useState(initialState)
-  const [error, setError] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -45,6 +45,7 @@ const Signin = () => {
   }
 
   const loginUser = async (currentUser) => {
+    setLoading(true)
     try {
       const response = await fetch(`${env.BASE_URL}/api/user/login`, {
         method: 'POST',
@@ -54,7 +55,7 @@ const Signin = () => {
 
       if (!response.ok) {
         // Handle non-successful responses (e.g., 404 Not Found, 500 Internal Server Error)
-        throw new Error(`Failed to log in. Status: ${response.status}`);
+        throw new Error(`Failed to log in. Status: ${response.status}`)
       }
 
       const { user, token } = await response.json()
@@ -69,19 +70,17 @@ const Signin = () => {
         text: 'Login successful',
         icon: 'success',
         button: 'OK',
-      });
-
+      })
     } catch (error) {
-      setError(true)
-      console.error('Error logging in:', error.message);
+      console.error('Error logging in:', error.message)
       Swal.fire({
         title: 'Login Failed',
         text: 'Incorrect login credentials',
         icon: 'error',
         button: 'OK',
-      });
+      })
     } finally {
-      setError(false)
+      setLoading(false)
     }
   }
 
@@ -92,6 +91,7 @@ const Signin = () => {
           <h2>Log In</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className='form-control-container'>
+              
               <div className='form-control'>
                 <div className='error'>
                   {errors.email && <p>{errors.email.message}</p>}
@@ -138,7 +138,22 @@ const Signin = () => {
               </div>
               <div className='form-control'>
                 <button type='submit' className='btn form-btn'>
-                  Login
+                {loading ? (
+                <div className='flex-center'>
+                  <Oval
+                    height={30}
+                    width={30}
+                    color='#efefef'
+                    wrapperStyle={{}}
+                    wrapperClass=''
+                    visible={true}
+                    ariaLabel='oval-loading'
+                    secondaryColor='#00000d'
+                    strokeWidth={2}
+                    strokeWidthSecondary={2}
+                  />
+                </div>
+              ) : 'Login'}
                 </button>
                 <p className='forget-password'>Forget Password</p>
               </div>
@@ -152,11 +167,6 @@ const Signin = () => {
           </p>
         </div>
       </div>
-
-
-
-
-                  
 
       <Footer />
     </>
