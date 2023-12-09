@@ -12,7 +12,7 @@ const registerUser = async (req, res) => {
     const { username, email, password } = req.body
 
     if (!username || !email || !password) {
-      return res.status(400).json({ error: 'All fields are required!!' })
+      return res.status(400).send({ error: 'All fields are required!!' })
     }
 
     const user = await User.findOne({ email: email })
@@ -30,14 +30,14 @@ const registerUser = async (req, res) => {
       })
 
       await newUser.save()
-      res.status(201).json({ message: 'user registered successfully!!' })
+      res.status(201).send({ message: 'user registered successfully!!' })
     } 
     else {
-      return res.status(400).josn({ message: 'user already exist' })
+      return res.status(400).send({ message: 'user already exist' })
     }
   } catch (error) {
     console.log(error)
-    res.status(500).json({ error: 'Internal Server Error!!' })
+    res.status(500).send({ error: 'regitration failed' })
   }
 }
 

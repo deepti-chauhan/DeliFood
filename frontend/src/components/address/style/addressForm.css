@@ -1,6 +1,8 @@
 .address-form{
+    width: 400px;
     flex-direction: column;
     align-items: flex-start;
+    padding-top: 2rem;
 }
 
 .address-form div{
@@ -9,9 +11,33 @@
 }
 
 .address-form button{
-margin-top: 0.5rem;
+    width: 100%;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+}
+
+.address-form label {
+    font-size: 12px;
+    /* display: flex; */
 }
 
 .address-form input{
+    background-color: #e8f0fe;
+    /* opacity:25%; */
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    padding: 0.5rem;
     width: 100%;
+}
+
+.address-type-label{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    /* width: 200px; */
+}
+
+.address-type-label label {
+    text-align: center;
 }

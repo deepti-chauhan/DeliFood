@@ -22,7 +22,6 @@ const Address = ({ setIsCheckout }) => {
 
   const addAdressHandler = (
     <div>
-      <p>add new address</p>
       <AddressForm setShowModal={setShowModal} setAddress={setAddress} />
     </div>
   )
@@ -63,22 +62,7 @@ const Address = ({ setIsCheckout }) => {
   return (
     <>
       <div>
-        {loading && (
-          <div>
-            <Oval
-              height={80}
-              width={80}
-              color='#4fa94d'
-              wrapperStyle={{}}
-              wrapperClass=''
-              visible={true}
-              ariaLabel='oval-loading'
-              secondaryColor='#4fa94d'
-              strokeWidth={2}
-              strokeWidthSecondary={2}
-            />
-          </div>
-        )}
+        
         {!payment && (
           <div className='shipping-address-container'>
             <h3>
@@ -94,6 +78,22 @@ const Address = ({ setIsCheckout }) => {
             </button>
 
             <div className='delivery-address-container'>
+            {loading && (
+          <div className='flex-center'>
+            <Oval
+              height={80}
+              width={80}
+              color='#4fa94d'
+              wrapperStyle={{}}
+              wrapperClass=''
+              visible={true}
+              ariaLabel='oval-loading'
+              secondaryColor='#4fa94d'
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          </div>
+        )}
               {address.map((d) => (
                 <div
                   key={d._id}

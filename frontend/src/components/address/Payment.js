@@ -8,14 +8,16 @@ import { useSelector } from 'react-redux'
 import env from 'react-dotenv'
 import Swal from 'sweetalert2'
 import './style/payment.css'
+import { useState } from 'react'
+import { Oval } from 'react-loader-spinner'
 
 const Payment = ({ selectedAddress, setPayments }) => {
+  const [loading, setLoading] = useState(false)
   const token = localStorage.getItem('token')
   const cart = useSelector((state) => state.cart)
 
   localStorage.setItem('addressId', selectedAddress.addressId)
 
-  
   let delivery
   let total
   let discount
@@ -29,6 +31,7 @@ const Payment = ({ selectedAddress, setPayments }) => {
 
   //payment integration
   const paymentHandler = async () => {
+    setLoading(true)
     try {
       const stripe = await loadStripe(
         'pk_test_51OH1UASAYSPowgwnRwYxrzV1HHrnOeNp8GbRKXDHVFj6BgM5VPoSS1kOJcUKfnCdhI3zaN8QsTHZdx7QMLbQriQA00loWo6ZLZ'
@@ -102,9 +105,10 @@ const Payment = ({ selectedAddress, setPayments }) => {
         title: 'payment error',
         text: 'Something went wrong! Please try again later.',
       })
+    } finally {
+      setLoading(false)
     }
   }
-
 
   return (
     <div>
@@ -131,8 +135,28 @@ const Payment = ({ selectedAddress, setPayments }) => {
               <p>pincode - {selectedAddress.postalCode}</p>
             </div>
             <div class='div4'>
-              <button className='btn payment-btn' onClick={paymentHandler}>
-                PAY $ {total}
+              <button
+                className='btn payment-btn flex-center'
+                onClick={paymentHandler}
+              >
+                {loading ? (
+                  <div>
+                    <Oval
+                      height={30}
+                      width={30}
+                      color='#efefef'
+                      wrapperStyle={{}}
+                      wrapperClass=''
+                      visible={true}
+                      ariaLabel='oval-loading'
+                      secondaryColor='#00000d'
+                      strokeWidth={2}
+                      strokeWidthSecondary={2}
+                    />
+                  </div>
+                ) : (
+                  `PAY ${total}`
+                )}
               </button>
             </div>
           </div>

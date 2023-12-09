@@ -127,7 +127,7 @@ export const Card = ({ itemKey, filterItems }) => {
           {modalContent}
         </Modal>
       )}
-      <Toaster position='top-right' reverseOrder={true} />
+      <Toaster position='bottom-right' reverseOrder={false} />
       <div key={itemKey} className='card flex'>
         <div
           className='card-img-container'

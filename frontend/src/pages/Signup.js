@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form'
 import Footer from '../components/shared/Footer'
 import env from 'react-dotenv'
 import { FaEye } from 'react-icons/fa'
+import { Oval } from 'react-loader-spinner'
+import Swal from 'sweetalert2'
 
 const initialState = {
   username: '',
@@ -12,13 +14,12 @@ const initialState = {
 }
 
 const Signup = () => {
-
   const [userData, setUserData] = useState(initialState)
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
-  
+
   const {
     register,
     handleSubmit,
@@ -26,7 +27,7 @@ const Signup = () => {
   } = useForm()
 
   const registerUser = async (currentUser) => {
-
+    setLoading(true)
     try {
       const response = await fetch(`${env.BASE_URL}/api/user/register`, {
         method: 'POST',
@@ -36,16 +37,32 @@ const Signup = () => {
         },
       })
 
+      const { message } = await response.json()
+
       if (response.ok) {
+        Swal.fire({
+          title: 'Success!',
+          text: message,
+          icon: 'success',
+        })
         navigate('/signin')
+      } else {
+        Swal.fire({
+          title: 'warning!',
+          text: message,
+          icon: 'warning',
+          button: 'try again!',
+        })
       }
-
-      const { message }  = await response.json()
-      console.log(message)
-
-
     } catch (error) {
-      console.log(error)
+      console.error('Error logging in:', error.message)
+      Swal.fire({
+        title: 'registration Failed',
+        text: 'User exist already, Try register with another email',
+        icon: 'error',
+      })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -129,8 +146,7 @@ const Signup = () => {
                   onChange={onHandleChange}
                 />
                 <div className='password-eye'>
-
-                <FaEye onClick={() => setShowPassword(!showPassword)} />
+                  <FaEye onClick={() => setShowPassword(!showPassword)} />
                 </div>
               </div>
               <div className='form-control'>
@@ -139,7 +155,24 @@ const Signup = () => {
                   className='form-btn btn'
                   onClick={resetInput}
                 >
-                  Register
+                  {loading ? (
+                    <div className='flex-center'>
+                      <Oval
+                        height={30}
+                        width={30}
+                        color='#efefef'
+                        wrapperStyle={{}}
+                        wrapperClass=''
+                        visible={true}
+                        ariaLabel='oval-loading'
+                        secondaryColor='#00000d'
+                        strokeWidth={2}
+                        strokeWidthSecondary={2}
+                      />
+                    </div>
+                  ) : (
+                    'Register'
+                  )}
                 </button>
               </div>
             </div>
