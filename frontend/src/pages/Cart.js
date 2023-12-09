@@ -36,6 +36,8 @@ const Cart = () => {
   return (
     <div>
       <div className='container flex-center'>
+
+
         {cart.loading && (
           <div>
             <Oval
