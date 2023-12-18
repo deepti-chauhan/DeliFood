@@ -1,19 +1,32 @@
-const Dish = require('../models/dishes')
+// controllers/dishController.js
+const dishService = require('../services/dishService')
 
-//  @method     - get
-//  @access     - public
-//  @endpoint   - /dishes
+// @method     - get
+// @access     - public
+// @endpoint   - /dishes
+// @desc       - to get all dishes from DB
 const getDishes = async (req, res) => {
-  const results = await Dish.find({})
-  return res.status(200).send(results)
+  try {
+    const results = await dishService.getDishes()
+    return res.status(200).send(results)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).send('Internal Server Error')
+  }
 }
 
-//  @method     - get
-//  @access     - public
-//  @endpoint   - /dishes/popular
+// @method     - get
+// @access     - public
+// @endpoint   - /dishes/popular
+// @desc       - to get all popular dishes from DB
 const getPopularDishes = async (req, res) => {
-  const results = await Dish.find({ popular: true })
-  return res.status(200).send(results)
+  try {
+    const results = await dishService.getPopularDishes()
+    return res.status(200).send(results)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).send('Internal Server Error')
+  }
 }
 
 module.exports = { getDishes, getPopularDishes }

@@ -15,6 +15,7 @@ const initialState = {
 const Signin = () => {
   const [userData, setUserData] = useState(initialState)
   const [showPassword, setShowPassword] = useState(false)
+  const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
@@ -53,30 +54,42 @@ const Signin = () => {
         headers: { 'Content-type': 'application/json' },
       })
 
-      if (!response.ok) {
-        // Handle non-successful responses (e.g., 404 Not Found, 500 Internal Server Error)
-        throw new Error(`Failed to log in. Status: ${response.status}`)
-      }
+      // if (!response.ok) {
+      //   // Handle non-successful responses (e.g., 404 Not Found, 500 Internal Server Error)
+      //   throw new Error(`Failed to log in. Status: ${response.status}`)
+      // }
 
-      const { user, token } = await response.json()
+      const { user, token, message } = await response.json()
+      setMessage(message)
       addUserToLocalStorage({ user, token })
-
+      
       if (user) {
         navigate(location.state?.from?.pathname || '/')
         window.location.reload()
+        
+        Swal.fire({
+          title: 'Success!',
+          text: 'Login successful',
+          icon: 'success',
+          button: 'OK',
+        })
       }
-      Swal.fire({
-        title: 'Success!',
-        text: 'Login successful',
-        icon: 'success',
-        button: 'OK',
-      })
+      
+      if(!user){
+        Swal.fire({
+          title: 'Warning!',
+          text: message,
+          icon: 'warning',
+          button: 'OK',
+        })
+      }
+
     } catch (error) {
       console.error('Error logging in:', error.message)
       Swal.fire({
-        title: 'Login Failed',
-        text: 'Incorrect login credentials',
-        icon: 'error',
+        title: 'Verification Required',
+        text: message,
+        icon: 'warning',
         button: 'OK',
       })
     } finally {

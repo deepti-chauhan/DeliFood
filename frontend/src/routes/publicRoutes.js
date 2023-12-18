@@ -6,6 +6,8 @@ import Home from '../pages/Home'
 import Menu from '../pages/Menu'
 import Signin from '../pages/Signin'
 import Signup from '../pages/Signup'
+import EmailVerify from '../pages/EmailVerify'
+
 
 const publicRoutes = () => {
   return {
@@ -17,6 +19,7 @@ const publicRoutes = () => {
       { path: '/contact', element: <Contact /> },
       { path: '/signin', element: <Signin /> },
       { path: '/signup', element: <Signup /> },
+      { path: '/:userId/verify/:token', element: <EmailVerify /> },
       { path: '/*', element: <PrivateRoute /> },
     ],
   }

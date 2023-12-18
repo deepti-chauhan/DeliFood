@@ -48,21 +48,21 @@ const Address = ({ setIsCheckout }) => {
       })
         .then((res) => res.json())
         .then((d) => setAddress(Object.values(d)))
-    } catch (e) {
-      console.log(e)
-    } finally {
-      setLoading(false)
+
+      } catch (e) {
+        console.log(e)
+      } finally {
+        setLoading(false)
+      }
     }
-  }
-
-  useEffect(() => {
-    fetchAddress()
-  }, [])
-
-  return (
-    <>
+    
+    useEffect(() => {
+      fetchAddress()
+    }, [])
+    
+    return (
+      <>
       <div>
-        
         {!payment && (
           <div className='shipping-address-container'>
             <h3>
@@ -101,7 +101,6 @@ const Address = ({ setIsCheckout }) => {
                 >
                   <div className='flex'>
                     <FontAwesomeIcon icon={faLocationDot} />
-
                     {d.addressType}
                   </div>
                   <p>
