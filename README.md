@@ -17,7 +17,7 @@ Welcome to DeliFood! DeliFood is a robust full-stack MERN (MongoDB, Express.js, 
 -  <a href="#Contributing">Contributing</a>
 -  <a href="#License">License</a>
   
-## Features  
+## ⚙️Features  
 
 - User authentication
 
